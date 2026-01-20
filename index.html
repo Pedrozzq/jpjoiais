@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JP Joias | Joalharia de Luxo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Preloader */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loader-line { width: 0; height: 1px; background: rgba(255,255,255,0.3); margin-top: 20px; }
+        .loader-logo { font-size: 1.5rem; letter-spacing: 1rem; opacity: 0; transform: translateY(10px); }
+
+        /* Background Animado Fixo */
+        #video-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: -1;
+            background: #000;
+        }
+        canvas {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(1) brightness(0.5);
+        }
+
+        /* Nav Minimalista */
+        nav {
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        /* Texto de Luxo */
+        .luxury-text {
+            background: linear-gradient(to right, #fff 20%, #888 40%, #888 60%, #fff 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .vignette {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+        }
+
+        .img-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .img-container::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.6));
+            pointer-events: none;
+        }
+
+        /* Shopify Buy Button Containers */
+        .shopify-buy-frame {
+            width: 100%;
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="bg-black">
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="loader-logo font-serif text-white uppercase tracking-[1.2em]" id="loader-brand">JP Joias</div>
+        <div class="loader-line" id="loader-progress"></div>
+    </div>
+
+    <!-- Navegação -->
+    <nav id="main-nav" class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center">
+        <div class="text-2xl font-serif tracking-tighter uppercase">JP</div>
+        <div class="hidden md:flex space-x-12 text-[9px] uppercase tracking-[0.4em] font-light">
+            <a href="#produtos" class="hover:text-zinc-400 transition">Coleções</a>
+            <a href="#detalhes" class="hover:text-zinc-400 transition">O Atelier</a>
+            <a href="#contato" class="hover:text-zinc-400 transition">Privé</a>
+        </div>
+        <div class="text-[10px] uppercase tracking-widest cursor-pointer border-b border-white/20">Menu</div>
+    </nav>
+
+    <!-- Canvas Background -->
+    <div id="video-container">
+        <canvas id="hero-canvas"></canvas>
+        <div class="vignette"></div>
+    </div>
+
+    <!-- Hero -->
+    <section id="hero" class="relative h-screen flex flex-col justify-center items-center text-center px-4">
+        <div class="max-w-5xl z-10" id="hero-content">
+            <h1 class="text-7xl md:text-[8.5rem] mb-4 font-serif leading-none luxury-text opacity-0" id="title">JP Joias</h1>
+            <p class="text-xs md:text-sm font-light tracking-[0.8em] uppercase mb-12 text-zinc-400 opacity-0" id="subtitle">Joalharia de Autor</p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center opacity-0" id="ctas">
+                <a href="#produtos" class="px-14 py-5 bg-white text-black rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-zinc-200 transition flex items-center justify-center">Ver Coleções</a>
+                <button class="px-14 py-5 border border-white/40 text-white rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-black transition">ATENDIMENTO EXCLUSIVO</button>
+            </div>
+        </div>
+        <!-- Banner de Frete Grátis na base -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-90 text-[9px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.5em] font-semibold text-white animate-pulse whitespace-nowrap bg-black/40 px-6 py-2 backdrop-blur-sm rounded-full border border-white/10">
+            FRETE GRÁTIS A PARTIR DE R$200,00 EM COMPRAS
+        </div>
+    </section>
+
+    <main class="relative z-10">
+        <!-- Correntes de Prata (Anteriormente Obras Primas) -->
+        <section id="produtos" class="py-40 px-8 bg-black/40 backdrop-blur-[2px]">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
+                    <h2 class="text-5xl font-serif">Correntes de Prata</h2>
+                    <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500">2026 Collection</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+                    <!-- Produto 1 -->
+                    <div class="group flex flex-col items-center">
+                        <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden cursor-pointer">
+                            <div class="w-full h-full bg-cover bg-center grayscale-0 group-hover:grayscale transition duration-[1.2s] ease-out" style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/products/3_38f9c88c-4e89-4ac3-ae5c-9df3101d0691.jpg?crop=center&height=1200&v=1752802689&width=1200');"></div>
+                        </div>
+                        <div class="flex justify-center items-baseline px-1 mb-1">
+                            <h3 class="text-[11px] uppercase tracking-widest text-zinc-300 group-hover:text-white transition">Corrente 3mm 1x1 70cm</h3>
+                        </div>
+                        <div id='product-component-1768872494214' class="shopify-buy-frame"></div>
+                    </div>
+
+                    <!-- Produto 2 -->
+                    <div class="group flex flex-col items-center">
+                        <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden cursor-pointer">
+                            <div class="w-full h-full bg-cover bg-center grayscale-0 group-hover:grayscale transition duration-[1.2s] ease-out" style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/products/1_fda3fc97-fb60-4aa4-b8e3-e4082f189260.jpg?crop=center&height=1200&v=1752802709&width=1200');"></div>
+                        </div>
+                        <div class="flex justify-center items-baseline px-1 mb-1">
+                            <h3 class="text-[11px] uppercase tracking-widest text-zinc-300 group-hover:text-white transition">Corrente 0,7mm Veneziana 80cm</h3>
+                        </div>
+                        <div id='product-component-1768872283737' class="shopify-buy-frame"></div>
+                    </div>
+
+                    <!-- Produto 3 -->
+                    <div class="group flex flex-col items-center">
+                        <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden cursor-pointer">
+                            <div class="w-full h-full bg-cover bg-center grayscale-0 group-hover:grayscale transition duration-[1.2s] ease-out" style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/products/2_ddff83fa-544e-42de-bd50-abcc29974cf1.jpg?crop=center&height=1200&v=1752802517&width=1200');"></div>
+                        </div>
+                        <div class="flex justify-center items-baseline px-1 mb-1">
+                            <h3 class="text-[11px] uppercase tracking-widest text-zinc-300 group-hover:text-white transition">Corrente 3mm Piastrine 60cm</h3>
+                        </div>
+                        <div id='product-component-1768872752284' class="shopify-buy-frame"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compromisso -->
+        <section id="detalhes" class="py-40 px-8 bg-zinc-950/80">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-serif mb-24 text-center">Compromisso com a Excelência</h2>
+                <div class="grid md:grid-cols-2 gap-16">
+                    <div class="p-10 border border-zinc-900/50 bg-black/20 text-center flex flex-col items-center">
+                        <div class="w-10 h-px bg-white/40 mb-8"></div>
+                        <h4 class="text-xs uppercase tracking-[0.3em] mb-6 text-zinc-200">Sustentabilidade</h4>
+                        <p class="text-sm font-light text-zinc-400 leading-loose">Metais nobres regenerados e processos de fundição com zero desperdício, garantindo o futuro da nossa arte e o respeito pelo planeta.</p>
+                    </div>
+                    <div class="p-10 border border-zinc-900/50 bg-black/20 text-center flex flex-col items-center">
+                        <div class="w-10 h-px bg-white/40 mb-8"></div>
+                        <h4 class="text-xs uppercase tracking-[0.3em] mb-6">Mão de Obra Privé</h4>
+                        <p class="text-sm font-light text-zinc-400 leading-loose">Cada peça é finalizada individualmente pelo nosso mestre ourives, assegurando uma identidade única e alma em cada curva moldada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <footer id="contato" class="py-32 px-8 bg-black text-center">
+            <h2 class="text-6xl font-serif mb-12 luxury-text">JP Joias</h2>
+            <div class="flex justify-center gap-12 text-[10px] uppercase tracking-widest text-zinc-500 mb-20">
+                <a href="#" class="hover:text-white transition">Instagram</a>
+                <a href="#" class="hover:text-white transition">WhatsApp</a>
+                <a href="#" class="hover:text-white transition">Atelier</a>
+            </div>
+            <p class="text-[9px] uppercase tracking-[0.5em] opacity-30">&copy; 2026 JP Joias Atelier</p>
+        </footer>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("hero-canvas");
+        const ctx = canvas.getContext("2d");
+        let images = [];
+        let sequence = { frame: 0 };
+        const frameCount = 100;
+
+        function preloadImages() {
+            for (let i = 1; i <= frameCount; i++) {
+                const img = new Image();
+                img.src = `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_bb8e_cc9a4214270b/anim/sequence/large/01-hero-lightpass/${i.toString().padStart(4, '0')}.jpg`;
+                images.push(img);
+            }
+        }
+
+        function render() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const img = images[sequence.frame];
+            if (!img) return;
+            const ratio = Math.max(canvas.width / img.width, canvas.height / img.height);
+            const x = (canvas.width - img.width * ratio) / 2;
+            const y = (canvas.height - img.height * ratio) / 2;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, img.width, img.height, x, y, img.width * ratio, img.height * ratio);
+        }
+
+        window.addEventListener('load', () => {
+            gsap.registerPlugin(ScrollTrigger);
+            preloadImages();
+            
+            const tl = gsap.timeline();
+            tl.to("#loader-brand", { opacity: 1, y: 0, duration: 1, ease: "power2.out" })
+              .to("#loader-progress", { width: "120px", duration: 1.2, ease: "power2.inOut" }, "-=0.5")
+              .to("#loader", { opacity: 0, pointerEvents: "none", duration: 1, ease: "power2.inOut" })
+              .to("#title", { opacity: 1, duration: 1.5, ease: "power2.out" }, "-=0.5")
+              .to("#subtitle", { opacity: 1, duration: 1.2 }, "-=1.2")
+              .to("#ctas", { opacity: 1, duration: 1.2 }, "-=1");
+
+            gsap.to(sequence, {
+                frame: frameCount - 1,
+                snap: "frame",
+                ease: "none",
+                scrollTrigger: {
+                    scrub: 0.5,
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom"
+                },
+                onUpdate: render
+            });
+
+            ScrollTrigger.create({
+                start: 'top -80',
+                onUpdate: (self) => {
+                    const nav = document.getElementById('main-nav');
+                    if (self.direction === 1) nav.classList.add('scrolled');
+                    else if (self.scroll() < 80) nav.classList.remove('scrolled');
+                }
+            });
+
+            images[0].onload = render;
+        });
+
+        window.addEventListener('resize', render);
+
+        /* SHOPIFY BUY BUTTON INTEGRATION */
+        (function () {
+            var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+            if (window.ShopifyBuy) {
+                if (window.ShopifyBuy.UI) {
+                    ShopifyBuyInit();
+                } else {
+                    loadScript();
+                }
+            } else {
+                loadScript();
+            }
+            function loadScript() {
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = scriptURL;
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+                script.onload = ShopifyBuyInit;
+            }
+            function ShopifyBuyInit() {
+                var client = ShopifyBuy.buildClient({
+                    domain: 'sc700t-qb.myshopify.com',
+                    storefrontAccessToken: '2d6d2147161f0fea2231daeb2d949c10',
+                });
+                ShopifyBuy.UI.onReady(client).then(function (ui) {
+                    const commonOptions = {
+                        "product": {
+                            "layout": "vertical",
+                            "styles": {
+                                "product": {
+                                    "@media (min-width: 601px)": {
+                                        "max-width": "100%",
+                                        "margin-left": "0px",
+                                        "margin-bottom": "0px"
+                                    },
+                                    "text-align": "center"
+                                },
+                                "button": {
+                                    "font-size": "13px",
+                                    "padding-top": "14px",
+                                    "padding-bottom": "14px",
+                                    "color": "#000000",
+                                    "letter-spacing": "1.5px",
+                                    "text-transform": "uppercase",
+                                    "font-weight": "600",
+                                    ":hover": {
+                                        "color": "#000000",
+                                        "background-color": "#ffffff"
+                                    },
+                                    "background-color": "#f1f1f1",
+                                    ":focus": {
+                                        "background-color": "#ffffff"
+                                    },
+                                    "border-radius": "30px"
+                                },
+                                "price": {
+                                    "font-size": "18px",
+                                    "font-weight": "700",
+                                    "color": "#ffffff",
+                                    "margin-bottom": "15px"
+                                }
+                            },
+                            "contents": {
+                                "img": false,
+                                "title": false,
+                                "price": true,
+                                "button": true
+                            },
+                            "text": {
+                                "button": "Comprar Agora"
+                            }
+                        },
+                        "cart": {
+                            "styles": {
+                                "button": {
+                                    "background-color": "#000000",
+                                    "color": "#ffffff",
+                                    ":hover": {
+                                        "background-color": "#333333"
+                                    }
+                                }
+                            },
+                            "text": {
+                                "total": "Subtotal",
+                                "button": "Checkout"
+                            }
+                        },
+                        "toggle": {
+                            "styles": {
+                                "toggle": {
+                                    "background-color": "#ffffff",
+                                    ":hover": {
+                                        "background-color": "#eeeeee"
+                                    },
+                                    ":focus": {
+                                        "background-color": "#eeeeee"
+                                    }
+                                },
+                                "count": {
+                                    "color": "#000000",
+                                    ":hover": {
+                                        "color": "#000000"
+                                    }
+                                },
+                                "iconPath": {
+                                    "fill": "#000000"
+                                }
+                            }
+                        }
+                    };
+
+                    // Veneziana
+                    ui.createComponent('product', {
+                        id: '7568523853920',
+                        node: document.getElementById('product-component-1768872283737'),
+                        moneyFormat: 'R%24%20%7B%7Bamount_with_comma_separator%7D%7D',
+                        options: commonOptions
+                    });
+
+                    // 3mm 1x1
+                    ui.createComponent('product', {
+                        id: '7571021103200',
+                        node: document.getElementById('product-component-1768872494214'),
+                        moneyFormat: 'R%24%20%7B%7Bamount_with_comma_separator%7D%7D',
+                        options: commonOptions
+                    });
+
+                    // 3mm Piastrine
+                    ui.createComponent('product', {
+                        id: '7571041353824',
+                        node: document.getElementById('product-component-1768872752284'),
+                        moneyFormat: 'R%24%20%7B%7Bamount_with_comma_separator%7D%7D',
+                        options: commonOptions
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
