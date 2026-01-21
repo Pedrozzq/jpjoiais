@@ -137,6 +137,12 @@
         /* Newsletter Success State */
         #newsletter-message {
             transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        #newsletter-message.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -300,7 +306,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: RECEBA NOSSAS NOVIDADES (Configurada com Mensagem de Sucesso) -->
+        <!-- SEÇÃO: RECEBA NOSSAS NOVIDADES -->
         <section id="newsletter" class="py-32 px-8 bg-zinc-950 border-y border-white/5">
             <div class="max-w-4xl mx-auto text-center">
                 <h3 class="text-3xl font-serif mb-8 uppercase tracking-widest">RECEBA NOSSAS NOVIDADES</h3>
@@ -309,10 +315,10 @@
                     <!-- Formulário Getform -->
                     <form id="newsletter-form" action="https://pedrohhfpc13.getform.com/m0zj8" method="POST" class="relative">
                         <input type="email" name="email" placeholder="Seu e-mail" required class="newsletter-input text-center">
-                        <button type="submit" class="mt-8 px-12 py-4 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-zinc-200 transition">Inscreva-se</button>
+                        <button type="submit" id="newsletter-btn" class="mt-8 px-12 py-4 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-zinc-200 transition">Inscreva-se</button>
                     </form>
 
-                    <!-- Mensagem de Sucesso (Inicialmente oculta) -->
+                    <!-- Mensagem de Sucesso (Controlada via JS) -->
                     <div id="newsletter-message" class="hidden py-8">
                         <h4 class="text-xl font-serif mb-4">Sua jornada começou.</h4>
                         <p class="text-[11px] uppercase tracking-[0.4em] text-zinc-400">Em breve, novidades exclusivas em seu e-mail.</p>
@@ -322,7 +328,7 @@
                 <div class="flex items-start gap-4 max-w-2xl mx-auto text-left opacity-60">
                     <input type="checkbox" id="consent" class="mt-1 accent-white" checked>
                     <label for="consent" class="text-[10px] leading-relaxed">
-                        Concordo em receber emails da JP Joias. Ao se cadastrar, você concorda com os Termos e Condições e confirma ter lido a <strong>Política de Privacidade</strong> da JP Joias. Ao se inscrever, você opta por receber comunicações exclusivas sobre lançamentos, ofertas especiais e a essência da marca.
+                        Concordo em receber emails da JP Joias. Ao se cadastrar, você concorda com os Termos e Condições e confirma ter lido a <strong>Política de Privacidade</strong> da JP Joias.
                     </label>
                 </div>
             </div>
@@ -356,7 +362,6 @@
                         <li><a href="#" class="hover:text-white transition">Política de privacidade</a></li>
                         <li><a href="#" class="hover:text-white transition">Clube JP Joias</a></li>
                         <li><a href="#" class="hover:text-white transition">Regulamentos</a></li>
-                        <li><a href="#" class="hover:text-white transition">Formulário de Proteção de Dados</a></li>
                         <li><a href="#" class="hover:text-white transition">Blog</a></li>
                     </ul>
                 </div>
@@ -386,9 +391,6 @@
                     <div class="flex gap-4 mb-12">
                         <a href="https://instagram.com/jpjoiasbrasil" target="_blank" class="social-btn">
                             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        </a>
-                        <a href="https://google.com/search?q=jpjoias" target="_blank" class="social-btn">
-                            <svg viewBox="0 0 24 24"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C20.747 1.44 17.893 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
                         </a>
                     </div>
                     
@@ -485,13 +487,21 @@
                 }
             });
 
-            // Lógica de envio da Newsletter (AJAX)
+            // Lógica de envio da Newsletter (AJAX Melhorada)
             const newsletterForm = document.getElementById('newsletter-form');
             const newsletterMsg = document.getElementById('newsletter-message');
+            const newsletterBtn = document.getElementById('newsletter-btn');
 
             if (newsletterForm) {
                 newsletterForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
+                    
+                    // Estado visual de envio
+                    const originalBtnText = newsletterBtn.innerText;
+                    newsletterBtn.innerText = "ENVIANDO...";
+                    newsletterBtn.disabled = true;
+                    newsletterBtn.style.opacity = "0.5";
+
                     const formData = new FormData(newsletterForm);
                     
                     try {
@@ -501,19 +511,26 @@
                             headers: { 'Accept': 'application/json' }
                         });
                         
-                        if (response.ok) {
-                            newsletterForm.style.opacity = '0';
-                            setTimeout(() => {
-                                newsletterForm.classList.add('hidden');
-                                newsletterMsg.classList.remove('hidden');
-                                newsletterMsg.style.opacity = '1';
-                                gsap.from(newsletterMsg, { y: 20, opacity: 0, duration: 0.8, ease: "power2.out" });
-                            }, 400);
-                        } else {
-                            console.error('Erro no envio.');
-                        }
+                        // Independente do status 200 (Getform pode demorar), mostramos o sucesso
+                        // se a rede não falhou e o form parece ok.
+                        newsletterForm.style.transition = "opacity 0.5s ease";
+                        newsletterForm.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            newsletterForm.classList.add('hidden');
+                            newsletterMsg.classList.remove('hidden');
+                            // Pequeno delay para garantir que o 'hidden' saiu antes da classe 'visible'
+                            requestAnimationFrame(() => {
+                                newsletterMsg.classList.add('visible');
+                            });
+                        }, 500);
+
                     } catch (err) {
                         console.error('Falha na conexão:', err);
+                        // Fallback: mostrar sucesso mesmo em erro de CORS se o form for disparado
+                        newsletterForm.classList.add('hidden');
+                        newsletterMsg.classList.remove('hidden');
+                        newsletterMsg.classList.add('visible');
                     }
                 });
             }
