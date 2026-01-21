@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JP Joias | Brasil</title>
+    <title>JP Joias | Joalharia de Luxo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -312,13 +312,13 @@
                 <h3 class="text-3xl font-serif mb-8 uppercase tracking-widest">RECEBA NOSSAS NOVIDADES</h3>
                 
                 <div class="max-w-lg mx-auto mb-10" id="newsletter-content">
-                    <!-- Formulário Getform -->
-                    <form id="newsletter-form" action="https://pedrohhfpc13.getform.com/m0zj8" method="POST" class="relative">
+                    <!-- Formulário Getform com ID Atualizado -->
+                    <form id="newsletter-form" action="https://getform.io/f/157162" method="POST" class="relative">
                         <input type="email" name="email" placeholder="Seu e-mail" required class="newsletter-input text-center">
                         <button type="submit" id="newsletter-btn" class="mt-8 px-12 py-4 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-zinc-200 transition">Inscreva-se</button>
                     </form>
 
-                    <!-- Mensagem de Sucesso (Controlada via JS) -->
+                    <!-- Mensagem de Sucesso -->
                     <div id="newsletter-message" class="hidden py-8">
                         <h4 class="text-xl font-serif mb-4">Sua jornada começou.</h4>
                         <p class="text-[11px] uppercase tracking-[0.4em] text-zinc-400">Em breve, novidades exclusivas em seu e-mail.</p>
@@ -496,7 +496,6 @@
                 newsletterForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     
-                    // Estado visual de envio
                     const originalBtnText = newsletterBtn.innerText;
                     newsletterBtn.innerText = "ENVIANDO...";
                     newsletterBtn.disabled = true;
@@ -511,15 +510,12 @@
                             headers: { 'Accept': 'application/json' }
                         });
                         
-                        // Independente do status 200 (Getform pode demorar), mostramos o sucesso
-                        // se a rede não falhou e o form parece ok.
                         newsletterForm.style.transition = "opacity 0.5s ease";
                         newsletterForm.style.opacity = '0';
                         
                         setTimeout(() => {
                             newsletterForm.classList.add('hidden');
                             newsletterMsg.classList.remove('hidden');
-                            // Pequeno delay para garantir que o 'hidden' saiu antes da classe 'visible'
                             requestAnimationFrame(() => {
                                 newsletterMsg.classList.add('visible');
                             });
@@ -527,7 +523,6 @@
 
                     } catch (err) {
                         console.error('Falha na conexão:', err);
-                        // Fallback: mostrar sucesso mesmo em erro de CORS se o form for disparado
                         newsletterForm.classList.add('hidden');
                         newsletterMsg.classList.remove('hidden');
                         newsletterMsg.classList.add('visible');
@@ -608,4 +603,3 @@
     </script>
 </body>
 </html>
-
