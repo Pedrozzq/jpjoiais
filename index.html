@@ -12,8 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
-    <!-- Fontes de Luxo: Playfair Display para títulos sofisticados e Inter para leitura fluida -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Fontes de Luxo: Cinzel para Títulos de Produtos, Playfair para Títulos Institucionais e Inter para Leitura -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <!-- FontAwesome para ícones premium -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,10 +25,29 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
-        h1, h2, h3, h4, h5, .font-serif {
+        h1, h2, h4, h5, .font-serif {
             font-family: 'Playfair Display', serif;
         }
         
+        /* Fontes de produtos premium */
+        .product-title {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .product-desc {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .product-price {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
         /* Custom Scrollbar minimalista */
         ::-webkit-scrollbar {
             width: 6px;
@@ -224,7 +243,7 @@
         </div>
     </nav>
 
-    <!-- Menu Lateral Drawer (Mobile/Geral) -->
+    <!-- Menu Lateral Drawer -->
     <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-50 translate-x-full transition-transform duration-500 ease-in-out flex flex-col justify-center items-center">
         <button id="menu-close-btn" class="absolute top-8 right-8 text-white text-xs uppercase tracking-[0.3em] font-light hover:text-[#FFE600] transition">
             Fechar <i class="fa-solid fa-xmark ml-2"></i>
@@ -265,9 +284,9 @@
             </div>
         </div>
         
-        <!-- Tarja de Envio/Frete -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-90 text-[8px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.5em] font-semibold text-white animate-pulse whitespace-nowrap bg-black/60 px-6 py-3.5 backdrop-blur-md rounded-full border border-white/10">
-            FRETE GRÁTIS A PARTIR DE R$200,00 EM COMPRAS — ENVIOS PARA TODO O BRASIL
+        <!-- Tarja de Envio/Frete Premium -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-90 text-[8px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.5em] font-semibold text-[#FFE600] animate-pulse whitespace-nowrap bg-black/60 px-6 py-3.5 backdrop-blur-md rounded-full border border-white/10">
+            COMPRA EXCLUSIVA VIA MERCADO LIVRE — ENVIO EXPRESSO ⚡FULL PARA TODO O BRASIL
         </div>
     </section>
 
@@ -329,8 +348,8 @@
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600\')'">
                             </div>
                         </div>
-                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Corrente 3mm 1x1 70cm</h3>
-                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Corrente 3mm 1x1 70cm</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
                         
                         <!-- Avaliação 5 Estrelas e Mais Vendido -->
                         <div class="flex flex-col items-center gap-1.5 mb-3">
@@ -350,10 +369,9 @@
                         <!-- Preços e Botão Premium -->
                         <div class="w-full mt-auto">
                             <div class="flex items-center justify-center gap-3 mb-4">
-                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 89,90</span>
-                                <span class="text-[#FFE600] text-lg font-bold">Por: R$ 69,90</span>
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 89,90</span>
+                                <span class="text-[#FFE600] text-lg font-bold product-price">Por: R$ 69,90</span>
                             </div>
-                            <!-- BOTAO PREMIUM DE COMPRA -->
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
                             </a>
@@ -368,8 +386,8 @@
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&q=80&w=600\')'">
                             </div>
                         </div>
-                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Corrente 0,7mm Veneziana 80cm</h3>
-                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Corrente 0,7mm Veneziana 80cm</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -385,8 +403,8 @@
                         
                         <div class="w-full mt-auto">
                             <div class="flex items-center justify-center gap-3 mb-4">
-                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 119,90</span>
-                                <span class="text-white text-base font-bold">Por: R$ 94,90</span>
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 119,90</span>
+                                <span class="text-white text-base font-bold product-price">Por: R$ 94,90</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -402,8 +420,8 @@
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=600\')'">
                             </div>
                         </div>
-                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Corrente 3mm Piastrine 60cm</h3>
-                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Corrente 3mm Piastrine 60cm</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -419,8 +437,8 @@
                         
                         <div class="w-full mt-auto">
                             <div class="flex items-center justify-center gap-3 mb-4">
-                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 109,90</span>
-                                <span class="text-white text-base font-bold">Por: R$ 84,90</span>
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 109,90</span>
+                                <span class="text-white text-base font-bold product-price">Por: R$ 84,90</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -451,8 +469,8 @@
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=600\')'">
                             </div>
                         </div>
-                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Anel Esotérico</h3>
-                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Anel Esotérico</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -468,8 +486,8 @@
                         
                         <div class="w-full mt-auto">
                             <div class="flex items-center justify-center gap-3 mb-4">
-                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 79,90</span>
-                                <span class="text-white text-base font-bold">Por: R$ 49,90</span>
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 79,90</span>
+                                <span class="text-white text-base font-bold product-price">Por: R$ 49,90</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -487,8 +505,8 @@
                                  style="background-image: url('https://img.kwcdn.com/product/fancy/17063e9b-836a-451f-a5b5-41bc0970cd10.jpg?imageView2/2/w/800/q/70/format/avif');"
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&q=80&w=600\')'"></div>
                         </div>
-                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Anel Vintage Solar</h3>
-                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Anel Vintage Solar</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -504,8 +522,8 @@
                         
                         <div class="w-full mt-auto">
                             <div class="flex items-center justify-center gap-3 mb-4">
-                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 74,90</span>
-                                <span class="text-white text-base font-bold">Por: R$ 47,90</span>
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 74,90</span>
+                                <span class="text-white text-base font-bold product-price">Por: R$ 47,90</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -538,8 +556,8 @@
                                  style="background-image: url('https://i.imgur.com/pFja0g8.jpg');"
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600\')'"></div>
                         </div>
-                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Pulseira Italiana 1x1 2mm - 21cm</h3>
-                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Pulseira Italiana 1x1 2mm</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -555,8 +573,8 @@
                         
                         <div class="w-full mt-auto">
                             <div class="flex items-center justify-center gap-3 mb-4">
-                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 95,00</span>
-                                <span class="text-white text-base font-bold">Por: R$ 74,90</span>
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 95,00</span>
+                                <span class="text-white text-base font-bold product-price">Por: R$ 74,90</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
