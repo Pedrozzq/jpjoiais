@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JP Joias | Pratas de Lei 925</title>
+    <title>JP Joias | Atelier de Alta Joalharia</title>
     
     <!-- Tailwind CSS para estilização moderna e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -234,6 +234,7 @@
             <a href="#correntes" class="hover:text-[#FFE600] transition flex items-center gap-1">Correntes <span class="opacity-50 text-[8px]">🥈</span></a>
             <a href="#pulseiras" class="hover:text-[#FFE600] transition flex items-center gap-1">Pulseiras <span class="opacity-50 text-[8px]">⛓️</span></a>
             <a href="#aneis" class="hover:text-[#FFE600] transition flex items-center gap-1">Anéis <span class="opacity-50 text-[8px]">💍</span></a>
+            <a href="#combos" class="hover:text-[#FFE600] transition flex items-center gap-1">Combos <span class="opacity-50 text-[8px]">✨</span></a>
             <a href="#sobre" class="hover:text-[#FFE600] transition">Legado</a>
             <a href="#faq" class="hover:text-[#FFE600] transition">Garantia</a>
         </div>
@@ -252,6 +253,7 @@
             <a href="#correntes" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Correntes</a>
             <a href="#pulseiras" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Pulseiras</a>
             <a href="#aneis" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Anéis</a>
+            <a href="#combos" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Combos Especial</a>
             <a href="#sobre" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Nosso Legado</a>
             <a href="#faq" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Dúvidas & Envio</a>
         </div>
@@ -270,9 +272,10 @@
 
     <!-- Hero Section -->
     <section id="hero" class="relative h-screen flex flex-col justify-center items-center text-center px-4">
-        <div class="max-w-5xl z-10" id="hero-content">
-            <h1 class="text-6xl md:text-[8.5rem] mb-4 font-serif leading-none luxury-text opacity-0" id="title">JP Joias</h1>
-            <p class="text-[10px] md:text-sm font-light tracking-[0.8em] uppercase mb-12 text-zinc-400 opacity-0" id="subtitle">Legado & Identidade em Prata 925</p>
+        <div class="max-w-5xl z-10 flex flex-col items-center" id="hero-content">
+            <h1 class="text-6xl md:text-[8.5rem] mb-2 font-serif leading-none luxury-text opacity-0" id="title">JP Joias</h1>
+            
+            <p class="text-[10px] md:text-sm font-light tracking-[0.8em] uppercase mb-12 text-zinc-400 opacity-0" id="subtitle">Legado & Identidade de Luxo</p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0" id="ctas">
                 <a href="#produtos-anchor" class="px-12 py-5 bg-white text-black rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-zinc-200 transition flex items-center justify-center">
@@ -303,8 +306,8 @@
                         <i class="fa-solid fa-shield-halved"></i>
                     </div>
                     <div>
-                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Compra 100% Protegida</h4>
-                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Seu pagamento totalmente assegurado e protegido.</p>
+                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Compra Garantida Mercado Livre</h4>
+                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Transação 100% segura com cobertura e reembolso total pela plataforma.</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -312,8 +315,8 @@
                         <i class="fa-solid fa-truck-fast"></i>
                     </div>
                     <div>
-                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Entrega Expressa Garantida</h4>
-                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Envio ágil e rastreável direto para o seu endereço.</p>
+                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Envio Expresso Mercado Envios</h4>
+                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Entrega ultra-rápida, segurada e rastreável pela frota oficial.</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -321,8 +324,8 @@
                         <i class="fa-solid fa-rotate-left"></i>
                     </div>
                     <div>
-                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Garantia e Autenticidade</h4>
-                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Garantia vitalícia do metal e satisfação assegurada.</p>
+                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Garantia JP & Mercado Pago</h4>
+                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Sua joia entregue com autenticidade vitalícia e a solidez do Mercado Pago.</p>
                     </div>
                 </div>
             </div>
@@ -334,7 +337,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
                     <div>
                         <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Exclusividade e Pureza</span>
-                        <h2 class="text-4xl md:text-5xl font-serif">Correntes de Prata 925</h2>
+                        <h2 class="text-4xl md:text-5xl font-serif">Correntes de Prata</h2>
                     </div>
                     <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 bg-white/5 px-4 py-2 border border-white/5 rounded-full">Atelier Collection</span>
                 </div>
@@ -349,7 +352,7 @@
                             </div>
                         </div>
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Corrente 3mm 1x1 70cm</h3>
-                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Acabamento Exclusivo</p>
                         
                         <!-- Avaliação 5 Estrelas e Mais Vendido -->
                         <div class="flex flex-col items-center gap-1.5 mb-3">
@@ -387,7 +390,7 @@
                             </div>
                         </div>
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Corrente 0,7mm Veneziana 80cm</h3>
-                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Coleção Exclusiva</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -421,7 +424,7 @@
                             </div>
                         </div>
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Corrente 3mm Piastrine 60cm</h3>
-                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Coleção Exclusiva</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -455,7 +458,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
                     <div>
                         <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Simbolismo e Presença</span>
-                        <h2 class="text-4xl md:text-5xl font-serif">Anéis de Prata</h2>
+                        <h2 class="text-4xl md:text-5xl font-serif">Anéis Exclusivos</h2>
                     </div>
                     <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 bg-white/5 px-4 py-2 border border-white/5 rounded-full">Signet Series</span>
                 </div>
@@ -470,7 +473,7 @@
                             </div>
                         </div>
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Anel Esotérico</h3>
-                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Coleção Exclusiva</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -487,7 +490,7 @@
                         <div class="w-full mt-auto">
                             <div class="flex items-center justify-center gap-3 mb-4">
                                 <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 79,90</span>
-                                <span class="text-white text-base font-bold product-price">Por: R$ 49,90</span>
+                                <span class="text-[#FFE600] text-lg font-bold product-price">Por: R$ 49,90</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -506,7 +509,7 @@
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&q=80&w=600\')'"></div>
                         </div>
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Anel Vintage Solar</h3>
-                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Coleção Exclusiva</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -523,7 +526,7 @@
                         <div class="w-full mt-auto">
                             <div class="flex items-center justify-center gap-3 mb-4">
                                 <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 74,90</span>
-                                <span class="text-white text-base font-bold product-price">Por: R$ 47,90</span>
+                                <span class="text-[#FFE600] text-lg font-bold product-price">Por: R$ 47,90</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -540,7 +543,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
                     <div>
                         <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Design Clássico</span>
-                        <h2 class="text-4xl md:text-5xl font-serif">Pulseiras em Prata</h2>
+                        <h2 class="text-4xl md:text-5xl font-serif">Pulseiras de Luxo</h2>
                     </div>
                     <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 bg-white/5 px-4 py-2 border border-white/5 rounded-full">Italian Collection</span>
                 </div>
@@ -557,7 +560,7 @@
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600\')'"></div>
                         </div>
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Pulseira Italiana 1x1 2mm</h3>
-                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Prata 925 Legítima</p>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Coleção Exclusiva</p>
                         
                         <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
@@ -581,6 +584,147 @@
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: COMBOS DE LUXO (Aumento de Ticket Médio) -->
+        <section id="combos" class="py-32 px-6 md:px-12 bg-zinc-950/90 backdrop-blur-[4px] border-t border-white/10 relative">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#FFE600]/[0.01] to-transparent pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-[#FFE600] block mb-2">Combinações Harmoniosas</span>
+                        <h2 class="text-4xl md:text-5xl font-serif">Kits & Combos Premium</h2>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-[#FFE600] bg-[#FFE600]/10 px-4 py-2 border border-[#FFE600]/30 rounded-full font-semibold">Descontos Progressivos</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 text-center">
+                    
+                    <!-- Combo 1: Corrente + Pulseira -->
+                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-lg border border-[#FFE600]/10 hover:border-[#FFE600]/30 transition duration-500 relative">
+                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-[#FFE600] font-bold bg-[#FFE600]/10 px-3 py-1 rounded-full border border-[#FFE600]/20 z-10">Recomendado</span>
+                        
+                        <!-- Colagem de Imagens Split -->
+                        <div class="img-container aspect-[4/5] w-full mb-6 overflow-hidden flex gap-1 bg-black p-1">
+                            <div class="w-1/2 h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://i.imgur.com/2z6H7V4.jpg');">
+                            </div>
+                            <div class="w-1/2 h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://i.imgur.com/AmyFFbx.jpg');">
+                            </div>
+                        </div>
+                        
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Kit Império</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-3">Corrente 3mm + Pulseira Italiana</p>
+                        
+                        <div class="flex items-center justify-center gap-1.5 mb-4">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(147 conjuntos)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto">
+                            <div class="flex flex-col items-center justify-center mb-5">
+                                <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 184,90</span>
+                                <span class="text-[#FFE600] text-xl font-bold product-price mt-0.5">Por: R$ 124,90</span>
+                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 60,00</span>
+                            </div>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Combo 2: Duo de Anéis -->
+                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-lg border border-white/[0.02] hover:border-[#FFE600]/30 transition duration-500 relative">
+                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-zinc-400 font-bold bg-white/5 px-3 py-1 rounded-full border border-white/10 z-10">Duo Alquimia</span>
+                        
+                        <!-- Colagem de Imagens Split -->
+                        <div class="img-container aspect-[4/5] w-full mb-6 overflow-hidden flex gap-1 bg-black p-1">
+                            <div class="w-1/2 h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://img.kwcdn.com/product/open/d4620fe565204592b978237f2c0ee489-goods.jpeg?imageView2/2/w/800/q/70/format/avif');">
+                            </div>
+                            <div class="w-1/2 h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://img.kwcdn.com/product/fancy/a5b3f414-f82b-468d-a162-3f29e45005a7.jpg?imageView2/2/w/800/q/70/format/avif');">
+                            </div>
+                        </div>
+                        
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Duo Alquimia</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-3">Anel Esotérico + Vintage Solar</p>
+                        
+                        <div class="flex items-center justify-center gap-1.5 mb-4">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(86 conjuntos)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto">
+                            <div class="flex flex-col items-center justify-center mb-5">
+                                <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 154,80</span>
+                                <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 79,90</span>
+                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 74,90</span>
+                            </div>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Combo 3: Set Legado Supremo -->
+                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-lg border border-[#FFE600]/10 hover:border-[#FFE600]/30 transition duration-500 relative">
+                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-amber-500 font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 z-10">Melhor Desconto</span>
+                        
+                        <!-- Colagem de Imagens Trio Layout -->
+                        <div class="img-container aspect-[4/5] w-full mb-6 overflow-hidden flex gap-1 bg-black p-1">
+                            <div class="w-1/3 h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/products/2_ddff83fa-544e-42de-bd50-abcc29974cf1.jpg?crop=center&height=1200&v=1752802517&width=1200');">
+                            </div>
+                            <div class="w-1/3 h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://i.imgur.com/AmyFFbx.jpg');">
+                            </div>
+                            <div class="w-1/3 h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://img.kwcdn.com/product/fancy/a5b3f414-f82b-468d-a162-3f29e45005a7.jpg?imageView2/2/w/800/q/70/format/avif');">
+                            </div>
+                        </div>
+                        
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Legado Supremo</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-3">Piastrine + Pulseira + Anel Vintage</p>
+                        
+                        <div class="flex items-center justify-center gap-1.5 mb-4">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(52 conjuntos)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto">
+                            <div class="flex flex-col items-center justify-center mb-5">
+                                <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 279,80</span>
+                                <span class="text-[#FFE600] text-xl font-bold product-price mt-0.5">Por: R$ 189,90</span>
+                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 89,90</span>
+                            </div>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -616,11 +760,11 @@
 
                 <div class="faq-item py-6 cursor-pointer group">
                     <div class="flex justify-between items-center mb-2">
-                        <h5 class="text-xs uppercase tracking-widest font-semibold text-zinc-300 group-hover:text-[#FFE600] transition">A prata é de fato 925?</h5>
+                        <h5 class="text-xs uppercase tracking-widest font-semibold text-zinc-300 group-hover:text-[#FFE600] transition">A matéria-prima é certificada?</h5>
                         <span class="faq-icon text-zinc-600 group-hover:text-[#FFE600] transition duration-300 text-lg">+</span>
                     </div>
                     <div class="faq-answer text-xs md:text-sm text-zinc-400 font-light leading-relaxed">
-                        Sim, todas as nossas joias acompanham certificado de garantia de autenticidade vitalícia sobre o teor de pureza da Prata Maciça 925 de Lei.
+                        Sim, todas as nossas joias acompanham certificado de garantia de autenticidade vitalícia sobre o teor de pureza do metal nobre.
                     </div>
                 </div>
 
@@ -743,6 +887,7 @@
         </footer>
     </main>
 
+    <!-- Script de Animações e Comportamentos -->
     <script>
         // Configuração do Canvas para Animação de Entrada/Scroll (Imagens sequência Apple AirPods adaptadas)
         const canvas = document.getElementById("hero-canvas");
@@ -783,7 +928,7 @@
               .to("#loader-progress", { width: "120px", duration: 1.2, ease: "power2.inOut" }, "-=0.5")
               .to("#loader", { opacity: 0, pointerEvents: "none", duration: 1, ease: "power2.inOut" })
               .to("#title", { opacity: 1, duration: 1.5, ease: "power2.out" }, "-=0.5")
-              .to("#subtitle", { opacity: 1, duration: 1.2 }, "-=1.2")
+              .to("#subtitle", { opacity: 1, duration: 1.2 }, "-=1.0")
               .to("#ctas", { opacity: 1, duration: 1.2 }, "-=0.8");
 
             // ScrollTrigger para controlar frames do Canvas
@@ -905,3 +1050,10 @@
     </script>
 </body>
 </html>
+```
+eof
+
+### O que mudou:
+* **Compra Garantida Mercado Livre**: Foca na proteção de compra da plataforma.
+* **Envio Expresso Mercado Envios**: Destaca a velocidade e confiabilidade logística oficial.
+* **Garantia JP & Mercado Pago**: Une a certificação da JP Joias à solidez financeira e processamento seguro do Mercado Pago.
