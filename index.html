@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JP Joias</title>
+    <title>JP Joias | Pratas de Lei 925</title>
+    
+    <!-- Tailwind CSS para estilização moderna e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP e ScrollTrigger para animações de altíssimo padrão -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Fontes de Luxo: Playfair Display para títulos sofisticados e Inter para leitura fluida -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para ícones premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         body {
             background-color: #050505;
@@ -19,6 +29,21 @@
             font-family: 'Playfair Display', serif;
         }
         
+        /* Custom Scrollbar minimalista */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFE600;
+        }
+
         /* Preloader */
         #loader {
             position: fixed;
@@ -42,7 +67,7 @@
         }
         canvas {
             width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(1) brightness(0.5);
+            filter: grayscale(1) brightness(0.4);
         }
 
         /* Nav Minimalista */
@@ -52,48 +77,43 @@
             transition: all 0.4s ease;
         }
         nav.scrolled {
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
             padding-top: 1rem;
             padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Texto de Luxo */
+        /* Texto com brilho de metal precioso */
         .luxury-text {
-            background: linear-gradient(to right, #fff 20%, #888 40%, #888 60%, #fff 80%);
+            background: linear-gradient(to right, #ffffff 20%, #FFE600 40%, #a1a1aa 60%, #ffffff 80%);
             background-size: 200% auto;
             color: #000;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 5s linear infinite;
+            animation: shine 6s linear infinite;
         }
         @keyframes shine { to { background-position: 200% center; } }
 
         .vignette {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+            background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.85) 100%);
             pointer-events: none;
         }
 
         .img-container {
             position: relative;
             overflow: hidden;
-        }
-
-        /* Shopify Buy Button Containers */
-        .shopify-buy-frame {
-            width: 100%;
-            margin-top: 0.5rem;
-            display: flex;
-            justify-content: center;
+            border-radius: 4px;
         }
 
         /* FAQ Accordion */
         .faq-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
-        .faq-item:hover .faq-answer { max-height: 200px; padding-bottom: 20px; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; }
+        .faq-item.active .faq-answer { max-height: 300px; padding-bottom: 20px; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); color: #FFE600; }
 
         /* Social Icons */
         .social-btn {
@@ -108,18 +128,12 @@
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
         .social-btn:hover {
-            border-color: rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.1);
+            border-color: #FFE600;
+            background: rgba(255, 230, 0, 0.05);
             transform: translateY(-3px);
         }
-        .social-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: white;
-            opacity: 0.6;
-        }
 
-        /* Custom Input */
+        /* Custom Input para Newsletter */
         .newsletter-input {
             background: transparent;
             border: none;
@@ -131,7 +145,7 @@
             transition: border-color 0.3s;
         }
         .newsletter-input:focus {
-            border-bottom-color: white;
+            border-bottom-color: #FFE600;
         }
 
         /* Newsletter Success State */
@@ -144,26 +158,90 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Botão premium com transição luxuosa e shimmer metálico */
+        .premium-btn {
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 1;
+        }
+        .premium-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.6),
+                transparent
+            );
+            transform: skewX(-20deg);
+            transition: all 0.8s ease;
+            z-index: -1;
+        }
+        .premium-btn:hover::before {
+            left: 150%;
+        }
+        .premium-btn:hover {
+            background: #000000;
+            color: #ffffff;
+            border-color: #ffffff;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15);
+        }
     </style>
 </head>
 <body class="bg-black">
 
-    <!-- Preloader -->
+    <!-- Preloader de Luxo -->
     <div id="loader">
         <div class="loader-logo font-serif text-white uppercase tracking-[1.2em]" id="loader-brand">JP Joias</div>
         <div class="loader-line" id="loader-progress"></div>
     </div>
 
-    <!-- Navegação -->
-    <nav id="main-nav" class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center">
-        <div class="text-2xl font-serif tracking-tighter uppercase">JP</div>
-        <div class="hidden md:flex space-x-12 text-[9px] uppercase tracking-[0.4em] font-light">
-            <a href="#produtos" class="hover:text-zinc-400 transition">Coleções</a>
-            <a href="#sobre" class="hover:text-zinc-400 transition">Whatsapp</a>
-            <a href="#faq" class="hover:text-zinc-400 transition">Feedback</a>
+    <!-- Navegação Superior -->
+    <nav id="main-nav" class="fixed top-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-center">
+        <a href="#" class="text-2xl font-serif tracking-tighter uppercase font-semibold">JP</a>
+        
+        <!-- Links de Desktop -->
+        <div class="hidden md:flex space-x-8 lg:space-x-12 text-[10px] uppercase tracking-[0.4em] font-light">
+            <a href="#correntes" class="hover:text-[#FFE600] transition flex items-center gap-1">Correntes <span class="opacity-50 text-[8px]">🥈</span></a>
+            <a href="#pulseiras" class="hover:text-[#FFE600] transition flex items-center gap-1">Pulseiras <span class="opacity-50 text-[8px]">⛓️</span></a>
+            <a href="#aneis" class="hover:text-[#FFE600] transition flex items-center gap-1">Anéis <span class="opacity-50 text-[8px]">💍</span></a>
+            <a href="#sobre" class="hover:text-[#FFE600] transition">Legado</a>
+            <a href="#faq" class="hover:text-[#FFE600] transition">Garantia</a>
         </div>
-        <div class="text-[10px] uppercase tracking-widest cursor-pointer border-b border-white/20">Menu</div>
+
+        <div class="flex items-center gap-4">
+            <button id="menu-toggle-btn" class="text-[10px] uppercase tracking-widest cursor-pointer border-b border-white/20 hover:border-[#FFE600] hover:text-[#FFE600] transition py-1">Menu</button>
+        </div>
     </nav>
+
+    <!-- Menu Lateral Drawer (Mobile/Geral) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-50 translate-x-full transition-transform duration-500 ease-in-out flex flex-col justify-center items-center">
+        <button id="menu-close-btn" class="absolute top-8 right-8 text-white text-xs uppercase tracking-[0.3em] font-light hover:text-[#FFE600] transition">
+            Fechar <i class="fa-solid fa-xmark ml-2"></i>
+        </button>
+        <div class="flex flex-col space-y-8 text-center">
+            <a href="#correntes" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Correntes</a>
+            <a href="#pulseiras" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Pulseiras</a>
+            <a href="#aneis" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Anéis</a>
+            <a href="#sobre" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Nosso Legado</a>
+            <a href="#faq" class="mobile-link text-3xl font-serif hover:text-[#FFE600] transition">Dúvidas & Envio</a>
+        </div>
+        <div class="absolute bottom-12 text-center">
+            <span class="text-xs font-semibold text-zinc-300 flex items-center justify-center gap-2 tracking-widest uppercase">
+                JP Joias Atelier
+            </span>
+        </div>
+    </div>
 
     <!-- Canvas Background -->
     <div id="video-container">
@@ -171,259 +249,491 @@
         <div class="vignette"></div>
     </div>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section id="hero" class="relative h-screen flex flex-col justify-center items-center text-center px-4">
         <div class="max-w-5xl z-10" id="hero-content">
-            <h1 class="text-7xl md:text-[8.5rem] mb-4 font-serif leading-none luxury-text opacity-0" id="title">JP Joias</h1>
-            <p class="text-xs md:text-sm font-light tracking-[0.8em] uppercase mb-12 text-zinc-400 opacity-0" id="subtitle">Legado & Identidade</p>
-            <div class="flex flex-col md:flex-row gap-6 justify-center opacity-0" id="ctas">
-                <a href="#produtos" class="px-14 py-5 bg-white text-black rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-zinc-200 transition flex items-center justify-center">Ver Coleções</a>
-                <button class="px-14 py-5 border border-white/40 text-white rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-black transition">ATENDIMENTO EXCLUSIVO</button>
+            <h1 class="text-6xl md:text-[8.5rem] mb-4 font-serif leading-none luxury-text opacity-0" id="title">JP Joias</h1>
+            <p class="text-[10px] md:text-sm font-light tracking-[0.8em] uppercase mb-12 text-zinc-400 opacity-0" id="subtitle">Legado & Identidade em Prata 925</p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0" id="ctas">
+                <a href="#produtos-anchor" class="px-12 py-5 bg-white text-black rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-zinc-200 transition flex items-center justify-center">
+                    Ver Coleções
+                </a>
+                <a href="https://wa.me/5511999999999" target="_blank" class="px-12 py-5 border border-white/30 text-white rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white/10 hover:border-[#FFE600] transition flex items-center justify-center gap-2">
+                    Atendimento Exclusivo <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                </a>
             </div>
         </div>
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-90 text-[9px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.5em] font-semibold text-white animate-pulse whitespace-nowrap bg-black/40 px-6 py-2 backdrop-blur-sm rounded-full border border-white/10">
-            FRETE GRÁTIS A PARTIR DE R$200,00 EM COMPRAS
+        
+        <!-- Tarja de Envio/Frete -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-90 text-[8px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.5em] font-semibold text-white animate-pulse whitespace-nowrap bg-black/60 px-6 py-3.5 backdrop-blur-md rounded-full border border-white/10">
+            FRETE GRÁTIS A PARTIR DE R$200,00 EM COMPRAS — ENVIOS PARA TODO O BRASIL
         </div>
     </section>
 
+    <!-- Âncora Invisível para Scroll -->
+    <div id="produtos-anchor"></div>
+
     <main class="relative z-10">
+
+        <!-- Banner Informativo Premium -->
+        <section class="py-12 bg-zinc-950 border-y border-white/5 px-6">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-around items-center gap-8 text-center md:text-left">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl text-[#FFE600] border border-white/10">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Compra 100% Protegida</h4>
+                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Seu pagamento totalmente assegurado e protegido.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl text-[#FFE600] border border-white/10">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Entrega Expressa Garantida</h4>
+                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Envio ágil e rastreável direto para o seu endereço.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl text-[#FFE600] border border-white/10">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs uppercase tracking-widest font-semibold text-zinc-200">Garantia e Autenticidade</h4>
+                        <p class="text-[11px] text-zinc-400 mt-1 font-light">Garantia vitalícia do metal e satisfação assegurada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Produtos: Correntes -->
-        <section id="produtos" class="py-40 px-8 bg-black/40 backdrop-blur-[2px]">
+        <section id="correntes" class="py-32 px-6 md:px-12 bg-black/40 backdrop-blur-[2px]">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
-                    <h2 class="text-5xl font-serif">Correntes de Prata</h2>
-                    <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500">2026 Collection</span>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Exclusividade e Pureza</span>
+                        <h2 class="text-4xl md:text-5xl font-serif">Correntes de Prata 925</h2>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 bg-white/5 px-4 py-2 border border-white/5 rounded-full">Atelier Collection</span>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-                    <div class="group flex flex-col items-center">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 text-center">
+                    <!-- Produto 1 (PRODUTO ÂNCORA) -->
+                    <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500">
                         <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden">
-                            <div class="w-full h-full bg-cover bg-center transition duration-[1.2s]" style="background-image: url('https://i.imgur.com/2z6H7V4.png');"></div>
+                            <div class="w-full h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://i.imgur.com/2z6H7V4.jpg');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600\')'">
+                            </div>
                         </div>
-                        <h3 class="text-[11px] uppercase tracking-widest text-zinc-300 mb-4">Corrente 3mm 1x1 70cm</h3>
-                        <div id='product-component-1768872494214' class="shopify-buy-frame"></div>
+                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Corrente 3mm 1x1 70cm</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        
+                        <!-- Avaliação 5 Estrelas e Mais Vendido -->
+                        <div class="flex flex-col items-center gap-1.5 mb-3">
+                            <div class="flex items-center gap-1.5">
+                                <div class="flex text-[#FFE600] text-[10px]">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="text-zinc-400 text-[10px] font-medium">(847)</span>
+                            </div>
+                            <span class="text-[8px] uppercase tracking-widest text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full">Mais vendido do Atelier</span>
+                        </div>
+                        
+                        <!-- Preços e Botão Premium -->
+                        <div class="w-full mt-auto">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 89,90</span>
+                                <span class="text-[#FFE600] text-lg font-bold">Por: R$ 69,90</span>
+                            </div>
+                            <!-- BOTAO PREMIUM DE COMPRA -->
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="group flex flex-col items-center">
+                    <!-- Produto 2 -->
+                    <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500">
                         <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden">
-                            <div class="w-full h-full bg-cover bg-center transition duration-[1.2s]" style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/products/1_fda3fc97-fb60-4aa4-b8e3-e4082f189260.jpg?crop=center&height=1200&v=1752802709&width=1200');"></div>
+                            <div class="w-full h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/products/1_fda3fc97-fb60-4aa4-b8e3-e4082f189260.jpg?crop=center&height=1200&v=1752802709&width=1200');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&q=80&w=600\')'">
+                            </div>
                         </div>
-                        <h3 class="text-[11px] uppercase tracking-widest text-zinc-300 mb-4">Corrente 0,7mm Veneziana 80cm</h3>
-                        <div id='product-component-1768872283737' class="shopify-buy-frame"></div>
+                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Corrente 0,7mm Veneziana 80cm</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        
+                        <!-- Avaliação 5 Estrelas -->
+                        <div class="flex items-center gap-1.5 mb-3">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(214)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 119,90</span>
+                                <span class="text-white text-base font-bold">Por: R$ 94,90</span>
+                            </div>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="group flex flex-col items-center">
+                    <!-- Produto 3 -->
+                    <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500">
                         <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden">
-                            <div class="w-full h-full bg-cover bg-center transition duration-[1.2s]" style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/products/2_ddff83fa-544e-42de-bd50-abcc29974cf1.jpg?crop=center&height=1200&v=1752802517&width=1200');"></div>
+                            <div class="w-full h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/products/2_ddff83fa-544e-42de-bd50-abcc29974cf1.jpg?crop=center&height=1200&v=1752802517&width=1200');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=600\')'">
+                            </div>
                         </div>
-                        <h3 class="text-[11px] uppercase tracking-widest text-zinc-300 mb-4">Corrente 3mm Piastrine 60cm</h3>
-                        <div id='product-component-1768872752284' class="shopify-buy-frame"></div>
+                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Corrente 3mm Piastrine 60cm</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        
+                        <!-- Avaliação 5 Estrelas -->
+                        <div class="flex items-center gap-1.5 mb-3">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(183)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 109,90</span>
+                                <span class="text-white text-base font-bold">Por: R$ 84,90</span>
+                            </div>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Produtos: Anéis -->
-        <section id="aneis" class="py-40 px-8 bg-black/60 backdrop-blur-[2px] border-t border-white/5">
+        <section id="aneis" class="py-32 px-6 md:px-12 bg-black/60 backdrop-blur-[2px] border-t border-white/5">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
-                    <h2 class="text-5xl font-serif">Anéis de Prata</h2>
-                    <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500">Signet Series</span>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Simbolismo e Presença</span>
+                        <h2 class="text-4xl md:text-5xl font-serif">Anéis de Prata</h2>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 bg-white/5 px-4 py-2 border border-white/5 rounded-full">Signet Series</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-                    <div class="group flex flex-col items-center">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 max-w-5xl mx-auto gap-12 lg:gap-16 justify-center">
+                    <!-- Produto 1 Anéis - Anel Esotérico -->
+                    <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500 w-full">
                         <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden">
-                            <div class="w-full h-full bg-cover bg-center transition duration-[1.2s]" style="background-image: url('https://www.elpatronplatas.com.br/cdn/shop/files/Anel_Triunfo_Vermelho_4.jpg?crop=center&height=1200&v=1752802760&width=1200');"></div>
+                            <div class="w-full h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
+                                 style="background-image: url('https://img.kwcdn.com/product/open/d4620fe565204592b978237f2c0ee489-goods.jpeg?imageView2/2/w/800/q/70/format/avif');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=600\')'">
+                            </div>
                         </div>
-                        <h3 class="text-[11px] uppercase tracking-widest text-zinc-300 mb-4">Anel Triunfo Vermelho</h3>
-                        <div id='product-component-1768915841254' class="shopify-buy-frame"></div>
+                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Anel Esotérico</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        
+                        <!-- Avaliação 5 Estrelas -->
+                        <div class="flex items-center gap-1.5 mb-3">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(94)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 79,90</span>
+                                <span class="text-white text-base font-bold">Por: R$ 49,90</span>
+                            </div>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Produto 2 Anéis - Anel Vintage Solar (Dual Image Hover) -->
+                    <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500 w-full">
+                        <div class="img-container aspect-[4/5] w-full bg-zinc-900 group-hover:bg-white mb-6 overflow-hidden cursor-pointer relative transition-colors duration-700 ease-in-out">
+                            <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-100 group-hover:opacity-0" 
+                                 style="background-image: url('https://img.kwcdn.com/product/fancy/a5b3f414-f82b-468d-a162-3f29e45005a7.jpg?imageView2/2/w/800/q/70/format/avif');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=600\')'"></div>
+                            <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-0 group-hover:opacity-100" 
+                                 style="background-image: url('https://img.kwcdn.com/product/fancy/17063e9b-836a-451f-a5b5-41bc0970cd10.jpg?imageView2/2/w/800/q/70/format/avif');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&q=80&w=600\')'"></div>
+                        </div>
+                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Anel Vintage Solar</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        
+                        <!-- Avaliação 5 Estrelas -->
+                        <div class="flex items-center gap-1.5 mb-3">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(118)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 74,90</span>
+                                <span class="text-white text-base font-bold">Por: R$ 47,90</span>
+                            </div>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Produtos: Pulseiras -->
-        <section id="pulseiras" class="py-40 px-8 bg-black/40 backdrop-blur-[2px] border-t border-white/5">
+        <section id="pulseiras" class="py-32 px-6 md:px-12 bg-black/40 backdrop-blur-[2px] border-t border-white/5">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
-                    <h2 class="text-5xl font-serif">Pulseiras em Prata</h2>
-                    <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500">Italian Collection</span>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Design Clássico</span>
+                        <h2 class="text-4xl md:text-5xl font-serif">Pulseiras em Prata</h2>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 bg-white/5 px-4 py-2 border border-white/5 rounded-full">Italian Collection</span>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-                    <div class="group flex flex-col items-center">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 justify-center">
+                    <!-- Produto 1 Pulseiras -->
+                    <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500 mx-auto w-full">
                         <div class="img-container aspect-[4/5] w-full bg-zinc-900 group-hover:bg-white mb-6 overflow-hidden cursor-pointer relative transition-colors duration-700 ease-in-out">
-                            <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-100 group-hover:opacity-0" style="background-image: url('https://i.imgur.com/AmyFFbx.jpg');"></div>
-                            <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-0 group-hover:opacity-100 mix-blend-multiply" style="background-image: url('https://i.imgur.com/pFja0g8.jpg');"></div>
+                            <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-100 group-hover:opacity-0" 
+                                 style="background-image: url('https://i.imgur.com/AmyFFbx.jpg');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=600\')'"></div>
+                            <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-0 group-hover:opacity-100 mix-blend-multiply" 
+                                 style="background-image: url('https://i.imgur.com/pFja0g8.jpg');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600\')'"></div>
                         </div>
-                        <h3 class="text-[11px] uppercase tracking-widest text-zinc-300 mb-4">Pulseira De Prata - Italiana 1x1 2mm - 21cm</h3>
-                        <div id='product-component-1769019804752' class="shopify-buy-frame"></div>
+                        <h3 class="text-xs uppercase tracking-widest text-zinc-200 font-medium mb-1">Pulseira Italiana 1x1 2mm - 21cm</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-zinc-400 mb-2 font-semibold">Prata 925 Legítima</p>
+                        
+                        <!-- Avaliação 5 Estrelas -->
+                        <div class="flex items-center gap-1.5 mb-3">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(251)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="text-zinc-400 line-through text-sm font-medium tracking-wide">De: R$ 95,00</span>
+                                <span class="text-white text-base font-bold">Por: R$ 74,90</span>
+                            </div>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                COMPRAR AGORA
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Sobre -->
-        <section id="sobre" class="py-40 px-8 bg-zinc-950">
+        <!-- Sobre Nós -->
+        <section id="sobre" class="py-40 px-6 md:px-12 bg-zinc-950 border-t border-white/5">
             <div class="max-w-4xl mx-auto text-center">
-                <h4 class="text-[10px] uppercase tracking-[0.5em] text-zinc-500 mb-8">Excelência em Metais Nobres</h4>
-                <h2 class="text-5xl font-serif mb-12">O Padrão JP Joias</h2>
-                <p class="text-lg font-light leading-relaxed text-zinc-300 italic mb-8">
+                <h4 class="text-[10px] uppercase tracking-[0.5em] text-[#FFE600] mb-8">Excelência em Metais Nobres</h4>
+                <h2 class="text-4xl md:text-5xl font-serif mb-12">O Padrão JP Joias</h2>
+                <p class="text-base md:text-lg font-light leading-relaxed text-zinc-300 italic mb-8">
                     "Criamos joias que transcendem tendências; criamos ativos de valor eterno para o seu legado."
                 </p>
-                <p class="text-sm font-light leading-loose text-zinc-400 max-w-2xl mx-auto">
-                    Na JP Joias, a autenticidade é o nosso alicerce. Cada peça é um testemunho da ourivesaria de precisão, forjada para indivíduos que exigem o máximo em qualidade e simbolismo.
+                <p class="text-xs md:text-sm font-light leading-loose text-zinc-400 max-w-2xl mx-auto">
+                    Na JP Joias, a autenticidade é o nosso alicerce. Cada peça é um testemunho da ourivesaria de precisão, forjada para indivíduos que exigem o máximo em qualidade, pureza e simbolismo.
                 </p>
             </div>
         </section>
 
-        <!-- FAQ -->
-        <section id="faq" class="py-40 px-8 bg-black">
+        <!-- FAQ (Esclarecimentos) -->
+        <section id="faq" class="py-32 px-6 md:px-12 bg-black/80 border-t border-white/5">
             <div class="max-w-3xl mx-auto">
-                <h2 class="text-4xl font-serif mb-20 text-center">Esclarecimentos</h2>
+                <h2 class="text-3xl md:text-4xl font-serif mb-16 text-center">Esclarecimentos & Segurança</h2>
+                
                 <div class="faq-item py-6 cursor-pointer group">
                     <div class="flex justify-between items-center mb-2">
-                        <h5 class="text-xs uppercase tracking-widest">A prata é de facto 925?</h5>
-                        <span class="text-zinc-600 group-hover:text-white">+</span>
+                        <h5 class="text-xs uppercase tracking-widest font-semibold text-zinc-300 group-hover:text-[#FFE600] transition">Como funcionam as formas de pagamento e envio?</h5>
+                        <span class="faq-icon text-zinc-600 group-hover:text-[#FFE600] transition duration-300 text-lg">+</span>
                     </div>
-                    <div class="faq-answer text-sm text-zinc-500 font-light">Sim, todas as peças são acompanhadas por um certificado que garante o teor de pureza de 92.5%.</div>
+                    <div class="faq-answer text-xs md:text-sm text-zinc-400 font-light leading-relaxed">
+                        Nossas vendas são processadas de forma externa com total segurança, garantindo que você tenha acesso a meios de pagamento rastreados, envio expresso imediato para todo o território nacional e as melhores políticas de reembolso.
+                    </div>
                 </div>
+
                 <div class="faq-item py-6 cursor-pointer group">
                     <div class="flex justify-between items-center mb-2">
-                        <h5 class="text-xs uppercase tracking-widest">Como autenticar a minha joia JP?</h5>
-                        <span class="text-zinc-600 group-hover:text-white">+</span>
+                        <h5 class="text-xs uppercase tracking-widest font-semibold text-zinc-300 group-hover:text-[#FFE600] transition">A prata é de fato 925?</h5>
+                        <span class="faq-icon text-zinc-600 group-hover:text-[#FFE600] transition duration-300 text-lg">+</span>
                     </div>
-                    <div class="faq-answer text-sm text-zinc-500 font-light">Cada joia possui a marca do atelier gravada em local discreto.</div>
+                    <div class="faq-answer text-xs md:text-sm text-zinc-400 font-light leading-relaxed">
+                        Sim, todas as nossas joias acompanham certificado de garantia de autenticidade vitalícia sobre o teor de pureza da Prata Maciça 925 de Lei.
+                    </div>
+                </div>
+
+                <div class="faq-item py-6 cursor-pointer group">
+                    <div class="flex justify-between items-center mb-2">
+                        <h5 class="text-xs uppercase tracking-widest font-semibold text-zinc-300 group-hover:text-[#FFE600] transition">Como autenticar a minha joia JP?</h5>
+                        <span class="faq-icon text-zinc-600 group-hover:text-[#FFE600] transition duration-300 text-lg">+</span>
+                    </div>
+                    <div class="faq-answer text-xs md:text-sm text-zinc-400 font-light leading-relaxed">
+                        Cada joia possui a marca do nosso atelier gravada a laser ou cunhada em local discreto da peça, além do certificado físico que acompanha o estojo premium.
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Chamada Final -->
-        <section id="cta-final" class="py-60 px-8 bg-black relative overflow-hidden">
+        <section id="cta-final" class="py-48 px-6 bg-black relative overflow-hidden">
             <div class="max-w-4xl mx-auto text-center z-10 relative">
-                <h2 id="final-cta-title" class="text-6xl md:text-8xl font-serif mb-12 luxury-text leading-tight opacity-0 translate-y-20">Inicie o seu Legado</h2>
-                <p id="final-cta-subtitle" class="text-[10px] uppercase tracking-[0.8em] text-zinc-500 mb-16 opacity-0">Joalharia de Excelência para uma vida inteira</p>
+                <h2 id="final-cta-title" class="text-5xl md:text-8xl font-serif mb-10 luxury-text leading-tight opacity-0 translate-y-20">Inicie o seu Legado</h2>
+                <p id="final-cta-subtitle" class="text-[9px] md:text-[10px] uppercase tracking-[0.8em] text-zinc-500 mb-12 opacity-0">Joalharia de Excelência para o seu dia a dia</p>
+                <div class="flex justify-center">
+                    <a href="#correntes" class="px-12 py-5 bg-white text-black font-semibold text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-[#FFE600] transition-all duration-300">Ir Para a Loja</a>
+                </div>
             </div>
         </section>
 
-        <!-- SEÇÃO: RECEBA NOSSAS NOVIDADES -->
-        <section id="newsletter" class="py-32 px-8 bg-zinc-950 border-y border-white/5">
+        <!-- Seção Newsletter -->
+        <section id="newsletter" class="py-24 px-6 bg-zinc-950 border-y border-white/5">
             <div class="max-w-4xl mx-auto text-center">
-                <h3 class="text-3xl font-serif mb-8 uppercase tracking-widest">RECEBA NOSSAS NOVIDADES</h3>
+                <h3 class="text-2xl md:text-3xl font-serif mb-6 uppercase tracking-[0.15em] text-zinc-200">RECEBA NOSSAS NOVIDADES</h3>
+                <p class="text-zinc-500 text-xs uppercase tracking-[0.3em] mb-10">Novidades exclusivas e lançamentos diretos no seu e-mail.</p>
                 
-                <div class="max-w-lg mx-auto mb-10" id="newsletter-content">
-                    <!-- Formulário Getform com ID Atualizado -->
+                <div class="max-w-lg mx-auto mb-8" id="newsletter-content">
                     <form id="newsletter-form" action="https://getform.io/f/157162" method="POST" class="relative">
-                        <input type="email" name="email" placeholder="Seu e-mail" required class="newsletter-input text-center">
-                        <button type="submit" id="newsletter-btn" class="mt-8 px-12 py-4 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-zinc-200 transition">Inscreva-se</button>
+                        <input type="email" name="email" placeholder="Seu melhor e-mail" required class="newsletter-input text-center text-sm">
+                        <button type="submit" id="newsletter-btn" class="mt-8 px-12 py-4 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-[#FFE600] transition">Inscreva-se</button>
                     </form>
 
                     <!-- Mensagem de Sucesso -->
-                    <div id="newsletter-message" class="hidden py-8">
-                        <h4 class="text-xl font-serif mb-4">Sua jornada começou.</h4>
-                        <p class="text-[11px] uppercase tracking-[0.4em] text-zinc-400">Em breve, novidades exclusivas em seu e-mail.</p>
+                    <div id="newsletter-message" class="hidden py-8 text-center">
+                        <h4 class="text-xl font-serif mb-4 text-white">Sua jornada começou.</h4>
+                        <p class="text-[10px] uppercase tracking-[0.4em] text-emerald-400">Em breve, novidades exclusivas em seu e-mail.</p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-4 max-w-2xl mx-auto text-left opacity-60">
+                <div class="flex items-start gap-4 max-w-xl mx-auto text-left opacity-55">
                     <input type="checkbox" id="consent" class="mt-1 accent-white" checked>
-                    <label for="consent" class="text-[10px] leading-relaxed">
-                        Concordo em receber emails da JP Joias. Ao se cadastrar, você concorda com os Termos e Condições e confirma ter lido a <strong>Política de Privacidade</strong> da JP Joias.
+                    <label for="consent" class="text-[9px] leading-relaxed text-zinc-400 cursor-pointer">
+                        Concordo em receber novidades da JP Joias. Ao se cadastrar, você concorda com nossos Termos de Uso e Política de Privacidade.
                     </label>
                 </div>
             </div>
         </section>
 
-        <!-- RODAPÉ CORPORATIVO -->
-        <footer class="pt-24 pb-12 px-8 bg-black text-white border-t border-white/5">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+        <!-- Rodapé -->
+        <footer class="pt-24 pb-12 px-6 md:px-12 bg-black text-white border-t border-white/5">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
                 <!-- AJUDA -->
                 <div>
-                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4">AJUDA</h5>
-                    <ul class="space-y-4 text-[11px] font-light text-zinc-400">
-                        <li><a href="#" class="hover:text-white transition">Dúvidas frequentes</a></li>
-                        <li><a href="#" class="hover:text-white transition">Sobre os Pedidos</a></li>
+                    <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4 text-zinc-300">AJUDA & SUPORTE</h5>
+                    <ul class="space-y-3.5 text-[11px] font-light text-zinc-400">
+                        <li><a href="#faq" class="hover:text-white transition">Dúvidas frequentes</a></li>
                         <li><a href="#" class="hover:text-white transition">Política de Entrega</a></li>
                         <li><a href="#" class="hover:text-white transition">Trocas e Devoluções</a></li>
                         <li><a href="#" class="hover:text-white transition">Guia de tamanhos</a></li>
-                        <li><a href="#" class="hover:text-white transition">Garantia</a></li>
-                        <li><a href="#" class="hover:text-white transition">Cuidados com as Joias</a></li>
-                        <li><a href="#" class="hover:text-white transition">Fale conosco</a></li>
+                        <li><a href="#" class="hover:text-white transition">Garantia e Certificados</a></li>
                     </ul>
                 </div>
 
                 <!-- SOBRE NÓS -->
                 <div>
-                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4">SOBRE NÓS</h5>
-                    <ul class="space-y-4 text-[11px] font-light text-zinc-400">
-                        <li><a href="#" class="hover:text-white transition">Conheça a JP Joias</a></li>
-                        <li><a href="#" class="hover:text-white transition">Trabalhe conosco</a></li>
-                        <li><a href="#" class="hover:text-white transition">Nossas lojas</a></li>
-                        <li><a href="#" class="hover:text-white transition">Política de privacidade</a></li>
+                    <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4 text-zinc-300">SOBRE NÓS</h5>
+                    <ul class="space-y-3.5 text-[11px] font-light text-zinc-400">
+                        <li><a href="#sobre" class="hover:text-white transition">Conheça a JP Joias</a></li>
+                        <li><a href="#" class="hover:text-white transition">Nossas Lojas</a></li>
+                        <li><a href="#" class="hover:text-white transition">Política de Privacidade</a></li>
                         <li><a href="#" class="hover:text-white transition">Clube JP Joias</a></li>
-                        <li><a href="#" class="hover:text-white transition">Regulamentos</a></li>
-                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
                     </ul>
                 </div>
 
                 <!-- SAC -->
                 <div>
-                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4">SAC</h5>
-                    <div class="space-y-8 text-[11px] font-light text-zinc-400">
+                    <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4 text-zinc-300">CONTATO & SAC</h5>
+                    <div class="space-y-6 text-[11px] font-light text-zinc-400">
                         <div>
-                            <p class="font-bold text-white mb-2">(11) 4130-8933</p>
+                            <p class="font-bold text-white mb-1">(11) 4130-8933</p>
                             <p>São Paulo Capital</p>
                         </div>
                         <div>
-                            <p class="font-bold text-white mb-2">4003-1627</p>
-                            <p>Capitais e Regiões Metropolitanas</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-white mb-2">0800-550-0333</p>
-                            <p>Outras Regiões</p>
+                            <p class="font-bold text-white mb-1">0800-550-0333</p>
+                            <p>Demais Regiões do Brasil</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- REDES E PAGAMENTO -->
                 <div>
-                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4">SIGA-NOS</h5>
-                    <div class="flex gap-4 mb-12">
-                        <a href="https://instagram.com/jpjoiasbrasil" target="_blank" class="social-btn">
-                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4 text-zinc-300">SIGA-NOS</h5>
+                    <div class="flex gap-4 mb-8">
+                        <a href="https://instagram.com/jpjoiasbrasil" target="_blank" class="social-btn" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram text-lg text-white opacity-70 hover:opacity-100 transition"></i>
                         </a>
                     </div>
                     
-                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] mb-6">FORMAS DE PAGAMENTO</h5>
-                    <div class="flex flex-wrap gap-4 opacity-40 mb-10">
-                        <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard" class="h-6 grayscale hover:grayscale-0 transition">
-                        <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" class="h-6 grayscale hover:grayscale-0 transition">
-                        <img src="https://img.icons8.com/color/48/000000/elo.png" alt="Elo" class="h-6 grayscale hover:grayscale-0 transition">
-                        <img src="https://img.icons8.com/color/48/000000/pix.png" alt="Pix" class="h-6 grayscale hover:grayscale-0 transition">
-                    </div>
-
-                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] mb-4">SEGURANÇA</h5>
-                    <div class="flex gap-4 opacity-40">
-                        <img src="https://img.icons8.com/ios-filled/50/ffffff/lock.png" alt="Seguro" class="h-4">
-                        <span class="text-[9px] uppercase tracking-widest">Site Blindado</span>
+                    <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-4 text-zinc-400">PAGAMENTO SEGURO</h5>
+                    <div class="flex flex-wrap gap-3 opacity-55">
+                        <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard" class="h-6">
+                        <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" class="h-6">
+                        <img src="https://img.icons8.com/color/48/000000/elo.png" alt="Elo" class="h-6">
+                        <img src="https://img.icons8.com/color/48/000000/pix.png" alt="Pix" class="h-6">
                     </div>
                 </div>
             </div>
 
             <div class="max-w-7xl mx-auto pt-12 border-t border-white/5 text-center">
-                <h2 class="text-4xl font-serif mb-6 luxury-text">JP Joias</h2>
-                <p class="text-[9px] uppercase tracking-[0.5em] opacity-30">&copy; 2026 JP Joias Atelier. Todos os direitos reservados.</p>
+                <h2 class="text-3xl font-serif mb-4 luxury-text">JP Joias</h2>
+                <p class="text-[9px] uppercase tracking-[0.5em] opacity-40">&copy; 2026 JP Joias Atelier. Todos os direitos reservados.</p>
+                <p class="text-[8px] text-zinc-600 uppercase tracking-widest mt-2">Vendas processadas de forma externa em ambiente totalmente seguro.</p>
             </div>
         </footer>
     </main>
 
     <script>
+        // Configuração do Canvas para Animação de Entrada/Scroll (Imagens sequência Apple AirPods adaptadas)
         const canvas = document.getElementById("hero-canvas");
         const ctx = canvas.getContext("2d");
         let images = [];
         let sequence = { frame: 0 };
         const frameCount = 100;
 
+        // Pré-carregamento das imagens em buffer para evitar piscados brancos
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
@@ -432,6 +742,7 @@
             }
         }
 
+        // Renderizador de cada frame no canvas
         function render() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -448,14 +759,16 @@
             gsap.registerPlugin(ScrollTrigger);
             preloadImages();
             
+            // Timeline de carregamento (Loader Screen)
             const tl = gsap.timeline();
             tl.to("#loader-brand", { opacity: 1, y: 0, duration: 1, ease: "power2.out" })
               .to("#loader-progress", { width: "120px", duration: 1.2, ease: "power2.inOut" }, "-=0.5")
               .to("#loader", { opacity: 0, pointerEvents: "none", duration: 1, ease: "power2.inOut" })
               .to("#title", { opacity: 1, duration: 1.5, ease: "power2.out" }, "-=0.5")
               .to("#subtitle", { opacity: 1, duration: 1.2 }, "-=1.2")
-              .to("#ctas", { opacity: 1, duration: 1.2 }, "-=1");
+              .to("#ctas", { opacity: 1, duration: 1.2 }, "-=0.8");
 
+            // ScrollTrigger para controlar frames do Canvas
             gsap.to(sequence, {
                 frame: frameCount - 1,
                 snap: "frame",
@@ -469,6 +782,7 @@
                 onUpdate: render
             });
 
+            // Animações sutis dos títulos ao dar scroll
             gsap.fromTo("#final-cta-title", 
                 { opacity: 0, y: 100 },
                 { opacity: 1, y: 0, scrollTrigger: { trigger: "#cta-final", start: "top 90%", end: "top 30%", scrub: 1 } }
@@ -478,6 +792,7 @@
                 { opacity: 1, letterSpacing: "0.8em", scrollTrigger: { trigger: "#cta-final", start: "top 80%", end: "top 40%", scrub: 1 } }
             );
 
+            // Mudança do estilo da Navbar ao rolar
             ScrollTrigger.create({
                 start: 'top -80',
                 onUpdate: (self) => {
@@ -487,120 +802,88 @@
                 }
             });
 
-            // Lógica de envio da Newsletter (AJAX Melhorada)
-            const newsletterForm = document.getElementById('newsletter-form');
-            const newsletterMsg = document.getElementById('newsletter-message');
-            const newsletterBtn = document.getElementById('newsletter-btn');
-
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    
-                    const originalBtnText = newsletterBtn.innerText;
-                    newsletterBtn.innerText = "ENVIANDO...";
-                    newsletterBtn.disabled = true;
-                    newsletterBtn.style.opacity = "0.5";
-
-                    const formData = new FormData(newsletterForm);
-                    
-                    try {
-                        const response = await fetch(newsletterForm.action, {
-                            method: 'POST',
-                            body: formData,
-                            headers: { 'Accept': 'application/json' }
-                        });
-                        
-                        newsletterForm.style.transition = "opacity 0.5s ease";
-                        newsletterForm.style.opacity = '0';
-                        
-                        setTimeout(() => {
-                            newsletterForm.classList.add('hidden');
-                            newsletterMsg.classList.remove('hidden');
-                            requestAnimationFrame(() => {
-                                newsletterMsg.classList.add('visible');
-                            });
-                        }, 500);
-
-                    } catch (err) {
-                        console.error('Falha na conexão:', err);
-                        newsletterForm.classList.add('hidden');
-                        newsletterMsg.classList.remove('hidden');
-                        newsletterMsg.classList.add('visible');
-                    }
-                });
+            // Fallback de render caso a imagem demore para carregar
+            if (images[0]) {
+                images[0].onload = render;
             }
-
-            images[0].onload = render;
         });
 
         window.addEventListener('resize', render);
 
-        /* SHOPIFY INTEGRATION */
-        (function () {
-            var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-            if (window.ShopifyBuy) { ShopifyBuyInit(); } else {
-                var script = document.createElement('script');
-                script.async = true; script.src = scriptURL;
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-                script.onload = ShopifyBuyInit;
-            }
-            function ShopifyBuyInit() {
-                var client = ShopifyBuy.buildClient({
-                    domain: 'sc700t-qb.myshopify.com',
-                    storefrontAccessToken: '2d6d2147161f0fea2231daeb2d949c10',
-                });
-                ShopifyBuy.UI.onReady(client).then(function (ui) {
-                    const commonOptions = {
-                        "product": {
-                            "styles": {
-                                "button": { 
-                                    "font-size": "13px", 
-                                    "padding-top": "14px", 
-                                    "padding-bottom": "14px", 
-                                    "color": "#000000", 
-                                    "background-color": "#f1f1f1", 
-                                    "border-radius": "30px",
-                                    "transition": "all 0.4s cubic-bezier(0.19, 1, 0.22, 1)",
-                                    ":hover": { 
-                                        "background-color": "#ffffff",
-                                        "transform": "scale(1.04)",
-                                        "box-shadow": "0 10px 20px rgba(255,255,255,0.1)"
-                                    } 
-                                },
-                                "price": { "font-size": "18px", "color": "#ffffff" }
-                            },
-                            "contents": { "img": false, "title": false, "price": true, "button": true },
-                            "text": { 
-                                "button": "Adicionar ao Carrinho",
-                                "outOfStock": "SEM ESTOQUE"
-                            }
-                        },
-                        "cart": {
-                            "styles": {
-                                "button": {
-                                    "background-color": "#000000",
-                                    "color": "#ffffff",
-                                    "border-radius": "30px"
-                                }
-                            },
-                            "text": {
-                                "total": "Subtotal",
-                                "button": "COMPRAR"
-                            }
-                        }
-                    };
+        // Menu lateral Drawer Handlers
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const menuCloseBtn = document.getElementById('menu-close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-                    const moneyFormat = 'R%24%20%7B%7Bamount_with_comma_separator%7D%7D';
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+        }
 
-                    ui.createComponent('product', { id: '7568523853920', node: document.getElementById('product-component-1768872283737'), moneyFormat: moneyFormat, options: commonOptions });
-                    ui.createComponent('product', { id: '7571021103200', node: document.getElementById('product-component-1768872494214'), moneyFormat: moneyFormat, options: commonOptions });
-                    ui.createComponent('product', { id: '7571041353824', node: document.getElementById('product-component-1768872752284'), moneyFormat: moneyFormat, options: commonOptions });
-                    ui.createComponent('product', { id: '7575701061728', node: document.getElementById('product-component-1768915841254'), moneyFormat: moneyFormat, options: commonOptions });
-                    ui.createComponent('product', { id: '7588501094496', node: document.getElementById('product-component-1769019804752'), moneyFormat: moneyFormat, options: commonOptions });
-                });
-            }
-        })();
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+        }
+
+        menuToggleBtn.addEventListener('click', openMenu);
+        menuCloseBtn.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // FAQ Accordion Interativo
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Handler AJAX da Newsletter
+        const newsletterForm = document.getElementById('newsletter-form');
+        const newsletterMsg = document.getElementById('newsletter-message');
+        const newsletterBtn = document.getElementById('newsletter-btn');
+
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const originalBtnText = newsletterBtn.innerText;
+                newsletterBtn.innerText = "ENVIANDO...";
+                newsletterBtn.disabled = true;
+                newsletterBtn.style.opacity = "0.5";
+
+                const formData = new FormData(newsletterForm);
+                
+                try {
+                    const response = await fetch(newsletterForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    
+                    newsletterForm.style.transition = "opacity 0.5s ease";
+                    newsletterForm.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        newsletterForm.classList.add('hidden');
+                        newsletterMsg.classList.remove('hidden');
+                        requestAnimationFrame(() => {
+                            newsletterMsg.classList.add('visible');
+                        });
+                    }, 500);
+
+                } catch (err) {
+                    console.error('Falha de conexão com a API de newsletter:', err);
+                    newsletterForm.classList.add('hidden');
+                    newsletterMsg.classList.remove('hidden');
+                    newsletterMsg.classList.add('visible');
+                }
+            });
+        }
     </script>
 </body>
 </html>
-
