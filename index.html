@@ -48,7 +48,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* Custom Scrollbar minimalista --> */
+        /* Custom Scrollbar minimalista */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -229,7 +229,7 @@
     <nav id="main-nav" class="fixed top-0 w-full z-50 px-6 md:px-16 py-6 flex justify-between items-center">
         <a href="#" class="text-2xl font-serif tracking-widest uppercase font-semibold hover:opacity-80 transition">JP</a>
         
-        <!-- Links de Desktop (Visual Clean sem Emojis) -->
+        <!-- Links de Desktop (Visual Clean sem Emojis - Legado removido) -->
         <div class="hidden lg:flex space-x-10 text-[9px] uppercase tracking-[0.45em] font-medium text-zinc-300">
             <a href="#correntes" class="relative py-1 transition hover:text-white group">
                 Correntes
@@ -247,17 +247,13 @@
                 KITS JP
                 <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[#FFE600]/30 transition-all duration-300 group-hover:bg-[#FFE600]"></span>
             </a>
-            <a href="#sobre" class="relative py-1 transition hover:text-white group">
-                Legado
-                <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FFE600] transition-all duration-300 group-hover:w-full"></span>
-            </a>
             <a href="#faq" class="relative py-1 transition hover:text-white group">
                 Garantia
                 <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FFE600] transition-all duration-300 group-hover:w-full"></span>
             </a>
         </div>
 
-        <!-- Botão Menu Integrado (Responsivo com hambúrguer elegante) -->
+        <!-- Botão Menu Integrado (Responsivo) -->
         <div class="flex items-center gap-4">
             <button id="menu-toggle-btn" class="flex items-center gap-3 text-[9px] uppercase tracking-[0.3em] cursor-pointer border-b border-white/10 hover:border-[#FFE600] hover:text-[#FFE600] transition py-1.5 px-1 font-medium group">
                 <span class="inline-block">Menu</span>
@@ -269,7 +265,7 @@
         </div>
     </nav>
 
-    <!-- Menu Lateral Drawer (Estilo Editorial Premium) -->
+    <!-- Menu Lateral Drawer (Estilo Editorial Premium - Legado removido) -->
     <div id="mobile-menu" class="fixed inset-0 bg-black/98 backdrop-blur-2xl z-50 translate-x-full transition-transform duration-500 ease-out flex flex-col justify-between p-8 md:p-16">
         <!-- Header Drawer -->
         <div class="flex justify-between items-center w-full">
@@ -283,14 +279,13 @@
             </button>
         </div>
 
-        <!-- Links Principais Drawer (Toque Ampliado e Confortável) -->
+        <!-- Links Principais Drawer -->
         <div class="flex flex-col space-y-5 my-auto max-w-md">
             <span class="text-[9px] uppercase tracking-[0.4em] text-zinc-600 font-semibold border-b border-white/5 pb-2">Coleções Exclusivas</span>
             <a href="#correntes" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Correntes de Prata</a>
             <a href="#pulseiras" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Pulseiras de Luxo</a>
             <a href="#aneis" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Anéis Exclusivos</a>
             <a href="#combos" class="mobile-link text-2xl font-serif text-white hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2 flex items-center gap-2">Kits & Combos <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-sans bg-[#FFE600]/10 text-[#FFE600] px-2 py-0.5 rounded-full">Desconto</span></a>
-            <a href="#sobre" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Nosso Legado</a>
             <a href="#faq" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Garantia & Autenticidade</a>
         </div>
 
@@ -328,8 +323,9 @@
                 <a href="#produtos-anchor" class="px-12 py-5 bg-white text-black rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-zinc-200 transition flex items-center justify-center">
                     Ver Coleções
                 </a>
-                <a href="https://wa.me/5511999999999" target="_blank" class="px-12 py-5 border border-white/30 text-white rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white/10 hover:border-[#FFE600] transition flex items-center justify-center gap-2">
-                    Atendimento Exclusivo <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                <!-- Botão Atendimento Exclusivo verde leve premium combinado ao WhatsApp -->
+                <a href="https://wa.me/5511999999999" target="_blank" class="px-12 py-5 border border-emerald-500/30 text-emerald-400 bg-emerald-950/20 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-500/10 hover:border-emerald-400 hover:text-emerald-300 transition flex items-center justify-center gap-2">
+                    Atendimento Exclusivo <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
                 </a>
             </div>
         </div>
@@ -345,9 +341,9 @@
     <main class="relative z-10">
 
         <!-- Produtos: Correntes -->
-        <section id="correntes" class="py-32 px-6 md:px-12 bg-black/40 backdrop-blur-[2px]">
+        <section id="correntes" class="py-16 md:py-20 px-6 md:px-12 bg-black/40 backdrop-blur-[2px]">
             <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-4">
                     <div>
                         <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Exclusividade e Pureza</span>
                         <h2 class="text-4xl md:text-5xl font-serif">Correntes de Prata</h2>
@@ -356,7 +352,7 @@
                 </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 text-center">
-                    <!-- Produto 1 (PRODUTO ÂNCORA) -->
+                    <!-- Produto 1 -->
                     <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500">
                         <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden">
                             <div class="w-full h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
@@ -367,7 +363,7 @@
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Corrente 2mm | 70cm</h3>
                         <p class="product-desc text-[10px] text-zinc-400 mb-2">Acabamento Exclusivo</p>
                         
-                        <!-- Avaliação 5 Estrelas e Mais Vendido -->
+                        <!-- Avaliação 5 Estrelas -->
                         <div class="flex flex-col items-center gap-1.5 mb-3">
                             <div class="flex items-center gap-1.5">
                                 <div class="flex text-[#FFE600] text-[10px]">
@@ -406,7 +402,6 @@
                         <h3 class="product-title text-sm text-zinc-500 mb-1">Corrente 4mm | 80cm</h3>
                         <p class="product-desc text-[10px] text-zinc-600 mb-2">Coleção Exclusiva</p>
                         
-                        <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3 opacity-30">
                             <div class="flex text-[#FFE600] text-[10px]">
                                 <i class="fa-solid fa-star"></i>
@@ -438,10 +433,9 @@
                                  onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=600\')'">
                             </div>
                         </div>
-                        <h3 class="product-title text-sm text-zinc-500 mb-1">Corrente 3mm Piastrine 60cm</h3>
+                        <h3 class="product-title text-sm text-zinc-600 mb-1">Corrente 3mm Piastrine 60cm</h3>
                         <p class="product-desc text-[10px] text-zinc-600 mb-2">Coleção Exclusiva</p>
                         
-                        <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3 opacity-30">
                             <div class="flex text-[#FFE600] text-[10px]">
                                 <i class="fa-solid fa-star"></i>
@@ -465,21 +459,21 @@
                     </div>
                 </div>
 
-                <!-- Benefício Integrado 1: Compra Protegida -->
-                <div class="mt-20 pt-8 border-t border-white/[0.04] flex flex-col items-center justify-center text-center max-w-md mx-auto">
+                <!-- Benefício Integrado 1 -->
+                <div class="mt-12 pt-8 border-t border-white/[0.04] flex flex-col items-center justify-center text-center max-w-md mx-auto">
                     <span class="text-[12px] text-zinc-500 mb-1.5">
                         <i class="fa-solid fa-shield-halved text-[11px] text-[#FFE600]/60"></i>
                     </span>
                     <h4 class="text-[10px] uppercase tracking-[0.25em] font-light text-zinc-300" style="font-family: 'Cinzel', serif;">Compra Protegida</h4>
                     <p class="text-[9px] text-zinc-500 mt-1 font-light tracking-widest leading-relaxed" style="font-family: 'Inter', sans-serif;">Seu pagamento totalmente assegurado e protegido.</p>
                 </div>
-
             </div>
         </section>
+
         <!-- Produtos: Anéis -->
-        <section id="aneis" class="py-32 px-6 md:px-12 bg-black/60 backdrop-blur-[2px] border-t border-white/5">
+        <section id="aneis" class="py-16 md:py-20 px-6 md:px-12 bg-black/60 backdrop-blur-[2px] border-t border-white/5">
             <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-4">
                     <div>
                         <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Simbolismo e Presença</span>
                         <h2 class="text-4xl md:text-5xl font-serif">Anéis Exclusivos</h2>
@@ -488,7 +482,7 @@
                 </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 max-w-5xl mx-auto gap-12 lg:gap-16 justify-center">
-                    <!-- Produto 1 Anéis - Anel Esotérico -->
+                    <!-- Produto 1 Anéis -->
                     <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500 w-full">
                         <div class="img-container aspect-[4/5] w-full bg-zinc-900 mb-6 overflow-hidden">
                             <div class="w-full h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
@@ -499,7 +493,6 @@
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Anel Esotérico</h3>
                         <p class="product-desc text-[10px] text-zinc-400 mb-2">Coleção Exclusiva</p>
                         
-                        <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
                             <div class="flex text-[#FFE600] text-[10px]">
                                 <i class="fa-solid fa-star"></i>
@@ -522,7 +515,7 @@
                         </div>
                     </div>
 
-                    <!-- Produto 2 Anéis - Anel Vintage Solar (Dual Image Hover) -->
+                    <!-- Produto 2 Anéis -->
                     <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500 w-full">
                         <div class="img-container aspect-[4/5] w-full bg-zinc-900 group-hover:bg-white mb-6 overflow-hidden cursor-pointer relative transition-colors duration-700 ease-in-out">
                             <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-100 group-hover:opacity-0" 
@@ -535,7 +528,6 @@
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Anel Vintage Solar</h3>
                         <p class="product-desc text-[10px] text-zinc-400 mb-2">Coleção Exclusiva</p>
                         
-                        <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
                             <div class="flex text-[#FFE600] text-[10px]">
                                 <i class="fa-solid fa-star"></i>
@@ -559,21 +551,21 @@
                     </div>
                 </div>
 
-                <!-- Benefício Integrado 2: Mercado Envios -->
-                <div class="mt-20 pt-8 border-t border-white/[0.04] flex flex-col items-center justify-center text-center max-w-md mx-auto">
+                <!-- Benefício Integrado 2 -->
+                <div class="mt-12 pt-8 border-t border-white/[0.04] flex flex-col items-center justify-center text-center max-w-md mx-auto">
                     <span class="text-[12px] text-zinc-500 mb-1.5">
                         <i class="fa-solid fa-truck-fast text-[11px] text-[#FFE600]/60"></i>
                     </span>
                     <h4 class="text-[10px] uppercase tracking-[0.25em] font-light text-zinc-300" style="font-family: 'Cinzel', serif;">Mercado Envios</h4>
                     <p class="text-[9px] text-zinc-500 mt-1 font-light tracking-widest leading-relaxed" style="font-family: 'Inter', sans-serif;">Envio ágil e rastreável direto para o seu endereço.</p>
                 </div>
-
             </div>
         </section>
+
         <!-- Produtos: Pulseiras -->
-        <section id="pulseiras" class="py-32 px-6 md:px-12 bg-black/40 backdrop-blur-[2px] border-t border-white/5">
+        <section id="pulseiras" class="py-16 md:py-20 px-6 md:px-12 bg-black/40 backdrop-blur-[2px] border-t border-white/5">
             <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-4">
                     <div>
                         <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Design Clássico</span>
                         <h2 class="text-4xl md:text-5xl font-serif">Pulseiras</h2>
@@ -595,7 +587,6 @@
                         <h3 class="product-title text-sm text-zinc-200 mb-1">Pulseira Italiana | 2mm</h3>
                         <p class="product-desc text-[10px] text-zinc-400 mb-2">Coleção Exclusiva</p>
                         
-                        <!-- Avaliação 5 Estrelas -->
                         <div class="flex items-center gap-1.5 mb-3">
                             <div class="flex text-[#FFE600] text-[10px]">
                                 <i class="fa-solid fa-star"></i>
@@ -619,34 +610,35 @@
                     </div>
                 </div>
 
-                <!-- Benefício Integrado 3: Garantia e Autenticidade -->
-                <div class="mt-20 pt-8 border-t border-white/[0.04] flex flex-col items-center justify-center text-center max-w-md mx-auto">
+                <!-- Benefício Integrado 3 -->
+                <div class="mt-12 pt-8 border-t border-white/[0.04] flex flex-col items-center justify-center text-center max-w-md mx-auto">
                     <span class="text-[12px] text-zinc-500 mb-1.5">
                         <i class="fa-solid fa-rotate-left text-[11px] text-[#FFE600]/60"></i>
                     </span>
                     <h4 class="text-[10px] uppercase tracking-[0.25em] font-light text-zinc-300" style="font-family: 'Cinzel', serif;">Garantia & Autenticidade</h4>
                     <p class="text-[9px] text-zinc-500 mt-1 font-light tracking-widest leading-relaxed" style="font-family: 'Inter', sans-serif;">Garantia e satisfação assegurada por JP e Mercado Livre.</p>
                 </div>
-
             </div>
         </section>
-        <!-- SEÇÃO: COMBOS DE LUXO (Aumento de Ticket Médio) -->
-        <section id="combos" class="py-32 px-6 md:px-12 bg-zinc-950/90 backdrop-blur-[4px] border-t border-white/10 relative">
+
+        <!-- SEÇÃO: COMBOS DE LUXO (Aumento de Ticket Médio - Ultra Centralizado no Mobile) -->
+        <section id="combos" class="py-16 md:py-20 bg-zinc-950/90 backdrop-blur-[4px] border-t border-white/10 relative">
             <div class="absolute inset-0 bg-gradient-to-b from-[#FFE600]/[0.01] to-transparent pointer-events-none"></div>
-            <div class="max-w-7xl mx-auto relative z-10">
-                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-4">
+            <div class="max-w-7xl mx-auto relative z-10 px-4 md:px-12">
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-4 text-center md:text-left">
                     <div>
                         <span class="text-[10px] uppercase tracking-[0.4em] text-[#FFE600] block mb-2">Combinações Harmoniosas</span>
                         <h2 class="text-4xl md:text-5xl font-serif">Kits JP</h2>
                     </div>
-                    <span class="text-[10px] uppercase tracking-[0.3em] text-[#FFE600] bg-[#FFE600]/10 px-4 py-2 border border-[#FFE600]/30 rounded-full font-semibold">Maior desconto</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-[#FFE600] bg-[#FFE600]/10 px-4 py-2 border border-[#FFE600]/30 rounded-full font-semibold">Maior Desconto Ativo</span>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 text-center">
+                <!-- Grade ultra-centralizada usando layout otimizado e centralização mx-auto -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 justify-center items-stretch w-full">
                     
                     <!-- Combo 1: Corrente + Pulseira -->
-                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-lg border border-[#FFE600]/10 hover:border-[#FFE600]/30 transition duration-500 relative">
-                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-[#FFE600] font-bold bg-[#FFE600]/10 px-3 py-1 rounded-full border border-[#FFE600]/20 z-10">Recomendado</span>
+                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-2xl border border-[#FFE600]/10 hover:border-[#FFE600]/30 transition duration-500 relative w-full max-w-sm mx-auto shadow-lg hover:shadow-zinc-950/50">
+                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-[#FFE600] font-bold bg-[#FFE600]/10 px-3 py-1 rounded-full border border-[#FFE600]/20 z-10">⚡ FRETE GRÁTIS</span>
                         
                         <!-- Colagem de Imagens Split -->
                         <div class="img-container aspect-[4/5] w-full mb-6 overflow-hidden flex gap-1 bg-black p-1">
@@ -676,7 +668,8 @@
                             <div class="flex flex-col items-center justify-center mb-5">
                                 <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 144,90</span>
                                 <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 119,90</span>
-                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Desconto de R$ 25,00</span>
+                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 25,00</span>
+                                <span class="text-[10px] text-zinc-500 mt-2 font-light">ou em até 12x no cartão</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -685,8 +678,8 @@
                     </div>
 
                     <!-- Combo 2: Duo de Anéis -->
-                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-lg border border-white/[0.02] hover:border-[#FFE600]/30 transition duration-500 relative">
-                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-[#FFE600] font-bold bg-[#FFE600]/10 px-3 py-1 rounded-full border border-[#FFE600]/20 z-10">DUO ALQUIMIA</span>
+                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-2xl border border-white/[0.02] hover:border-[#FFE600]/30 transition duration-500 relative w-full max-w-sm mx-auto shadow-lg hover:shadow-zinc-950/50">
+                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-[#FFE600] font-bold bg-[#FFE600]/10 px-3 py-1 rounded-full border border-[#FFE600]/20 z-10">🔒 CERTIFICADO</span>
                         
                         <!-- Colagem de Imagens Split -->
                         <div class="img-container aspect-[4/5] w-full mb-6 overflow-hidden flex gap-1 bg-black p-1">
@@ -716,7 +709,8 @@
                             <div class="flex flex-col items-center justify-center mb-5">
                                 <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 99,80</span>
                                 <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 79,90</span>
-                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Desconto de R$ 19,90</span>
+                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 19,90</span>
+                                <span class="text-[10px] text-zinc-500 mt-2 font-light">ou em até 12x no cartão</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -725,10 +719,10 @@
                     </div>
 
                     <!-- Combo 3: Set Legado Supremo -->
-                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-lg border border-[#FFE600]/10 hover:border-[#FFE600]/30 transition duration-500 relative">
-                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-[#FFE600] font-bold bg-[#FFE600]/10 px-3 py-1 rounded-full border border-[#FFE600]/20 z-10">Maior desconto</span>
+                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-2xl border border-[#FFE600]/10 hover:border-[#FFE600]/30 transition duration-500 relative w-full max-w-sm mx-auto shadow-lg hover:shadow-zinc-950/50">
+                        <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-zinc-900 font-bold bg-[#FFE600] text-black px-3 py-1 rounded-full border border-[#FFE600]/20 z-10">🔥 MAIOR DESCONTO</span>
                         
-                        <!-- Colagem de Imagens Trio Layout (Corrente 3mm em estoque + Pulseira + Anel Solar) -->
+                        <!-- Colagem de Imagens Trio Layout -->
                         <div class="img-container aspect-[4/5] w-full mb-6 overflow-hidden flex gap-1 bg-black p-1">
                             <div class="w-1/3 h-full bg-cover bg-center transition duration-[1.2s] group-hover:scale-105" 
                                  style="background-image: url('https://i.imgur.com/2z6H7V4.jpg');">
@@ -759,7 +753,8 @@
                             <div class="flex flex-col items-center justify-center mb-5">
                                 <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 194,70</span>
                                 <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 159,90</span>
-                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Desconto de R$ 34,80</span>
+                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 34,80</span>
+                                <span class="text-[10px] text-zinc-500 mt-2 font-light">ou em até 12x no cartão</span>
                             </div>
                             <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                 COMPRAR AGORA
@@ -770,24 +765,11 @@
                 </div>
             </div>
         </section>
-        <!-- Sobre Nós -->
-        <section id="sobre" class="py-40 px-6 md:px-12 bg-zinc-950 border-t border-white/5">
-            <div class="max-w-4xl mx-auto text-center">
-                <h4 class="text-[10px] uppercase tracking-[0.5em] text-[#FFE600] mb-8">Excelência em Metais Nobres</h4>
-                <h2 class="text-4xl md:text-5xl font-serif mb-12">O Padrão JP Joias</h2>
-                <p class="text-base md:text-lg font-light leading-relaxed text-zinc-300 italic mb-8">
-                    "Criamos joias que transcendem tendências; criamos ativos de valor eterno para o seu legado."
-                </p>
-                <p class="text-xs md:text-sm font-light leading-loose text-zinc-400 max-w-2xl mx-auto">
-                    Na JP Joias, a autenticidade é o nosso alicerce. Cada peça é um testemunho da ourivesaria de precisão, forjada para indivíduos que exigem o máximo em qualidade, pureza e simbolismo.
-                </p>
-            </div>
-        </section>
 
         <!-- FAQ (Esclarecimentos) -->
-        <section id="faq" class="py-32 px-6 md:px-12 bg-black/80 border-t border-white/5">
+        <section id="faq" class="py-16 md:py-20 bg-black/80 border-t border-white/5">
             <div class="max-w-3xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-serif mb-16 text-center">Esclarecimentos & Segurança</h2>
+                <h2 class="text-3xl md:text-4xl font-serif mb-12 text-center">Esclarecimentos & Segurança</h2>
                 
                 <div class="faq-item py-6 cursor-pointer group">
                     <div class="flex justify-between items-center mb-2">
@@ -822,7 +804,7 @@
         </section>
 
         <!-- Chamada Final -->
-        <section id="cta-final" class="py-48 px-6 bg-black relative overflow-hidden">
+        <section id="cta-final" class="py-24 md:py-32 px-6 bg-black relative overflow-hidden">
             <div class="max-w-4xl mx-auto text-center z-10 relative">
                 <h2 id="final-cta-title" class="text-5xl md:text-8xl font-serif mb-10 luxury-text leading-tight opacity-0 translate-y-20">Inicie o seu Legado</h2>
                 <p id="final-cta-subtitle" class="text-[9px] md:text-[10px] uppercase tracking-[0.8em] text-zinc-500 mb-12 opacity-0">Joalharia de Excelência para o seu dia a dia</p>
@@ -833,7 +815,7 @@
         </section>
 
         <!-- Seção Newsletter -->
-        <section id="newsletter" class="py-24 px-6 bg-zinc-950 border-y border-white/5">
+        <section id="newsletter" class="py-16 md:py-20 px-6 bg-zinc-950 border-y border-white/5">
             <div class="max-w-4xl mx-auto text-center">
                 <h3 class="text-2xl md:text-3xl font-serif mb-6 uppercase tracking-[0.15em] text-zinc-200">RECEBA NOSSAS NOVIDADES</h3>
                 <p class="text-zinc-500 text-xs uppercase tracking-[0.3em] mb-10">Novidades exclusivas e lançamentos diretos no seu e-mail.</p>
@@ -861,7 +843,7 @@
         </section>
 
         <!-- Rodapé -->
-        <footer class="pt-24 pb-12 px-6 md:px-12 bg-black text-white border-t border-white/5">
+        <footer class="pt-16 pb-8 px-6 md:px-12 bg-black text-white border-t border-white/5">
             <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
                 <!-- AJUDA -->
                 <div>
@@ -879,7 +861,7 @@
                 <div>
                     <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/10 pb-4 text-zinc-300">SOBRE NÓS</h5>
                     <ul class="space-y-3.5 text-[11px] font-light text-zinc-400">
-                        <li><a href="#sobre" class="hover:text-white transition">Conheça a JP Joias</a></li>
+                        <li><a href="#" class="hover:text-white transition">Conheça a JP Joias</a></li>
                         <li><a href="#" class="hover:text-white transition">Nossas Lojas</a></li>
                         <li><a href="#" class="hover:text-white transition">Política de Privacidade</a></li>
                         <li><a href="#" class="hover:text-white transition">Clube JP Joias</a></li>
@@ -927,6 +909,7 @@
             </div>
         </footer>
     </main>
+
     <!-- Script de Animações e Comportamentos -->
     <script>
         // Configuração do Canvas para Animação de Entrada/Scroll (Imagens sequência Apple AirPods adaptadas)
@@ -1090,5 +1073,3 @@
     </script>
 </body>
 </html>
-```
-eof
