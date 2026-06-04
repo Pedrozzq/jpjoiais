@@ -38,12 +38,20 @@ module.exports = async (req, res) => {
           currency_id: "BRL",
           unit_price: Number(item.price)
         })),
+
         back_urls: {
           success: "https://www.jpjoiasbrasil.com/?pagamento=sucesso",
           failure: "https://www.jpjoiasbrasil.com/?pagamento=falha",
           pending: "https://www.jpjoiasbrasil.com/?pagamento=pendente"
         },
-        auto_return: "approved"
+
+        auto_return: "approved",
+
+        shipments: {
+          mode: "not_specified",
+          cost: 0,
+          free_shipping: true
+        }
       }
     });
 
