@@ -218,6 +218,29 @@
             transform: translateY(-4px);
             box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15);
         }
+
+        /* Estilização dos inputs do formulário de entrega (NOVO) */
+        .shipping-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: white;
+            padding: 10px 14px;
+            font-size: 11px;
+            width: 100%;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .shipping-input:focus {
+            border-color: #FFE600;
+            background: rgba(255, 230, 0, 0.02);
+        }
+        .shipping-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 9px;
+        }
     </style>
 </head>
 <body class="bg-black">
@@ -1091,10 +1114,11 @@
     <!-- Overlay do Carrinho -->
     <div id="cart-overlay" onclick="closeCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[99] hidden opacity-0 transition-opacity duration-500"></div>
 
-    <!-- Carrinho Drawer Lateral -->
-    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-black/95 backdrop-blur-3xl z-[100] translate-x-full transition-transform duration-500 ease-out flex flex-col border-l border-white/10">
-        <!-- Header -->
-        <div class="flex justify-between items-center p-6 border-b border-white/10">
+    <!-- Carrinho Drawer Lateral com Duas Etapas -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full md:w-[450px] bg-black/95 backdrop-blur-3xl z-[100] translate-x-full transition-transform duration-500 ease-out flex flex-col border-l border-white/10">
+        
+        <!-- Header Fixo do Carrinho -->
+        <div class="flex justify-between items-center p-6 border-b border-white/10 bg-black/50 z-10">
             <h2 class="text-lg font-serif tracking-widest text-white uppercase flex items-center gap-3">
                 <i class="fa-solid fa-cart-shopping text-[#FFE600] text-sm"></i> Seu Carrinho
             </h2>
@@ -1103,23 +1127,87 @@
             </button>
         </div>
         
-        <!-- Itens -->
-        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
-            <!-- Itens injetados pelo JS -->
-        </div>
-        
-        <!-- Footer -->
-        <div class="p-6 border-t border-white/10 bg-zinc-950">
-            <div class="flex justify-between items-center mb-6">
-                <span class="text-xs uppercase tracking-widest text-zinc-400">Total Previsto</span>
-                <span id="cart-total" class="text-xl font-bold text-white product-price">R$ 0,00</span>
+        <!-- CONTAINER DINÂMICO (Passo 1 e Passo 2) -->
+        <div class="relative flex-1 overflow-hidden flex">
+            
+            <!-- ETAPA 1: ITENS DO CARRINHO -->
+            <div id="cart-step-1" class="w-full flex-shrink-0 flex flex-col h-full transition-transform duration-500 ease-in-out">
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+                    <!-- Itens injetados pelo JS -->
+                </div>
+                
+                <div class="p-6 border-t border-white/10 bg-zinc-950">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-xs uppercase tracking-widest text-zinc-400">Total Previsto</span>
+                        <span id="cart-total" class="text-xl font-bold text-white product-price">R$ 0,00</span>
+                    </div>
+                    <!-- Botão para avançar ao invés de finalizar direto -->
+                    <button onclick="goToShippingStep()" class="w-full py-4 bg-[#FFE600] text-black font-bold rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,230,0,0.15)]">
+                        AVANÇAR PARA ENTREGA <i class="fa-solid fa-arrow-right text-[12px]"></i>
+                    </button>
+                    <button onclick="closeCart()" class="w-full mt-4 text-[9px] uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors">
+                        CONTINUAR COMPRANDO
+                    </button>
+                </div>
             </div>
-            <button onclick="finalizarCompra()" class="w-full py-4 bg-[#FFE600] text-black font-bold rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,230,0,0.15)]">
-                <i class="fa-solid fa-lock text-[12px]"></i> FINALIZAR COMPRA
-            </button>
-            <button onclick="closeCart()" class="w-full mt-4 text-[9px] uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors">
-                CONTINUAR COMPRANDO
-            </button>
+
+            <!-- ETAPA 2: DADOS DE ENTREGA -->
+            <div id="cart-step-2" class="w-full flex-shrink-0 flex flex-col h-full absolute top-0 left-full transition-transform duration-500 ease-in-out">
+                <div class="flex-1 overflow-y-auto p-6 flex flex-col">
+                    
+                    <button onclick="backToCartStep()" class="text-[10px] text-zinc-400 uppercase tracking-widest hover:text-[#FFE600] flex items-center gap-2 mb-6 w-fit transition">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar aos itens
+                    </button>
+
+                    <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-white mb-6 border-b border-white/10 pb-3">Informações de Envio</h3>
+                    
+                    <form id="shipping-form" class="flex flex-col gap-4">
+                        <div>
+                            <input type="text" id="ship-nome" required placeholder="NOME COMPLETO" class="shipping-input">
+                        </div>
+                        <div>
+                            <input type="tel" id="ship-whatsapp" required placeholder="WHATSAPP (DDD + NÚMERO)" class="shipping-input">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <!-- Busca o CEP ao perder o foco (onblur) -->
+                                <input type="text" id="ship-cep" required placeholder="CEP" maxlength="9" onblur="buscarCEP(this.value)" class="shipping-input">
+                                <span id="cep-feedback" class="text-[9px] text-[#FFE600] mt-1 hidden">Buscando CEP...</span>
+                            </div>
+                            <div>
+                                <input type="text" id="ship-estado" required placeholder="ESTADO (UF)" maxlength="2" class="shipping-input uppercase">
+                            </div>
+                        </div>
+                        <div>
+                            <input type="text" id="ship-cidade" required placeholder="CIDADE" class="shipping-input">
+                        </div>
+                        <div>
+                            <input type="text" id="ship-bairro" required placeholder="BAIRRO" class="shipping-input">
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="col-span-2">
+                                <input type="text" id="ship-rua" required placeholder="RUA / LOGRADOURO" class="shipping-input">
+                            </div>
+                            <div>
+                                <input type="text" id="ship-numero" required placeholder="NÚMERO" class="shipping-input">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="p-6 border-t border-white/10 bg-zinc-950">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-xs uppercase tracking-widest text-zinc-400">Total a Pagar</span>
+                        <span id="cart-total-step2" class="text-xl font-bold text-white product-price">R$ 0,00</span>
+                    </div>
+                    <!-- Finaliza enviando dados + produtos -->
+                    <button onclick="finalizarCompra()" id="btn-finalizar" class="w-full py-4 bg-[#FFE600] text-black font-bold rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,230,0,0.15)]">
+                        <i class="fa-solid fa-lock text-[12px]"></i> FINALIZAR E PAGAR
+                    </button>
+                    <p class="text-center text-[8px] text-zinc-600 uppercase tracking-widest mt-4">Transação 100% segura via Mercado Pago</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -1166,9 +1254,10 @@
                 });
             }
             
-            // Atualiza o total
+            // Atualiza os totais (Etapa 1 e Etapa 2)
             const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             document.getElementById('cart-total').innerText = formatMoney(total);
+            document.getElementById('cart-total-step2').innerText = formatMoney(total);
         }
 
         function addToCart(productName, price, image) {
@@ -1195,6 +1284,8 @@
         function removeFromCart(index) {
             cartItems.splice(index, 1);
             updateCartUI();
+            // Se carrinho ficar vazio e estiver na etapa 2, voltar para etapa 1
+            if(cartItems.length === 0) backToCartStep();
         }
 
         function changeQuantity(index, delta) {
@@ -1210,7 +1301,6 @@
             document.getElementById('cart-drawer').classList.remove('translate-x-full');
             const overlay = document.getElementById('cart-overlay');
             overlay.classList.remove('hidden');
-            // Pequeno delay para acionar a transição do Tailwind
             setTimeout(() => overlay.classList.remove('opacity-0'), 10);
         }
 
@@ -1218,59 +1308,114 @@
             document.getElementById('cart-drawer').classList.add('translate-x-full');
             const overlay = document.getElementById('cart-overlay');
             overlay.classList.add('opacity-0');
-            setTimeout(() => overlay.classList.add('hidden'), 500); // Aguarda a animação
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                backToCartStep(); // Reseta para a view de itens quando fechado
+            }, 500);
         }
 
-        async function finalizarCompra() {
+        // --- Navegação entre Etapas no Carrinho ---
+        function goToShippingStep() {
             if (cartItems.length === 0) {
-                alert("Seu carrinho está vazio.");
+                alert("Adicione itens ao carrinho primeiro.");
+                return;
+            }
+            document.getElementById('cart-step-1').style.transform = 'translateX(-100%)';
+            document.getElementById('cart-step-2').style.transform = 'translateX(-100%)';
+        }
+
+        function backToCartStep() {
+            document.getElementById('cart-step-1').style.transform = 'translateX(0)';
+            document.getElementById('cart-step-2').style.transform = 'translateX(0)';
+        }
+
+        // --- Busca de CEP Automática (UX de Alto Padrão) ---
+        async function buscarCEP(cepInput) {
+            const cep = cepInput.replace(/\D/g, ''); // limpa não números
+            const feedback = document.getElementById('cep-feedback');
+            
+            if (cep.length === 8) {
+                feedback.classList.remove('hidden');
+                feedback.innerText = "Buscando CEP...";
+                feedback.classList.replace('text-red-400', 'text-[#FFE600]');
+
+                try {
+                    const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                    const data = await response.json();
+                    
+                    if (!data.erro) {
+                        document.getElementById('ship-rua').value = data.logradouro;
+                        document.getElementById('ship-bairro').value = data.bairro;
+                        document.getElementById('ship-cidade').value = data.localidade;
+                        document.getElementById('ship-estado').value = data.uf;
+                        document.getElementById('ship-numero').focus(); // Manda cursor para número
+                        feedback.classList.add('hidden');
+                    } else {
+                        feedback.innerText = "CEP não encontrado.";
+                        feedback.classList.replace('text-[#FFE600]', 'text-red-400');
+                    }
+                } catch (err) {
+                    feedback.classList.add('hidden');
+                }
+            }
+        }
+
+        // --- Finalização da Compra com Dados de Entrega ---
+        async function finalizarCompra() {
+            const form = document.getElementById('shipping-form');
+            if (!form.checkValidity()) {
+                form.reportValidity(); // Mostra avisos nativos do HTML se faltar campo
                 return;
             }
 
-            // Efeito visual de loading no botão
-            const btn = document.querySelector('button[onclick="finalizarCompra()"]');
+            // Coletar dados do formulário
+            const shippingData = {
+                nome: document.getElementById('ship-nome').value,
+                whatsapp: document.getElementById('ship-whatsapp').value,
+                cep: document.getElementById('ship-cep').value,
+                rua: document.getElementById('ship-rua').value,
+                numero: document.getElementById('ship-numero').value,
+                bairro: document.getElementById('ship-bairro').value,
+                cidade: document.getElementById('ship-cidade').value,
+                estado: document.getElementById('ship-estado').value
+            };
+
+            const btn = document.getElementById('btn-finalizar');
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-[12px]"></i> PROCESSANDO...';
             btn.disabled = true;
 
             try {
-                const response = await fetch(
-                    "https://jpjoiais.vercel.app/api/checkout",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            items: cartItems
-                        })
-                    }
-                );
+                const response = await fetch("https://jpjoiais.vercel.app/api/checkout", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        items: cartItems,
+                        shipping: shippingData // Enviando os dados junto!
+                    })
+                });
 
                 const data = await response.json();
 
                 if (data.init_point) {
                     window.location.href = data.init_point;
                 } else {
-                    alert("Erro ao criar pagamento.");
+                    alert("Erro ao criar pagamento. Verifique os dados.");
                     console.log(data);
-                    
-                    // Restaura o botão em caso de erro
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                 }
-
             } catch (error) {
                 console.error(error);
                 alert("Erro ao conectar com o servidor.");
-                
-                // Restaura o botão em caso de erro
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }
         }
 
-        // --- Animações e Navegação ---
+        // --- Animações e Navegação (ORIGINAL) ---
         const canvas = document.getElementById("hero-canvas");
         const ctx = canvas.getContext("2d");
         let images = [];
@@ -1280,6 +1425,7 @@
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
+                // Utilizando a sequência de imagens luxuosa base do script original
                 img.src = `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_bb8e_cc9a4214270b/anim/sequence/large/01-hero-lightpass/${i.toString().padStart(4, '0')}.jpg`;
                 images.push(img);
             }
@@ -1338,6 +1484,7 @@
 
         window.addEventListener('resize', render);
 
+        // Lógica dos menus
         const menuToggleBtn = document.getElementById('menu-toggle-btn');
         const menuCloseBtn = document.getElementById('menu-close-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -1357,6 +1504,7 @@
             link.addEventListener('click', closeMenu);
         });
 
+        // FAQ
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
             item.addEventListener('click', () => {
@@ -1368,6 +1516,7 @@
             });
         });
 
+        // Newsletter
         const newsletterForm = document.getElementById('newsletter-form');
         const newsletterMsg = document.getElementById('newsletter-message');
         const newsletterBtn = document.getElementById('newsletter-btn');
