@@ -255,9 +255,15 @@
             </a>
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-6">
+            <!-- Ícone de Carrinho de Compras -->
+            <button onclick="openCart()" class="relative flex items-center justify-center text-white hover:text-[#FFE600] transition group cursor-pointer">
+                <i class="fa-solid fa-cart-shopping text-sm"></i>
+                <span id="cart-count" class="absolute -top-2.5 -right-2.5 bg-[#FFE600] text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            </button>
+
             <button id="menu-toggle-btn" class="flex items-center gap-3 text-[9px] uppercase tracking-[0.3em] cursor-pointer border-b border-white/10 hover:border-[#FFE600] hover:text-[#FFE600] transition py-1.5 px-1 font-medium group">
-                <span class="inline-block">Menu</span>
+                <span class="inline-block hidden sm:inline-block">Menu</span>
                 <div class="flex flex-col gap-[3px] w-4">
                     <span class="w-full h-[1px] bg-white group-hover:bg-[#FFE600] transition-all duration-300"></span>
                     <span class="w-2/3 h-[1px] bg-white group-hover:bg-[#FFE600] group-hover:w-full transition-all duration-300 self-end"></span>
@@ -317,12 +323,12 @@
             
             <p class="text-[10px] md:text-sm font-light tracking-[0.8em] uppercase mb-12 text-zinc-400 opacity-0" id="subtitle">Legado & Identidade</p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0" id="ctas">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 w-full md:w-auto" id="ctas">
                 <a href="#produtos-anchor" class="px-12 py-5 bg-white text-black rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-zinc-200 transition flex items-center justify-center">
-                    Ver Coleções
+                    VER PRODUTOS
                 </a>
-                <a href="https://wa.link/jxxpvt" target="_blank" class="px-12 py-5 border border-emerald-500/30 text-emerald-400 bg-emerald-950/20 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-500/10 hover:border-emerald-400 hover:text-emerald-300 transition flex items-center justify-center gap-2">
-                    Atendimento Exclusivo <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
+                <a href="#produtos-anchor" class="px-12 py-5 border border-[#FFE600]/30 text-[#FFE600] bg-[#FFE600]/10 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-[#FFE600]/20 hover:border-[#FFE600] hover:text-yellow-300 transition flex items-center justify-center gap-2">
+                    COMPRAR PELO MERCADO LIVRE
                 </a>
             </div>
         </div>
@@ -378,13 +384,16 @@
                             <span class="text-[8px] uppercase tracking-widest text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full">Mais vendido</span>
                         </div>
                         
-                        <div class="w-full mt-auto">
-                            <div class="flex items-center justify-center gap-3 mb-4">
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex items-center justify-center gap-3 mb-2">
                                 <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 89,90</span>
                                 <span class="text-white text-lg font-bold product-price">Por: R$ 69,90</span>
                             </div>
-                            <a href="https://produto.mercadolivre.com.br/MLB-6809269232-corrente-2mm-70cm-_JM" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
-                                COMPRAR AGORA
+                            <button onclick="addToCart('Corrente 2mm | 70cm', 69.90, 'https://i.imgur.com/kZTZowV.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <a href="https://produto.mercadolivre.com.br/MLB-6809269232-corrente-2mm-70cm-_JM" target="_blank" class="w-full py-2.5 px-4 rounded-full font-bold text-[9px] uppercase tracking-[0.1em] flex items-center justify-center gap-2 bg-[#FFE600] text-black hover:bg-yellow-400 transition-colors">
+                                Comprar pelo Mercado Livre
                             </a>
                         </div>
                     </div>
@@ -509,13 +518,16 @@
                             <span class="text-zinc-400 text-[10px] font-medium">(34)</span>
                         </div>
                         
-                        <div class="w-full mt-auto">
-                            <div class="flex items-center justify-center gap-3 mb-4">
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex items-center justify-center gap-3 mb-2">
                                 <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 79,90</span>
                                 <span class="text-white text-lg font-bold product-price">Por: R$ 49,90</span>
                             </div>
-                            <a href="https://produto.mercadolivre.com.br/MLB-4697955919-anel-esoterico-_JM" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
-                                COMPRAR AGORA
+                            <button onclick="addToCart('Anel Esotérico', 49.90, 'https://i.imgur.com/QDAz95I.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <a href="https://produto.mercadolivre.com.br/MLB-4697955919-anel-esoterico-_JM" target="_blank" class="w-full py-2.5 px-4 rounded-full font-bold text-[9px] uppercase tracking-[0.1em] flex items-center justify-center gap-2 bg-[#FFE600] text-black hover:bg-yellow-400 transition-colors">
+                                Comprar pelo Mercado Livre
                             </a>
                         </div>
                     </div>
@@ -544,13 +556,16 @@
                             <span class="text-zinc-400 text-[10px] font-medium">(28)</span>
                         </div>
                         
-                        <div class="w-full mt-auto">
-                            <div class="flex items-center justify-center gap-3 mb-4">
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex items-center justify-center gap-3 mb-2">
                                 <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 74,90</span>
                                 <span class="text-white text-lg font-bold product-price">Por: R$ 49,90</span>
                             </div>
-                            <a href="https://produto.mercadolivre.com.br/MLB-6808957208-anel-vintage-solar-_JM" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
-                                COMPRAR AGORA
+                            <button onclick="addToCart('Anel Vintage Solar', 49.90, 'https://i.imgur.com/aqejq0a.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <a href="https://produto.mercadolivre.com.br/MLB-6808957208-anel-vintage-solar-_JM" target="_blank" class="w-full py-2.5 px-4 rounded-full font-bold text-[9px] uppercase tracking-[0.1em] flex items-center justify-center gap-2 bg-[#FFE600] text-black hover:bg-yellow-400 transition-colors">
+                                Comprar pelo Mercado Livre
                             </a>
                         </div>
                     </div>
@@ -579,13 +594,16 @@
                             <span class="text-zinc-400 text-[10px] font-medium">(87)</span>
                         </div>
                         
-                        <div class="w-full mt-auto">
-                            <div class="flex items-center justify-center gap-3 mb-4">
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex items-center justify-center gap-3 mb-2">
                                 <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 89,90</span>
                                 <span class="text-white text-lg font-bold product-price">Por: R$ 49,90</span>
                             </div>
-                            <a href="https://produto.mercadolivre.com.br/MLB-6838492030-anel-roma-imperial-_JM" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
-                                COMPRAR AGORA
+                            <button onclick="addToCart('Anel Roma Imperial', 49.90, 'https://i.imgur.com/8KoXnpY.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <a href="https://produto.mercadolivre.com.br/MLB-6838492030-anel-roma-imperial-_JM" target="_blank" class="w-full py-2.5 px-4 rounded-full font-bold text-[9px] uppercase tracking-[0.1em] flex items-center justify-center gap-2 bg-[#FFE600] text-black hover:bg-yellow-400 transition-colors">
+                                Comprar pelo Mercado Livre
                             </a>
                         </div>
                     </div>
@@ -637,13 +655,16 @@
                             <span class="text-zinc-400 text-[10px] font-medium">(251)</span>
                         </div>
                         
-                        <div class="w-full mt-auto">
-                            <div class="flex items-center justify-center gap-3 mb-4">
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex items-center justify-center gap-3 mb-2">
                                 <span class="text-zinc-400 line-through text-sm font-medium tracking-wide product-price">De: R$ 95,00</span>
                                 <span class="text-white text-base font-bold product-price">Por: R$ 74,90</span>
                             </div>
-                            <a href="https://produto.mercadolivre.com.br/MLB-4697983135-pulseira-elo-cartier-2mm-_JM" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
-                                COMPRAR AGORA
+                            <button onclick="addToCart('Pulseira Elo Cartier | 2mm', 74.90, 'https://i.imgur.com/AfeXemE.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <a href="https://produto.mercadolivre.com.br/MLB-4697983135-pulseira-elo-cartier-2mm-_JM" target="_blank" class="w-full py-2.5 px-4 rounded-full font-bold text-[9px] uppercase tracking-[0.1em] flex items-center justify-center gap-2 bg-[#FFE600] text-black hover:bg-yellow-400 transition-colors">
+                                Comprar pelo Mercado Livre
                             </a>
                         </div>
                     </div>
@@ -699,15 +720,17 @@
                             <span class="text-zinc-400 text-[10px] font-medium">(47)</span>
                         </div>
                         
-                        <div class="w-full mt-auto">
-                            <div class="flex flex-col items-center justify-center mb-5">
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex flex-col items-center justify-center mb-2">
                                 <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 144,90</span>
                                 <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 119,90</span>
                                 <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 25,00</span>
-                                <span class="text-[10px] text-zinc-500 mt-2 font-light">ou em até 12x no cartão</span>
                             </div>
-                            <a href="https://produto.mercadolivre.com.br/MLB-4695907447-corrente-2mm-pulseira-elo-cartier-2mm-_JM" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
-                                COMPRAR AGORA
+                            <button onclick="addToCart('Kit JP', 119.90, 'https://i.imgur.com/kZTZowV.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <a href="https://produto.mercadolivre.com.br/MLB-4695907447-corrente-2mm-pulseira-elo-cartier-2mm-_JM" target="_blank" class="w-full py-2.5 px-4 rounded-full font-bold text-[9px] uppercase tracking-[0.1em] flex items-center justify-center gap-2 bg-[#FFE600] text-black hover:bg-yellow-400 transition-colors">
+                                Comprar pelo Mercado Livre
                             </a>
                         </div>
                     </div>
@@ -738,15 +761,17 @@
                             <span class="text-zinc-400 text-[10px] font-medium">(42)</span>
                         </div>
                         
-                        <div class="w-full mt-auto">
-                            <div class="flex flex-col items-center justify-center mb-5">
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex flex-col items-center justify-center mb-2">
                                 <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 99,80</span>
                                 <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 79,90</span>
                                 <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 19,90</span>
-                                <span class="text-[10px] text-zinc-500 mt-2 font-light">ou em até 12x no cartão</span>
                             </div>
-                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
-                                COMPRAR AGORA
+                            <button onclick="addToCart('Duo Alquimia', 79.90, 'https://i.imgur.com/QDAz95I.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="w-full py-2.5 px-4 rounded-full font-bold text-[9px] uppercase tracking-[0.1em] flex items-center justify-center gap-2 bg-[#FFE600] text-black hover:bg-yellow-400 transition-colors">
+                                Comprar pelo Mercado Livre
                             </a>
                         </div>
                     </div>
@@ -767,7 +792,7 @@
                         </div>
                         
                         <h3 class="product-title text-sm text-zinc-200 mb-1">KIT Legado</h3>
-                        <p class="product-desc text-[10px] text-zinc-400 mb-3">Corrente 2mm + Pulseira + Anel Vintage</p>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-3">Corrente 2mm + Pulseira + Anel</p>
                         
                         <div class="flex items-center justify-center gap-1.5 mb-4">
                             <div class="flex text-[#FFE600] text-[10px]">
@@ -780,15 +805,17 @@
                             <span class="text-zinc-400 text-[10px] font-medium">(58)</span>
                         </div>
                         
-                        <div class="w-full mt-auto">
-                            <div class="flex flex-col items-center justify-center mb-5">
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex flex-col items-center justify-center mb-2">
                                 <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 194,70</span>
                                 <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 159,90</span>
                                 <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 34,80</span>
-                                <span class="text-[10px] text-zinc-500 mt-2 font-light">ou em até 12x no cartão</span>
                             </div>
-                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
-                                COMPRAR AGORA
+                            <button onclick="addToCart('KIT Legado', 159.90, 'https://i.imgur.com/kZTZowV.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <a href="https://lista.mercadolivre.com.br/joias-relogios/" target="_blank" class="w-full py-2.5 px-4 rounded-full font-bold text-[9px] uppercase tracking-[0.1em] flex items-center justify-center gap-2 bg-[#FFE600] text-black hover:bg-yellow-400 transition-colors">
+                                Comprar pelo Mercado Livre
                             </a>
                         </div>
                     </div>
@@ -1028,7 +1055,148 @@
         </footer>
     </main>
 
+    <!-- Toast de Notificação do Carrinho -->
+    <div id="cart-toast" class="fixed bottom-5 right-5 translate-y-[150%] opacity-0 bg-white text-black px-6 py-4 rounded-lg shadow-[0_10px_40px_rgba(255,230,0,0.15)] z-[100] transition-all duration-500 ease-out flex items-center gap-4 border border-[#FFE600]">
+        <div class="w-8 h-8 rounded-full bg-[#FFE600]/20 flex items-center justify-center text-yellow-600">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider mb-0.5">No Carrinho!</h4>
+            <p id="cart-toast-msg" class="text-[10px] text-zinc-600">Produto adicionado com sucesso.</p>
+        </div>
+    </div>
+
+    <!-- Overlay do Carrinho -->
+    <div id="cart-overlay" onclick="closeCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[99] hidden opacity-0 transition-opacity duration-500"></div>
+
+    <!-- Carrinho Drawer Lateral -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-black/95 backdrop-blur-3xl z-[100] translate-x-full transition-transform duration-500 ease-out flex flex-col border-l border-white/10">
+        <!-- Header -->
+        <div class="flex justify-between items-center p-6 border-b border-white/10">
+            <h2 class="text-lg font-serif tracking-widest text-white uppercase flex items-center gap-3">
+                <i class="fa-solid fa-cart-shopping text-[#FFE600] text-sm"></i> Seu Carrinho
+            </h2>
+            <button onclick="closeCart()" class="text-zinc-400 hover:text-[#FFE600] transition cursor-pointer p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Itens -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+            <!-- Itens injetados pelo JS -->
+        </div>
+        
+        <!-- Footer -->
+        <div class="p-6 border-t border-white/10 bg-zinc-950">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-xs uppercase tracking-widest text-zinc-400">Total Previsto</span>
+                <span id="cart-total" class="text-xl font-bold text-white product-price">R$ 0,00</span>
+            </div>
+            <button onclick="closeCart()" class="premium-btn w-full py-4 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                CONTINUAR COMPRANDO
+            </button>
+        </div>
+    </div>
+
     <script>
+        // --- Lógica do Carrinho ---
+        let cartItems = [];
+
+        function formatMoney(amount) {
+            return amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function updateCartUI() {
+            // Atualiza o contador na navbar
+            const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+            
+            // Atualiza a lista no drawer
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+            
+            if (cartItems.length === 0) {
+                container.innerHTML = '<p class="text-zinc-500 text-xs text-center my-auto flex-1 flex items-center justify-center uppercase tracking-widest">Seu carrinho está vazio.</p>';
+            } else {
+                cartItems.forEach((item, index) => {
+                    container.innerHTML += `
+                        <div class="flex gap-4 items-center bg-white/[0.02] p-3 rounded-lg border border-white/5 relative group">
+                            <div class="w-16 h-20 bg-black rounded overflow-hidden flex-shrink-0 border border-white/10">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition">
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-[10px] text-zinc-200 uppercase tracking-wider mb-1 pr-6 leading-relaxed">${item.name}</h4>
+                                <span class="text-xs text-[#FFE600] font-bold">${formatMoney(item.price)}</span>
+                                <div class="flex items-center gap-3 mt-2 bg-black w-fit rounded-full px-2 py-1 border border-white/10">
+                                    <button onclick="changeQuantity(${index}, -1)" class="text-zinc-400 hover:text-[#FFE600] transition w-4 h-4 flex items-center justify-center"><i class="fa-solid fa-minus text-[8px]"></i></button>
+                                    <span class="text-[10px] text-zinc-300 font-medium w-4 text-center">${item.quantity}</span>
+                                    <button onclick="changeQuantity(${index}, 1)" class="text-zinc-400 hover:text-[#FFE600] transition w-4 h-4 flex items-center justify-center"><i class="fa-solid fa-plus text-[8px]"></i></button>
+                                </div>
+                            </div>
+                            <button onclick="removeFromCart(${index})" class="absolute top-3 right-3 text-zinc-600 hover:text-red-500 transition px-1">
+                                <i class="fa-solid fa-trash text-xs"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            
+            // Atualiza o total
+            const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            document.getElementById('cart-total').innerText = formatMoney(total);
+        }
+
+        function addToCart(productName, price, image) {
+            const existingItem = cartItems.find(item => item.name === productName);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cartItems.push({ name: productName, price: price, image: image, quantity: 1 });
+            }
+            
+            updateCartUI();
+            openCart(); // Abre o carrinho lateral automaticamente
+            
+            // Exibe a notificação flutuante extra
+            const toast = document.getElementById('cart-toast');
+            const msg = document.getElementById('cart-toast-msg');
+            msg.innerText = productName + ' foi adicionado.';
+            toast.classList.remove('translate-y-[150%]', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-[150%]', 'opacity-0');
+            }, 3000);
+        }
+
+        function removeFromCart(index) {
+            cartItems.splice(index, 1);
+            updateCartUI();
+        }
+
+        function changeQuantity(index, delta) {
+            if (cartItems[index].quantity + delta > 0) {
+                cartItems[index].quantity += delta;
+            } else {
+                removeFromCart(index);
+            }
+            updateCartUI();
+        }
+
+        function openCart() {
+            document.getElementById('cart-drawer').classList.remove('translate-x-full');
+            const overlay = document.getElementById('cart-overlay');
+            overlay.classList.remove('hidden');
+            // Pequeno delay para acionar a transição do Tailwind
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+        }
+
+        function closeCart() {
+            document.getElementById('cart-drawer').classList.add('translate-x-full');
+            const overlay = document.getElementById('cart-overlay');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 500); // Aguarda a animação
+        }
+
+        // --- Animações e Navegação ---
         const canvas = document.getElementById("hero-canvas");
         const ctx = canvas.getContext("2d");
         let images = [];
