@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Entregas | JP Joias</title>
+    
+    <!-- Favicon Minimalista JP -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' stroke='%23FFE600' stroke-width='1' fill='none' opacity='0.8'/%3E%3Ctext x='51' y='54' font-family='Cinzel, Georgia, serif' font-size='30' font-weight='300' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle' letter-spacing='3'%3EJP%3C/text%3E%3C/svg%3E">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP para animações -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Fontes de Luxo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .product-price {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FFE600; }
+
+        /* Preloader */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+        }
+        .loader-line { width: 0; height: 1px; background: rgba(255,255,255,0.3); margin-top: 20px; }
+        .loader-logo { font-size: 1.5rem; letter-spacing: 1rem; opacity: 0; transform: translateY(10px); }
+
+        /* Nav Minimalista */
+        nav {
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        nav.scrolled {
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(20px);
+            padding-top: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .luxury-text {
+            background: linear-gradient(to right, #ffffff 20%, #FFE600 40%, #a1a1aa 60%, #ffffff 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 6s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* Social Icons */
+        .social-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .social-btn:hover {
+            border-color: #FFE600; background: rgba(255, 230, 0, 0.05); transform: translateY(-3px);
+        }
+
+        .premium-btn {
+            position: relative; overflow: hidden; background: #ffffff; color: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.9); transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); z-index: 1;
+        }
+        .premium-btn::before {
+            content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: skewX(-20deg); transition: all 0.8s ease; z-index: -1;
+        }
+        .premium-btn:hover::before { left: 150%; }
+        .premium-btn:hover {
+            background: #000000; color: #ffffff; border-color: #ffffff; transform: translateY(-4px); box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .shipping-input {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px;
+            color: white; padding: 10px 14px; font-size: 11px; width: 100%; outline: none; transition: all 0.3s ease;
+        }
+        .shipping-input:focus { border-color: #FFE600; background: rgba(255, 230, 0, 0.02); }
+        .shipping-input::placeholder { color: rgba(255, 255, 255, 0.3); text-transform: uppercase; letter-spacing: 0.1em; font-size: 9px; }
+
+        .policy-section {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    </style>
+</head>
+<body class="bg-[#050505]">
+
+    <!-- Preloader de Luxo -->
+    <div id="loader">
+        <div class="loader-logo font-serif text-white uppercase tracking-[1.2em]" id="loader-brand">JP Joias</div>
+        <div class="loader-line" id="loader-progress"></div>
+    </div>
+
+    <!-- Navegação Superior -->
+    <nav id="main-nav" class="fixed top-0 w-full z-50 px-6 md:px-16 py-6 flex justify-between items-center bg-[#050505]/80 backdrop-blur-md">
+        <a href="index.html" class="text-2xl font-serif tracking-widest uppercase font-semibold hover:opacity-80 transition">JP</a>
+        
+        <div class="hidden lg:flex space-x-10 text-[9px] uppercase tracking-[0.45em] font-medium text-zinc-300">
+            <a href="index.html#correntes" class="relative py-1 transition hover:text-white group">
+                Correntes
+                <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FFE600] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="index.html#pulseiras" class="relative py-1 transition hover:text-white group">
+                Pulseiras
+                <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FFE600] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="index.html#aneis" class="relative py-1 transition hover:text-white group">
+                Anéis
+                <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FFE600] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="index.html#combos" class="relative py-1 transition hover:text-[#FFE600] group text-white">
+                KITS JP
+                <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[#FFE600]/30 transition-all duration-300 group-hover:bg-[#FFE600]"></span>
+            </a>
+            <a href="index.html#faq" class="relative py-1 transition hover:text-white group">
+                Garantia
+                <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FFE600] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <button onclick="openCart()" class="relative flex items-center justify-center text-white hover:text-[#FFE600] transition group cursor-pointer">
+                <i class="fa-solid fa-cart-shopping text-sm"></i>
+                <span id="cart-count" class="absolute -top-2.5 -right-2.5 bg-[#FFE600] text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            </button>
+
+            <button id="menu-toggle-btn" class="flex items-center gap-3 text-[9px] uppercase tracking-[0.3em] cursor-pointer border-b border-white/10 hover:border-[#FFE600] hover:text-[#FFE600] transition py-1.5 px-1 font-medium group">
+                <span class="inline-block hidden sm:inline-block">Menu</span>
+                <div class="flex flex-col gap-[3px] w-4">
+                    <span class="w-full h-[1px] bg-white group-hover:bg-[#FFE600] transition-all duration-300"></span>
+                    <span class="w-2/3 h-[1px] bg-white group-hover:bg-[#FFE600] group-hover:w-full transition-all duration-300 self-end"></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Menu Lateral Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/98 backdrop-blur-2xl z-50 translate-x-full transition-transform duration-500 ease-out flex flex-col justify-between p-8 md:p-16">
+        <div class="flex justify-between items-center w-full">
+            <span class="text-xl font-serif tracking-widest font-semibold text-zinc-300">JP ATELIER</span>
+            <button id="menu-close-btn" class="flex items-center gap-2 text-zinc-400 text-[9px] uppercase tracking-[0.3em] font-medium hover:text-[#FFE600] transition py-2 px-1">
+                Fechar 
+                <div class="relative w-3.5 h-3.5 flex items-center justify-center">
+                    <span class="absolute w-full h-[1px] bg-zinc-400 rotate-45"></span>
+                    <span class="absolute w-full h-[1px] bg-zinc-400 -rotate-45"></span>
+                </div>
+            </button>
+        </div>
+
+        <div class="flex flex-col space-y-5 my-auto max-w-md">
+            <span class="text-[9px] uppercase tracking-[0.4em] text-zinc-600 font-semibold border-b border-white/5 pb-2">Coleções Exclusivas</span>
+            <a href="index.html#correntes" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Correntes de Prata</a>
+            <a href="index.html#pulseiras" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Pulseiras de Luxo</a>
+            <a href="index.html#aneis" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Anéis Exclusivos</a>
+            <a href="index.html#combos" class="mobile-link text-2xl font-serif text-white hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2 flex items-center gap-2">Kits & Combos <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-sans bg-[#FFE600]/10 text-[#FFE600] px-2 py-0.5 rounded-full">Desconto</span></a>
+            <a href="index.html#faq" class="mobile-link text-2xl font-serif text-zinc-300 hover:text-[#FFE600] transition-all hover:pl-2 duration-300 py-2">Garantia & Autenticidade</a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 border-t border-white/5 pt-8 w-full max-w-md">
+            <div>
+                <span class="text-[8px] uppercase tracking-[0.3em] text-zinc-600 block mb-2">Suporte por WhatsApp</span>
+                <a href="https://wa.me/5531920067518" target="_blank" class="text-[10px] uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition flex items-center gap-1.5 font-medium">
+                    <i class="fa-brands fa-whatsapp"></i> Falar com Ourives
+                </a>
+            </div>
+            <div>
+                <span class="text-[8px] uppercase tracking-[0.3em] text-zinc-600 block mb-2">Acompanhe no Instagram</span>
+                <a href="https://instagram.com/jpjoiasbrasil" target="_blank" class="text-[10px] uppercase tracking-wider text-zinc-400 hover:text-white transition flex items-center gap-1.5 font-medium">
+                    <i class="fa-brands fa-instagram"></i> @jpjoiasbrasil
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="pt-32 md:pt-40 pb-20 px-6 relative z-10" id="policy-wrapper" style="opacity: 0;">
+        <div class="max-w-4xl mx-auto">
+            
+            <header class="text-center mb-16 md:mb-24">
+                <span class="text-[10px] uppercase tracking-[0.5em] text-[#FFE600] block mb-4 font-medium">Logística & Rapidez</span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif mb-6 luxury-text">Política de Entregas</h1>
+                <p class="text-zinc-400 font-light tracking-widest uppercase text-xs">Compromisso JP Joias com a sua entrega</p>
+            </header>
+
+            <div class="space-y-12 md:space-y-16">
+                <!-- Introdução -->
+                <section class="policy-section bg-zinc-950/40 p-8 md:p-12 rounded-2xl border border-white/5">
+                    <h2 class="text-2xl font-serif text-white mb-4 flex items-center gap-4">
+                        <span class="w-8 h-[1px] bg-[#FFE600]"></span> Experiência Completa
+                    </h2>
+                    <p class="text-zinc-400 font-light leading-relaxed text-sm md:text-base">
+                        A JP Joias trabalha para garantir que sua experiência de compra seja perfeita em todas as etapas: desde a escolha atenciosa da sua joia até a entrega segura em suas mãos. Confira abaixo como funciona o nosso processo de envio.
+                    </p>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-12 border-t border-white/5 pt-12">
+                    
+                    <!-- Item 1 -->
+                    <div class="policy-section">
+                        <h3 class="text-lg md:text-xl font-serif text-white mb-3 flex items-center gap-3">
+                            <span class="text-[#FFE600] text-sm tracking-[0.2em] font-sans font-bold">01.</span> Prazo de Postagem
+                        </h3>
+                        <div class="text-zinc-400 font-light text-sm pl-8 border-l border-white/10 ml-3 space-y-3">
+                            <p>O prazo para despacharmos o seu pedido é de <strong>até 2 dias úteis</strong> após a confirmação rigorosa do pagamento.</p>
+                            <p>Durante este período, nosso ateliê separa, confere e embala cada joia com todo o cuidado e requinte que você merece.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="policy-section">
+                        <h3 class="text-lg md:text-xl font-serif text-white mb-3 flex items-center gap-3">
+                            <span class="text-[#FFE600] text-sm tracking-[0.2em] font-sans font-bold">02.</span> Formas de Entrega
+                        </h3>
+                        <ul class="space-y-3 text-zinc-400 font-light text-sm pl-8 border-l border-white/10 ml-3">
+                            <li><strong class="text-zinc-200 font-medium">Correios:</strong> Opções de PAC e SEDEX para todo o território nacional.</li>
+                            <li><strong class="text-zinc-200 font-medium">Transportadora Parceira:</strong> Envio seguro e ágil via Total Express ou Mercado Envios.</li>
+                            <li class="mt-2 text-xs italic text-zinc-500">A escolha da modalidade ideal é feita por você no momento da finalização da compra.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="policy-section">
+                        <h3 class="text-lg md:text-xl font-serif text-white mb-3 flex items-center gap-3">
+                            <span class="text-[#FFE600] text-sm tracking-[0.2em] font-sans font-bold">03.</span> Prazos de Entrega
+                        </h3>
+                        <ul class="space-y-3 text-zinc-400 font-light text-sm pl-8 border-l border-white/10 ml-3">
+                            <li>O prazo de entrega efetivo varia de acordo com o seu CEP e a modalidade de envio escolhida.</li>
+                            <li>A contagem do prazo se inicia somente <strong>a partir da confirmação do pagamento e da postagem física</strong> do pedido.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="policy-section">
+                        <h3 class="text-lg md:text-xl font-serif text-white mb-3 flex items-center gap-3">
+                            <span class="text-[#FFE600] text-sm tracking-[0.2em] font-sans font-bold">04.</span> Rastreamento
+                        </h3>
+                        <div class="text-zinc-400 font-light text-sm pl-8 border-l border-white/10 ml-3 space-y-3">
+                            <p>Transparência total: assim que seu pedido for enviado, você receberá um e-mail automático contendo o <strong>código de rastreamento</strong> e todas as instruções necessárias.</p>
+                            <p>Se preferir, o status completo da entrega também poderá ser acompanhado diretamente pelo nosso site na área do cliente.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="policy-section">
+                        <h3 class="text-lg md:text-xl font-serif text-white mb-3 flex items-center gap-3">
+                            <span class="text-[#FFE600] text-sm tracking-[0.2em] font-sans font-bold">05.</span> Informações Importantes
+                        </h3>
+                        <ul class="space-y-3 text-zinc-400 font-light text-sm pl-8 border-l border-white/10 ml-3">
+                            <li><strong class="text-zinc-200 font-medium">Atenção ao Endereço:</strong> Certifique-se de que os dados cadastrados estão absolutamente corretos para evitar transtornos logísticos.</li>
+                            <li><strong class="text-zinc-200 font-medium">Reenvios:</strong> Caso a encomenda retorne ao nosso ateliê por erro no preenchimento do endereço, ausência prolongada ou impedimento local, um novo envio será programado mediante o pagamento do frete correspondente.</li>
+                            <li><strong class="text-emerald-400/80 font-medium">Garantia de Suporte:</strong> Em eventuais casos de atraso ou intempéries com a transportadora, nosso time de excelência estará à disposição para intervir e solucionar todo o processo para você.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Suporte Contact Block -->
+                <section class="policy-section mt-16 p-10 bg-gradient-to-br from-zinc-900 to-black border border-white/10 rounded-2xl text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[#FFE600]/5 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-serif text-white mb-6">Suporte & Atendimento</h3>
+                        <p class="text-zinc-400 font-light text-sm mb-8 max-w-lg mx-auto">
+                            Ocorreu algum imprevisto com a sua entrega ou possui dúvidas? Conte com nosso suporte premium.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                            <a href="mailto:jpjoiasbrasil@gmail.com" class="text-xs uppercase tracking-widest text-zinc-300 hover:text-white transition flex items-center gap-2">
+                                <i class="fa-regular fa-envelope text-[#FFE600] text-lg"></i> jpjoiasbrasil@gmail.com
+                            </a>
+                            <a href="https://wa.me/5531920067518" target="_blank" class="text-xs uppercase tracking-widest text-zinc-300 hover:text-white transition flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i> +55 (31) 92006-7518
+                            </a>
+                        </div>
+                        <p class="mt-12 text-[9px] uppercase tracking-[0.4em] text-zinc-500 font-medium leading-relaxed">
+                            Obrigado por confiar na JP Joias.<br>
+                            <span class="text-[#FFE600] mt-2 block">Carregue mais do que joias. Carregue um legado.</span>
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé (Idêntico ao index) -->
+    <footer class="pt-16 pb-8 px-6 md:px-12 bg-black text-white border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-4 text-zinc-300">JP JOIAS ATELIER</h5>
+                <p class="text-[11px] font-light leading-relaxed text-zinc-400 mb-4">
+                    Operamos exclusivamente integrados às maiores e mais seguras plataformas de logística e pagamento do país.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://instagram.com/jpjoiasbrasil" target="_blank" class="social-btn" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram text-lg text-white opacity-70 hover:opacity-100 transition"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-4 text-zinc-300">ATENDIMENTO</h5>
+                <div class="space-y-4 text-[11px] font-light text-zinc-400">
+                    <a href="https://wa.link/jxxpvt" target="_blank" class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition font-medium">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Fale conosco
+                    </a>
+                    <p class="mt-2 block">Telefone: (31) 92006-7518</p>
+                    <p class="block">Garantias, trocas ou dúvidas: <a href="index.html#faq" class="underline text-white hover:text-[#FFE600] transition">FAQ & Esclarecimentos</a></p>
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-start items-start">
+                <div class="w-full max-w-[200px] mb-4">
+                    <img src="https://www.mundodeled.com.br/image/catalog/banco%20do%20brasil/bandeiras_cartoes.png" alt="Formas de Pagamento" class="h-8 object-contain opacity-80">
+                </div>
+                <h5 class="text-[10px] font-bold uppercase tracking-[0.3em] mb-4 text-zinc-300">SITE PROTEGIDO E AMBIENTE SEGURO</h5>
+                <p class="text-[11px] font-light leading-relaxed text-zinc-400 mb-4">
+                    Navegação com criptografia SSL de ponta e processamento de pagamentos integrado com todas as principais bandeiras de cartão e PIX.
+                </p>
+                
+                <div class="flex flex-col gap-2 text-[11px] font-light text-zinc-400 mt-2">
+                    <a href="politica-de-trocas.html" class="hover:text-white transition uppercase tracking-wider">Política de Trocas e Devoluções</a>
+                    <a href="politica-de-entregas.html" class="text-white transition uppercase tracking-wider">Política de Entregas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-white/5 text-center">
+            <h2 class="text-3xl font-serif mb-2 luxury-text">JP Joias</h2>
+            <p class="text-[9px] uppercase tracking-[0.5em] opacity-40">&copy; 2026 JP Joias | Todos os direitos reservados.</p>
+            <p class="text-[8px] text-zinc-600 uppercase tracking-widest mt-2">Vendas processadas de forma externa em ambiente totalmente seguro.</p>
+        </div>
+    </footer>
+
+    <!-- Toast de Notificação do Carrinho -->
+    <div id="cart-toast" class="fixed bottom-5 right-5 translate-y-[150%] opacity-0 bg-white text-black px-6 py-4 rounded-lg shadow-[0_10px_40px_rgba(255,230,0,0.15)] z-[100] transition-all duration-500 ease-out flex items-center gap-4 border border-[#FFE600]">
+        <div class="w-8 h-8 rounded-full bg-[#FFE600]/20 flex items-center justify-center text-yellow-600">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider mb-0.5">No Carrinho!</h4>
+            <p id="cart-toast-msg" class="text-[10px] text-zinc-600">Produto adicionado com sucesso.</p>
+        </div>
+    </div>
+
+    <!-- Overlay do Carrinho -->
+    <div id="cart-overlay" onclick="closeCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[99] hidden opacity-0 transition-opacity duration-500"></div>
+
+    <!-- Carrinho Drawer Lateral -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full md:w-[450px] bg-black/95 backdrop-blur-3xl z-[100] translate-x-full transition-transform duration-500 ease-out flex flex-col border-l border-white/10">
+        
+        <div class="flex justify-between items-center p-6 border-b border-white/10 bg-black/50 z-10">
+            <h2 class="text-lg font-serif tracking-widest text-white uppercase flex items-center gap-3">
+                <i class="fa-solid fa-cart-shopping text-[#FFE600] text-sm"></i> Seu Carrinho
+            </h2>
+            <button onclick="closeCart()" class="text-zinc-400 hover:text-[#FFE600] transition cursor-pointer p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="relative flex-1 overflow-hidden flex">
+            <!-- ETAPA 1 -->
+            <div id="cart-step-1" class="w-full flex-shrink-0 flex flex-col h-full transition-transform duration-500 ease-in-out">
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+                    <!-- Itens injetados pelo JS -->
+                </div>
+                
+                <div class="p-6 border-t border-white/10 bg-zinc-950">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-xs uppercase tracking-widest text-zinc-400">Total</span>
+                        <span id="cart-total" class="text-xl font-bold text-white product-price">R$ 0,00</span>
+                    </div>
+                    <button onclick="goToShippingStep()" class="w-full py-4 bg-[#FFE600] text-black font-bold rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,230,0,0.15)]">
+                        AVANÇAR PARA ENTREGA <i class="fa-solid fa-arrow-right text-[12px]"></i>
+                    </button>
+                    <button onclick="closeCart()" class="w-full mt-4 text-[9px] uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors">
+                        CONTINUAR COMPRANDO
+                    </button>
+                </div>
+            </div>
+
+            <!-- ETAPA 2 -->
+            <div id="cart-step-2" class="w-full flex-shrink-0 flex flex-col h-full absolute top-0 left-full transition-transform duration-500 ease-in-out">
+                <div class="flex-1 overflow-y-auto p-6 flex flex-col">
+                    <button onclick="backToCartStep()" class="text-[10px] text-zinc-400 uppercase tracking-widest hover:text-[#FFE600] flex items-center gap-2 mb-6 w-fit transition">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar aos itens
+                    </button>
+                    <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-white mb-6 border-b border-white/10 pb-3">Informações de Envio</h3>
+                    
+                    <form id="shipping-form" class="flex flex-col gap-4">
+                        <div><input type="text" id="ship-nome" required placeholder="NOME COMPLETO" class="shipping-input"></div>
+                        <div><input type="text" id="ship-cpf" required placeholder="CPF" class="shipping-input"></div>
+                        <div><input type="tel" id="ship-whatsapp" required placeholder="WHATSAPP (DDD + NÚMERO)" class="shipping-input"></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <input type="text" id="ship-cep" required placeholder="CEP" maxlength="9" onblur="buscarCEP(this.value)" class="shipping-input">
+                                <span id="cep-feedback" class="text-[9px] text-[#FFE600] mt-1 hidden">Buscando CEP...</span>
+                            </div>
+                            <div><input type="text" id="ship-estado" required placeholder="ESTADO (UF)" maxlength="2" class="shipping-input uppercase"></div>
+                        </div>
+                        <div><input type="text" id="ship-cidade" required placeholder="CIDADE" class="shipping-input"></div>
+                        <div><input type="text" id="ship-bairro" required placeholder="BAIRRO" class="shipping-input"></div>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="col-span-2"><input type="text" id="ship-rua" required placeholder="RUA / LOGRADOURO" class="shipping-input"></div>
+                            <div><input type="text" id="ship-numero" required placeholder="NÚMERO" class="shipping-input"></div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="p-6 border-t border-white/10 bg-zinc-950">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-xs uppercase tracking-widest text-zinc-400">Total a Pagar</span>
+                        <span id="cart-total-step2" class="text-xl font-bold text-white product-price">R$ 0,00</span>
+                    </div>
+                    <button onclick="finalizarCompra()" id="btn-finalizar" class="w-full py-4 bg-[#FFE600] text-black font-bold rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,230,0,0.15)]">
+                        <i class="fa-solid fa-lock text-[12px]"></i> FINALIZAR E PAGAR
+                    </button>
+                    <p class="text-center text-[8px] text-zinc-600 uppercase tracking-widest mt-4">Transação 100% segura via Mercado Pago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Animações da Página Inicial ---
+        window.addEventListener('load', () => {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            const tl = gsap.timeline();
+            tl.to("#loader-brand", { opacity: 1, y: 0, duration: 1, ease: "power2.out" })
+              .to("#loader-progress", { width: "120px", duration: 1.2, ease: "power2.inOut" }, "-=0.5")
+              .to("#loader", { opacity: 0, pointerEvents: "none", duration: 1, ease: "power2.inOut" })
+              .to("#policy-wrapper", { opacity: 1, duration: 1.5, ease: "power2.out" }, "-=0.5");
+
+            // Animação dos blocos conforme rola a página
+            gsap.utils.toArray('.policy-section').forEach(section => {
+                gsap.to(section, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 90%",
+                    },
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+            });
+
+            // Navbar scrolando
+            ScrollTrigger.create({
+                start: 'top -40',
+                onUpdate: (self) => {
+                    const nav = document.getElementById('main-nav');
+                    if (self.direction === 1) nav.classList.add('scrolled');
+                    else if (self.scroll() < 40) nav.classList.remove('scrolled');
+                }
+            });
+        });
+
+        // --- Lógica dos Menus ---
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const menuCloseBtn = document.getElementById('menu-close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function openMenu() { mobileMenu.classList.remove('translate-x-full'); }
+        function closeMenu() { mobileMenu.classList.add('translate-x-full'); }
+
+        menuToggleBtn.addEventListener('click', openMenu);
+        menuCloseBtn.addEventListener('click', closeMenu);
+
+        // --- Lógica de Carrinho (Mesma estrutura global) ---
+        let cartItems = [];
+
+        function formatMoney(amount) {
+            return amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function updateCartUI() {
+            const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+            
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+            
+            if (cartItems.length === 0) {
+                container.innerHTML = '<p class="text-zinc-500 text-xs text-center my-auto flex-1 flex items-center justify-center uppercase tracking-widest">Seu carrinho está vazio.</p>';
+            } else {
+                cartItems.forEach((item, index) => {
+                    let imageHTML = '';
+                    if (Array.isArray(item.image)) {
+                        const widthClass = item.image.length === 2 ? 'w-1/2' : 'w-1/3';
+                        imageHTML = '<div class="flex w-full h-full gap-[1px] bg-black p-[1px]">';
+                        item.image.forEach(imgUrl => {
+                            imageHTML += `<div class="${widthClass} h-full bg-cover bg-center opacity-90 group-hover:opacity-100 transition" style="background-image: url('${imgUrl}')"></div>`;
+                        });
+                        imageHTML += '</div>';
+                    } else {
+                        imageHTML = `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition">`;
+                    }
+
+                    container.innerHTML += `
+                        <div class="flex gap-4 items-center bg-white/[0.02] p-3 rounded-lg border border-white/5 relative group">
+                            <div class="w-16 h-20 bg-black rounded overflow-hidden flex-shrink-0 border border-white/10">
+                                ${imageHTML}
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-[10px] text-[#FFE600] uppercase tracking-wider mb-1 pr-6 leading-relaxed">${item.name}</h4>
+                                <span class="text-xs text-white font-bold">${formatMoney(item.price)}</span>
+                                <div class="flex items-center gap-3 mt-2 bg-black w-fit rounded-full px-2 py-1 border border-white/10">
+                                    <button onclick="changeQuantity(${index}, -1)" class="text-zinc-400 hover:text-[#FFE600] transition w-4 h-4 flex items-center justify-center"><i class="fa-solid fa-minus text-[8px]"></i></button>
+                                    <span class="text-[10px] text-zinc-300 font-medium w-4 text-center">${item.quantity}</span>
+                                    <button onclick="changeQuantity(${index}, 1)" class="text-zinc-400 hover:text-[#FFE600] transition w-4 h-4 flex items-center justify-center"><i class="fa-solid fa-plus text-[8px]"></i></button>
+                                </div>
+                            </div>
+                            <button onclick="removeFromCart(${index})" class="absolute top-3 right-3 text-zinc-600 hover:text-red-500 transition px-1">
+                                <i class="fa-solid fa-trash text-xs"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            
+            const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            document.getElementById('cart-total').innerText = formatMoney(total);
+            document.getElementById('cart-total-step2').innerText = formatMoney(total);
+        }
+
+        function changeQuantity(index, delta) {
+            if (cartItems[index].quantity + delta > 0) {
+                cartItems[index].quantity += delta;
+            } else {
+                removeFromCart(index);
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cartItems.splice(index, 1);
+            updateCartUI();
+            if(cartItems.length === 0) backToCartStep();
+        }
+
+        function openCart() {
+            document.getElementById('cart-drawer').classList.remove('translate-x-full');
+            const overlay = document.getElementById('cart-overlay');
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+        }
+
+        function closeCart() {
+            document.getElementById('cart-drawer').classList.add('translate-x-full');
+            const overlay = document.getElementById('cart-overlay');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                backToCartStep();
+            }, 500);
+        }
+
+        function goToShippingStep() {
+            if (cartItems.length === 0) { alert("Adicione itens ao carrinho primeiro."); return; }
+            document.getElementById('cart-step-1').style.transform = 'translateX(-100%)';
+            document.getElementById('cart-step-2').style.transform = 'translateX(-100%)';
+        }
+
+        function backToCartStep() {
+            document.getElementById('cart-step-1').style.transform = 'translateX(0)';
+            document.getElementById('cart-step-2').style.transform = 'translateX(0)';
+        }
+
+        async function buscarCEP(cepInput) {
+            const cep = cepInput.replace(/\D/g, '');
+            const feedback = document.getElementById('cep-feedback');
+            if (cep.length === 8) {
+                feedback.classList.remove('hidden');
+                feedback.innerText = "Buscando CEP...";
+                feedback.classList.replace('text-red-400', 'text-[#FFE600]');
+                try {
+                    const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                    const data = await response.json();
+                    if (!data.erro) {
+                        document.getElementById('ship-rua').value = data.logradouro;
+                        document.getElementById('ship-bairro').value = data.bairro;
+                        document.getElementById('ship-cidade').value = data.localidade;
+                        document.getElementById('ship-estado').value = data.uf;
+                        document.getElementById('ship-numero').focus();
+                        feedback.classList.add('hidden');
+                    } else {
+                        feedback.innerText = "CEP não encontrado.";
+                        feedback.classList.replace('text-[#FFE600]', 'text-red-400');
+                    }
+                } catch (err) {
+                    feedback.classList.add('hidden');
+                }
+            }
+        }
+
+        async function finalizarCompra() {
+            const form = document.getElementById('shipping-form');
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+
+            const btn = document.getElementById('btn-finalizar');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-[12px]"></i> PROCESSANDO...';
+            btn.disabled = true;
+
+            const shippingData = {
+                nome: document.getElementById('ship-nome').value,
+                cpf: document.getElementById('ship-cpf').value,
+                whatsapp: document.getElementById('ship-whatsapp').value,
+                cep: document.getElementById('ship-cep').value,
+                rua: document.getElementById('ship-rua').value,
+                numero: document.getElementById('ship-numero').value,
+                bairro: document.getElementById('ship-bairro').value,
+                cidade: document.getElementById('ship-cidade').value,
+                estado: document.getElementById('ship-estado').value
+            };
+
+            try {
+                const response = await fetch("https://jpjoiais.vercel.app/api/checkout", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ items: cartItems, shipping: shippingData })
+                });
+
+                const data = await response.json();
+                if (data.init_point) {
+                    window.location.href = data.init_point;
+                } else {
+                    alert("Erro ao criar pagamento. Verifique os dados.");
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                alert("Erro ao conectar com o servidor.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
