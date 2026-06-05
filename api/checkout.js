@@ -112,7 +112,9 @@ module.exports = async (req, res) => {
 
             <h3>Cliente</h3>
             <p><strong>Nome:</strong> ${shipping.nome || "Não informado"}</p>
+            <p><strong>CPF:</strong> ${shipping.cpf || "Não informado"}</p>
             <p><strong>WhatsApp:</strong> ${shipping.whatsapp || "Não informado"}</p>
+            
 
             <h3>Endereço de entrega</h3>
             <p>
