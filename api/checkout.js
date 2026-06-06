@@ -47,16 +47,20 @@ module.exports = async (req, res) => {
         })),
 
         payer: {
-          name: shipping.nome || "",
-          phone: {
-            number: shipping.whatsapp || ""
-          },
-          address: {
-            zip_code: shipping.cep || "",
-            street_name: shipping.rua || "",
-            street_number: shipping.numero || ""
-          }
-        },
+  name: shipping.nome || "",
+  identification: {
+    type: "CPF",
+    number: String(shipping.cpf || "").replace(/\D/g, "")
+  },
+  phone: {
+    number: String(shipping.whatsapp || "").replace(/\D/g, "")
+  },
+  address: {
+    zip_code: String(shipping.cep || "").replace(/\D/g, ""),
+    street_name: shipping.rua || "",
+    street_number: shipping.numero || ""
+  }
+},
 
         back_urls: {
           success: "https://www.jpjoiasbrasil.com/?pagamento=sucesso",
