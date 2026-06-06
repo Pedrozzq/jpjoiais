@@ -219,27 +219,26 @@
             box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15);
         }
 
-        /* Estilização dos inputs do formulário de entrega (NOVO) */
+        /* Estilização dos inputs do formulário de entrega (MAIS CLAROS E MODERNOS) */
         .shipping-input {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05); /* Fundo um pouco mais claro/sólido */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Borda mais visível */
+            border-radius: 6px;
             color: white;
-            padding: 10px 14px;
-            font-size: 11px;
+            padding: 12px 16px; /* Mais espaço interno */
+            font-size: 13px; /* Fonte maior para melhor leitura */
             width: 100%;
             outline: none;
             transition: all 0.3s ease;
         }
         .shipping-input:focus {
             border-color: #FFE600;
-            background: rgba(255, 230, 0, 0.02);
+            background: rgba(255, 230, 0, 0.05);
+            box-shadow: 0 0 0 1px #FFE600; /* Realce no foco */
         }
         .shipping-input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 9px;
+            color: rgba(255, 255, 255, 0.4); /* Placeholder mais legível */
+            font-size: 11px;
         }
     </style>
 </head>
@@ -1111,7 +1110,14 @@
                         <span class="text-xs uppercase tracking-widest text-zinc-400">Total</span>
                         <span id="cart-total" class="text-xl font-bold text-white product-price">R$ 0,00</span>
                     </div>
-                    <!-- Botão para avançar ao invés de finalizar direto -->
+                    
+                    <!-- NOTIFICAÇÃO DE FRETE GRÁTIS DINÂMICA (Só aparece quando houver item) -->
+                    <div id="frete-gratis-msg" class="hidden mb-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-center flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-truck-fast text-emerald-400 text-sm"></i>
+                        <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">Frete Grátis Aplicado</span>
+                    </div>
+
+                    <!-- Botão para avançar -->
                     <button onclick="goToShippingStep()" class="w-full py-4 bg-[#FFE600] text-black font-bold rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,230,0,0.15)]">
                         AVANÇAR PARA ENTREGA <i class="fa-solid fa-arrow-right text-[12px]"></i>
                     </button>
@@ -1121,7 +1127,7 @@
                 </div>
             </div>
 
-            <!-- ETAPA 2: DADOS DE ENTREGA -->
+            <!-- ETAPA 2: DADOS DE ENTREGA (AGORA MAIS CLAROS E DESCRITIVOS) -->
             <div id="cart-step-2" class="w-full flex-shrink-0 flex flex-col h-full absolute top-0 left-full transition-transform duration-500 ease-in-out">
                 <div class="flex-1 overflow-y-auto p-6 flex flex-col">
                     
@@ -1131,38 +1137,54 @@
 
                     <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-white mb-6 border-b border-white/10 pb-3">Informações de Envio</h3>
                     
-                    <form id="shipping-form" class="flex flex-col gap-4">
-                        <div>
-                            <input type="text" id="ship-nome" required placeholder="NOME COMPLETO" class="shipping-input">
+                    <!-- FORMULÁRIO COM LABELS (Mais Clareza para o Cliente) -->
+                    <form id="shipping-form" class="flex flex-col gap-5">
+                        <div class="flex flex-col gap-1.5">
+                            <label for="ship-nome" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">Nome Completo</label>
+                            <input type="text" id="ship-nome" required placeholder="Ex: João da Silva" class="shipping-input">
                         </div>
-                        <div>
-                            <input type="text" id="ship-cpf" required placeholder="CPF" class="shipping-input">
-                        </div>
-                        <div>
-                            <input type="tel" id="ship-whatsapp" required placeholder="WHATSAPP (DDD + NÚMERO)" class="shipping-input">
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <!-- Busca o CEP ao perder o foco (onblur) -->
-                                <input type="text" id="ship-cep" required placeholder="CEP" maxlength="9" onblur="buscarCEP(this.value)" class="shipping-input">
-                                <span id="cep-feedback" class="text-[9px] text-[#FFE600] mt-1 hidden">Buscando CEP...</span>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="flex flex-col gap-1.5">
+                                <label for="ship-cpf" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">CPF</label>
+                                <input type="text" id="ship-cpf" required placeholder="000.000.000-00" class="shipping-input">
                             </div>
-                            <div>
-                                <input type="text" id="ship-estado" required placeholder="ESTADO (UF)" maxlength="2" class="shipping-input uppercase">
+                            <div class="flex flex-col gap-1.5">
+                                <label for="ship-whatsapp" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">WhatsApp</label>
+                                <input type="tel" id="ship-whatsapp" required placeholder="(11) 99999-9999" class="shipping-input">
                             </div>
                         </div>
-                        <div>
-                            <input type="text" id="ship-cidade" required placeholder="CIDADE" class="shipping-input">
-                        </div>
-                        <div>
-                            <input type="text" id="ship-bairro" required placeholder="BAIRRO" class="shipping-input">
-                        </div>
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="col-span-2">
-                                <input type="text" id="ship-rua" required placeholder="RUA / LOGRADOURO" class="shipping-input">
+
+                        <div class="grid grid-cols-2 gap-5 mt-2">
+                            <div class="flex flex-col gap-1.5">
+                                <label for="ship-cep" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">CEP</label>
+                                <input type="text" id="ship-cep" required placeholder="00000-000" maxlength="9" onblur="buscarCEP(this.value)" class="shipping-input">
+                                <span id="cep-feedback" class="text-[9px] text-[#FFE600] mt-1 hidden ml-1">Buscando CEP...</span>
                             </div>
-                            <div>
-                                <input type="text" id="ship-numero" required placeholder="NÚMERO" class="shipping-input">
+                            <div class="flex flex-col gap-1.5">
+                                <label for="ship-estado" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">Estado (UF)</label>
+                                <input type="text" id="ship-estado" required placeholder="Ex: SP" maxlength="2" class="shipping-input uppercase">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label for="ship-cidade" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">Cidade</label>
+                            <input type="text" id="ship-cidade" required placeholder="Nome da cidade" class="shipping-input">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label for="ship-bairro" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">Bairro</label>
+                            <input type="text" id="ship-bairro" required placeholder="Nome do bairro" class="shipping-input">
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-5">
+                            <div class="col-span-2 flex flex-col gap-1.5">
+                                <label for="ship-rua" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">Rua / Logradouro</label>
+                                <input type="text" id="ship-rua" required placeholder="Ex: Rua das Flores" class="shipping-input">
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <label for="ship-numero" class="text-[9px] text-zinc-300 uppercase tracking-widest ml-1">Número</label>
+                                <input type="text" id="ship-numero" required placeholder="Ex: 123" class="shipping-input">
                             </div>
                         </div>
                     </form>
@@ -1197,6 +1219,14 @@
             const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
             document.getElementById('cart-count').innerText = totalItems;
             
+            // Atualiza a mensagem de Frete Grátis 
+            const freteMsg = document.getElementById('frete-gratis-msg');
+            if (cartItems.length > 0) {
+                freteMsg.classList.remove('hidden');
+            } else {
+                freteMsg.classList.add('hidden');
+            }
+
             // Atualiza a lista no drawer
             const container = document.getElementById('cart-items-container');
             container.innerHTML = '';
@@ -1336,6 +1366,13 @@
                 text: 'O kit corrente com pulseira chegou muito rápido. A prata brilha muito, impecável a qualidade',
                 img: "https://i.imgur.com/nw2tsQ9.png",
                 avatar: "https://i.imgur.com/nw2tsQ9.png"
+            },
+            {
+                name: "Luiz Henrique",
+                loc: "Búzios, RJ",
+                text: 'O kit corrente com pulseira chegou muito rápido. A prata brilha muito, impecável a qualidade',
+                img: "https://i.imgur.com/Q5bKEW3.jpeg",
+                avatar: "https://i.imgur.com/Q5bKEW3.jpeg"
             },
             {
                 name: "Matheus Correia",
