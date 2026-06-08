@@ -816,7 +816,7 @@
                         </div>
                     </div>
 
-                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-2xl border border-[#FFE600]/10 hover:border-[#FFE600]/30 transition duration-500 relative w-full max-w-sm mx-auto shadow-lg hover:shadow-zinc-950/50">
+                    <div class="group flex flex-col items-center bg-zinc-900/40 p-6 rounded-2xl border border-white/[0.02] hover:border-[#FFE600]/30 transition duration-500 relative w-full max-w-sm mx-auto shadow-lg hover:shadow-zinc-950/50">
                         <span class="absolute top-4 right-4 text-[8px] uppercase tracking-widest text-zinc-900 font-bold bg-[#FFE600] text-black px-3 py-1 rounded-full border border-[#FFE600]/20 z-10">🔥 MAIOR DESCONTO</span>
                         
                         <div class="img-container aspect-[4/5] w-full mb-6 overflow-hidden flex gap-1 bg-black p-1">
@@ -861,6 +861,54 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: LIMPA JOIAS -->
+        <section id="limpajoias" class="py-16 md:py-20 px-6 md:px-12 bg-black/40 backdrop-blur-[2px] border-t border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-4">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 block mb-2">Cuidado e Manutenção</span>
+                        <h2 class="text-4xl md:text-5xl font-serif">Limpa Joias</h2>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 bg-white/5 px-4 py-2 border border-white/5 rounded-full">Essencial</span>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 justify-center">
+                    <div class="group flex flex-col items-center bg-zinc-950/30 p-6 rounded-lg border border-white/[0.02] hover:border-white/10 transition duration-500 mx-auto w-full">
+                        <div class="img-container aspect-[4/5] w-full bg-zinc-900 group-hover:bg-white mb-6 overflow-hidden cursor-pointer relative transition-colors duration-700 ease-in-out">
+                            <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-100 group-hover:opacity-0" 
+                                 style="background-image: url('https://i.imgur.com/DbH0x9G.png');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600\')'"></div>
+                            <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700 opacity-0 group-hover:opacity-100" 
+                                 style="background-image: url('https://http2.mlstatic.com/D_NQ_NP_2X_813702-MLB110118242782_042026-F-brilha-limpa-pratas-liquido-35ml-mais-brilho.webp');"
+                                 onerror="this.style.backgroundImage='url(\'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600\')'"></div>
+                        </div>
+                        <h3 class="product-title text-sm text-zinc-200 mb-1">Limpa Pratas</h3>
+                        <p class="product-desc text-[10px] text-zinc-400 mb-2">Restaure o brilho original</p>
+                        
+                        <div class="flex items-center gap-1.5 mb-3">
+                            <div class="flex text-[#FFE600] text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-zinc-400 text-[10px] font-medium">(25)</span>
+                        </div>
+                        
+                        <div class="w-full mt-auto flex flex-col gap-2">
+                            <div class="flex items-center justify-center gap-3 mb-2">
+                                <span class="text-white text-lg font-bold product-price">R$ 24,90</span>
+                            </div>
+                            <button onclick="addToCart('Limpa Pratas', 24.90, 'https://i.imgur.com/DbH0x9G.png')" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
