@@ -1203,6 +1203,12 @@
                         <span id="cart-total" class="text-xl font-bold text-white product-price">R$ 0,00</span>
                     </div>
                     
+                    <!-- NOTIFICAÇÃO DE BRINDE (Só aparece quando total >= 200) -->
+                    <div id="brinde-limpa-pratas-msg" class="hidden mb-2 p-3 bg-[#FFE600]/10 border border-[#FFE600]/30 rounded-lg text-center flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-gift text-[#FFE600] text-sm"></i>
+                        <span class="text-[10px] text-[#FFE600] font-bold uppercase tracking-widest">Brinde Incluído: Limpa Pratas</span>
+                    </div>
+
                     <!-- NOTIFICAÇÃO DE FRETE GRÁTIS DINÂMICA (Só aparece quando houver item) -->
                     <div id="frete-gratis-msg" class="hidden mb-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-center flex items-center justify-center gap-2">
                         <i class="fa-solid fa-truck-fast text-emerald-400 text-sm"></i>
@@ -1365,6 +1371,16 @@
             const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             document.getElementById('cart-total').innerText = formatMoney(total);
             document.getElementById('cart-total-step2').innerText = formatMoney(total);
+            
+            // Exibe o brinde se o total for maior ou igual a 200
+            const brindeMsg = document.getElementById('brinde-limpa-pratas-msg');
+            if (brindeMsg) {
+                if (total >= 200) {
+                    brindeMsg.classList.remove('hidden');
+                } else {
+                    brindeMsg.classList.add('hidden');
+                }
+            }
         }
 
         function addToCart(productName, price, image) {
@@ -1452,8 +1468,8 @@
                 avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=150&q=80"
             },
             {
-                name: "Rafael",
-                loc: "Paraty, RJ",
+                name: "Pedro Henrique",
+                loc: "Ouro Preto, MG",
                 text: 'As peças são discretas, mas chamam atenção no visual. Ótimo acabamento e forte presença no uso diário.',
                 img: "https://i.imgur.com/VGDN4YO.png",
                 avatar: "https://i.imgur.com/VGDN4YO.png"
