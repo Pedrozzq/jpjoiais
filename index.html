@@ -541,7 +541,7 @@
                         
                         <div class="w-full mt-auto flex flex-col gap-2">
                             <div class="flex flex-col items-center justify-center mb-2">
-                                <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 154,90</span>
+                                <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 144,90</span>
                                 <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 129,90</span>
                                 <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 25,00</span>
                             </div>
@@ -554,6 +554,24 @@
                             </a>
                         </div>
                     </div>
+                </div>
+
+                <!-- Banner Promocional Limpa Pratas (Movido para Kits) -->
+                <div class="mt-12 md:mt-16 bg-zinc-900/40 border border-[#FFE600]/20 rounded-2xl p-6 md:p-8 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_20px_rgba(255,230,0,0.05)]">
+                    <div class="flex items-center gap-4 text-center md:text-left flex-col sm:flex-row">
+                        <div class="w-12 h-12 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/30 flex items-center justify-center text-[#FFE600] flex-shrink-0">
+                            <i class="fa-solid fa-gift text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm md:text-base font-serif text-white mb-1">Brinde Exclusivo</h4>
+                            <p class="text-[10px] text-zinc-400 uppercase tracking-widest leading-relaxed lg:whitespace-nowrap">
+                                Na compra do <span class="text-[#FFE600] font-semibold">Kit JP</span> você leva <span class="text-[#FFE600] font-bold text-[11px] md:text-[12px] tracking-[0.2em] [text-shadow:0_0_15px_rgba(255,230,0,0.8)] animate-pulse inline-block whitespace-nowrap">1 Limpa Pratas</span> de brinde.
+                            </p>
+                        </div>
+                    </div>
+                    <button onclick="addToCart('Kit JP', 119.90, ['https://i.imgur.com/kZTZowV.png', 'https://i.imgur.com/AfeXemE.png'])" class="px-6 py-3 border border-[#FFE600]/50 text-[#FFE600] bg-[#FFE600]/10 rounded-full font-bold text-[9px] uppercase tracking-[0.2em] hover:bg-[#FFE600] hover:text-black hover:border-[#FFE600] transition flex items-center justify-center whitespace-nowrap flex-shrink-0">
+                        GARANTIR BRINDE
+                    </button>
                 </div>
             </div>
         </section>
@@ -602,24 +620,6 @@
                             </button>
                         </div>
                     </div>
-                </div>
-
-                <!-- Banner Promocional Limpa Pratas -->
-                <div class="mt-12 md:mt-16 bg-zinc-900/40 border border-[#FFE600]/20 rounded-2xl p-6 md:p-8 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_20px_rgba(255,230,0,0.05)]">
-                    <div class="flex items-center gap-4 text-center md:text-left flex-col sm:flex-row">
-                        <div class="w-12 h-12 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/30 flex items-center justify-center text-[#FFE600] flex-shrink-0">
-                            <i class="fa-solid fa-gift text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm md:text-base font-serif text-white mb-1">Brinde Exclusivo</h4>
-                            <p class="text-[10px] text-zinc-400 uppercase tracking-widest leading-relaxed lg:whitespace-nowrap">
-                                Ganhe <span class="text-[#FFE600] font-semibold">1 Limpa Pratas</span> em qualquer compra acima de <span class="text-[#FFE600] font-bold text-[11px] md:text-[12px] tracking-[0.2em] [text-shadow:0_0_15px_rgba(255,230,0,0.8)] animate-pulse inline-block whitespace-nowrap">R$ 200,00</span>.
-                            </p>
-                        </div>
-                    </div>
-                    <a href="#produtos-anchor" class="px-6 py-3 border border-white/20 text-white rounded-full font-bold text-[9px] uppercase tracking-[0.2em] hover:bg-white hover:text-black hover:border-white transition flex items-center justify-center whitespace-nowrap flex-shrink-0">
-                        Aproveitar Promoção
-                    </a>
                 </div>
             </div>
         </section>
@@ -884,12 +884,6 @@
                         <span class="text-xs uppercase tracking-widest text-zinc-400">Total</span>
                         <span id="cart-total" class="text-xl font-bold text-white product-price">R$ 0,00</span>
                     </div>
-                    
-                    <!-- NOTIFICAÇÃO DE BRINDE (Só aparece quando total >= 200) -->
-                    <div id="brinde-limpa-pratas-msg" class="hidden mb-2 p-3 bg-[#FFE600]/10 border border-[#FFE600]/30 rounded-lg text-center flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-gift text-[#FFE600] text-sm"></i>
-                        <span class="text-[10px] text-[#FFE600] font-bold uppercase tracking-widest">Brinde Incluído: Limpa Pratas</span>
-                    </div>
 
                     <!-- NOTIFICAÇÃO DE FRETE GRÁTIS DINÂMICA (Só aparece quando houver item) -->
                     <div id="frete-gratis-msg" class="hidden mb-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-center flex items-center justify-center gap-2">
@@ -1027,6 +1021,10 @@
                         imageHTML = `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition">`;
                     }
 
+                    const priceHTML = item.price === 0 
+                        ? `<span class="text-xs text-emerald-400 font-bold uppercase tracking-widest">BRINDE (R$ 0,00)</span>`
+                        : `<span class="text-xs text-white font-bold">${formatMoney(item.price)}</span>`;
+
                     container.innerHTML += `
                         <div class="flex gap-4 items-center bg-white/[0.02] p-3 rounded-lg border border-white/5 relative group">
                             <div class="w-16 h-20 bg-black rounded overflow-hidden flex-shrink-0 border border-white/10">
@@ -1034,7 +1032,7 @@
                             </div>
                             <div class="flex-1">
                                 <h4 class="text-[10px] text-[#FFE600] uppercase tracking-wider mb-1 pr-6 leading-relaxed">${item.name} <i class="fa-solid fa-star text-[#FFE600] text-[9px] ml-1"></i></h4>
-                                <span class="text-xs text-white font-bold">${formatMoney(item.price)}</span>
+                                ${priceHTML}
                                 <div class="flex items-center gap-3 mt-2 bg-black w-fit rounded-full px-2 py-1 border border-white/10">
                                     <button onclick="changeQuantity(${index}, -1)" class="text-zinc-400 hover:text-[#FFE600] transition w-4 h-4 flex items-center justify-center"><i class="fa-solid fa-minus text-[8px]"></i></button>
                                     <span class="text-[10px] text-zinc-300 font-medium w-4 text-center">${item.quantity}</span>
@@ -1053,16 +1051,6 @@
             const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             document.getElementById('cart-total').innerText = formatMoney(total);
             document.getElementById('cart-total-step2').innerText = formatMoney(total);
-            
-            // Exibe o brinde se o total for maior ou igual a 200
-            const brindeMsg = document.getElementById('brinde-limpa-pratas-msg');
-            if (brindeMsg) {
-                if (total >= 200) {
-                    brindeMsg.classList.remove('hidden');
-                } else {
-                    brindeMsg.classList.add('hidden');
-                }
-            }
         }
 
         function addToCart(productName, price, image) {
@@ -1073,6 +1061,18 @@
                 cartItems.push({ name: productName, price: price, image: image, quantity: 1 });
             }
             
+            // Adiciona o brinde automaticamente se for Kit JP
+            if (productName === 'Kit JP') {
+                const brindeName = 'Limpa Pratas';
+                // Verifica se já existe um Limpa Pratas com preço 0
+                const existingBrinde = cartItems.find(item => item.name === brindeName && item.price === 0);
+                if (existingBrinde) {
+                    existingBrinde.quantity += 1;
+                } else {
+                    cartItems.push({ name: brindeName, price: 0, image: 'https://i.imgur.com/DbH0x9G.png', quantity: 1 });
+                }
+            }
+
             updateCartUI();
             openCart(); // Abre o carrinho lateral automaticamente
             
@@ -1087,18 +1087,46 @@
         }
 
         function removeFromCart(index) {
+            const itemToRemove = cartItems[index];
+            const wasKitJP = itemToRemove.name === 'Kit JP';
+            
             cartItems.splice(index, 1);
+            
+            // Remove o brinde junto caso o Kit JP seja excluído
+            if (wasKitJP) {
+                const brindeIndex = cartItems.findIndex(i => i.name === 'Limpa Pratas' && i.price === 0);
+                if (brindeIndex !== -1) {
+                    cartItems.splice(brindeIndex, 1);
+                }
+            }
+
             updateCartUI();
             // Se carrinho ficar vazio e estiver na etapa 2, voltar para etapa 1
             if(cartItems.length === 0) backToCartStep();
         }
 
         function changeQuantity(index, delta) {
-            if (cartItems[index].quantity + delta > 0) {
-                cartItems[index].quantity += delta;
+            const item = cartItems[index];
+            const wasKitJP = item.name === 'Kit JP';
+
+            if (item.quantity + delta > 0) {
+                item.quantity += delta;
             } else {
-                removeFromCart(index);
+                cartItems.splice(index, 1);
             }
+
+            // Sincroniza a quantidade do brinde com a do Kit JP
+            if (wasKitJP) {
+                const brindeIndex = cartItems.findIndex(i => i.name === 'Limpa Pratas' && i.price === 0);
+                if (brindeIndex !== -1) {
+                    if (cartItems[brindeIndex].quantity + delta > 0) {
+                        cartItems[brindeIndex].quantity += delta;
+                    } else {
+                        cartItems.splice(brindeIndex, 1);
+                    }
+                }
+            }
+
             updateCartUI();
         }
 
