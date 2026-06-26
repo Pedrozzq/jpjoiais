@@ -543,7 +543,7 @@
                             <div class="flex flex-col items-center justify-center mb-2">
                                 <span class="text-zinc-500 line-through text-xs font-medium tracking-wide product-price">De: R$ 144,90</span>
                                 <span class="text-white text-xl font-bold product-price mt-0.5">Por: R$ 139,90</span>
-                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 15,00</span>
+                                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-semibold mt-1">Economize R$ 25,00</span>
                             </div>
                             <button onclick="addToCart('Kit JP', 119.90, ['https://i.imgur.com/kZTZowV.png', 'https://i.imgur.com/AfeXemE.png'])" class="premium-btn w-full py-4 px-6 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-cart-plus text-[12px]"></i> ADICIONAR AO CARRINHO
@@ -885,6 +885,18 @@
                         <span id="cart-total" class="text-xl font-bold text-white product-price">R$ 0,00</span>
                     </div>
 
+                    <!-- Seção de Cupom de Desconto -->
+                    <div class="mb-4">
+                        <label for="cupom-input" class="text-[9px] uppercase tracking-widest text-zinc-500 mb-2 block">Cupom de Desconto</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="cupom-input" placeholder="Digite seu cupom" class="flex-1 bg-zinc-900 border border-white/10 rounded-lg text-white px-3 py-2 text-xs uppercase outline-none focus:border-[#FFE600] transition-colors" autocomplete="off">
+                            <button onclick="aplicarCupom()" class="bg-white/10 hover:bg-white/20 text-white px-4 rounded-lg text-[9px] font-bold uppercase tracking-widest transition-colors border border-white/5 hover:border-[#FFE600]">
+                                Aplicar
+                            </button>
+                        </div>
+                        <div id="cupom-feedback" class="text-[9px] uppercase tracking-widest mt-2 hidden flex items-center gap-1.5 font-bold"></div>
+                    </div>
+
                     <!-- NOTIFICAÇÃO DE FRETE GRÁTIS DINÂMICA (Só aparece quando houver item) -->
                     <div id="frete-gratis-msg" class="hidden mb-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-center flex items-center justify-center gap-2">
                         <i class="fa-solid fa-truck-fast text-emerald-400 text-sm"></i>
@@ -982,9 +994,40 @@
     <script>
         // --- Lógica do Carrinho ---
         let cartItems = [];
+        let descontoAplicado = 0; // Armazena a porcentagem de desconto (ex: 0.10)
+        let cupomAtivo = "";
 
         function formatMoney(amount) {
             return amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // Função para aplicar o cupom
+        function aplicarCupom() {
+            const input = document.getElementById('cupom-input');
+            const feedback = document.getElementById('cupom-feedback');
+            const codigo = input.value.trim().toUpperCase();
+
+            // Reseta o estado
+            feedback.classList.remove('hidden', 'text-emerald-400', 'text-red-400');
+            
+            if (codigo === "") {
+                feedback.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Digite um cupom.';
+                feedback.classList.add('text-red-400');
+                descontoAplicado = 0;
+                cupomAtivo = "";
+            } else if (codigo === "JPJOIAS10") {
+                feedback.innerHTML = '<i class="fa-solid fa-check-circle"></i> Cupom JPJOIAS10 aplicado! (10% OFF)';
+                feedback.classList.add('text-emerald-400');
+                descontoAplicado = 0.10; // 10%
+                cupomAtivo = codigo;
+            } else {
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Cupom inválido.';
+                feedback.classList.add('text-red-400');
+                descontoAplicado = 0;
+                cupomAtivo = "";
+            }
+
+            updateCartUI(); // Recalcula os totais com o desconto
         }
 
         function updateCartUI() {
@@ -1048,9 +1091,36 @@
             }
             
             // Atualiza os totais (Etapa 1 e Etapa 2)
-            const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-            document.getElementById('cart-total').innerText = formatMoney(total);
-            document.getElementById('cart-total-step2').innerText = formatMoney(total);
+            let subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            let valorDesconto = subtotal * descontoAplicado;
+            let totalComDesconto = subtotal - valorDesconto;
+
+            // Se houver desconto, mostra o valor cortado e o novo valor
+            if (descontoAplicado > 0 && subtotal > 0) {
+                document.getElementById('cart-total').innerHTML = `
+                    <div class="flex flex-col items-end">
+                        <span class="text-[10px] text-zinc-500 line-through font-normal tracking-wide">${formatMoney(subtotal)}</span>
+                        <span class="text-emerald-400">${formatMoney(totalComDesconto)}</span>
+                    </div>
+                `;
+                document.getElementById('cart-total-step2').innerHTML = `
+                    <div class="flex flex-col items-end">
+                        <span class="text-[10px] text-zinc-500 line-through font-normal tracking-wide">${formatMoney(subtotal)}</span>
+                        <span class="text-emerald-400">${formatMoney(totalComDesconto)}</span>
+                    </div>
+                `;
+            } else {
+                // Remove desconto se o carrinho esvaziar
+                if (subtotal === 0 && descontoAplicado > 0) {
+                     descontoAplicado = 0;
+                     cupomAtivo = "";
+                     document.getElementById('cupom-input').value = "";
+                     document.getElementById('cupom-feedback').classList.add('hidden');
+                }
+
+                document.getElementById('cart-total').innerText = formatMoney(subtotal);
+                document.getElementById('cart-total-step2').innerText = formatMoney(subtotal);
+            }
         }
 
         function addToCart(productName, price, image) {
@@ -1486,6 +1556,12 @@
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-[12px]"></i> PROCESSANDO...';
             btn.disabled = true;
 
+            // Recalcula o total com desconto antes de enviar
+            let totalCompra = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            if(descontoAplicado > 0) {
+                totalCompra = totalCompra - (totalCompra * descontoAplicado);
+            }
+
             try {
                 const response = await fetch("https://jpjoiais.vercel.app/api/checkout", {
                     method: "POST",
@@ -1494,7 +1570,10 @@
                     },
                     body: JSON.stringify({
                         items: cartItems,
-                        shipping: shippingData 
+                        shipping: shippingData,
+                        cupom: cupomAtivo, // Envia o cupom usado
+                        desconto: descontoAplicado, // Envia o percentual de desconto
+                        total: totalCompra
                     })
                 });
 
