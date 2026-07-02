@@ -8,16 +8,23 @@
     <!-- Favicon Minimalista JP (Monograma de Luxo em SVG com Fundo Transparente e Escrita Fina) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' stroke='%23FFE600' stroke-width='1' fill='none' opacity='0.8'/%3E%3Ctext x='51' y='54' font-family='Cinzel, Georgia, serif' font-size='30' font-weight='300' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle' letter-spacing='3'%3EJP%3C/text%3E%3C/svg%3E">
     
+    <!-- Preconnect para acelerar a conexão com os CDNs externos (reduz latência no celular) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://i.imgur.com" crossorigin>
+    <link rel="preconnect" href="https://www.apple.com" crossorigin>
+
     <!-- Tailwind CSS para estilização moderna e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- GSAP e ScrollTrigger para animações de altíssimo padrão -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
+
+    <!-- GSAP e ScrollTrigger para animações de altíssimo padrão (defer: não bloqueia o carregamento inicial da página) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <!-- Fontes de Luxo: Cinzel para Títulos de Produtos, Playfair para Títulos Institucionais e Inter para Leitura -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+
     <!-- FontAwesome para ícones premium -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -1384,21 +1391,47 @@
         const ctx = canvas.getContext("2d");
         let images = [];
         let sequence = { frame: 0 };
-        const frameCount = 100;
+
+        // No celular a animação de fundo (sequência de imagens) é a maior causa de lentidão:
+        // baixamos 1 única imagem estática em vez de dezenas delas, mantendo o mesmo visual de fundo.
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+        // No desktop, usamos 1 a cada N frames da sequência original (mesmo efeito de scroll, muito menos dados).
+        const FRAME_STEP = 4;
+        const frameIndices = [];
+        for (let i = 1; i <= 100; i += FRAME_STEP) frameIndices.push(i);
+        const frameCount = frameIndices.length;
+
+        function frameUrl(frameNum) {
+            return `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_bb8e_cc9a4214270b/anim/sequence/large/01-hero-lightpass/${frameNum.toString().padStart(4, '0')}.jpg`;
+        }
 
         function preloadImages() {
-            for (let i = 1; i <= frameCount; i++) {
+            if (isMobile) {
+                const posterFrame = frameIndices[Math.floor(frameCount / 2)];
                 const img = new Image();
-                img.src = `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_bb8e_cc9a4214270b/anim/sequence/large/01-hero-lightpass/${i.toString().padStart(4, '0')}.jpg`;
-                images.push(img);
+                img.decoding = 'async';
+                img.onload = render;
+                img.src = frameUrl(posterFrame);
+                images[0] = img;
+                return;
             }
+
+            frameIndices.forEach((frameNum, idx) => {
+                const img = new Image();
+                img.decoding = 'async';
+                img.fetchPriority = 'low';
+                if (idx === 0) img.onload = render;
+                img.src = frameUrl(frameNum);
+                images[idx] = img;
+            });
         }
 
         function render() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            const img = images[sequence.frame];
-            if (!img) return;
+            const img = isMobile ? images[0] : images[sequence.frame];
+            if (!img || !img.complete || !img.naturalWidth) return;
             const ratio = Math.max(canvas.width / img.width, canvas.height / img.height);
             const x = (canvas.width - img.width * ratio) / 2;
             const y = (canvas.height - img.height * ratio) / 2;
@@ -1409,7 +1442,7 @@
         window.addEventListener('load', () => {
             gsap.registerPlugin(ScrollTrigger);
             preloadImages();
-            
+
             const tl = gsap.timeline();
             tl.to("#loader-brand", { opacity: 1, y: 0, duration: 1, ease: "power2.out" })
               .to("#loader-progress", { width: "120px", duration: 1.2, ease: "power2.inOut" }, "-=0.5")
@@ -1418,18 +1451,21 @@
               .to("#subtitle", { opacity: 1, duration: 1.2 }, "-=1.0")
               .to("#ctas", { opacity: 1, duration: 1.2 }, "-=0.8");
 
-            gsap.to(sequence, {
-                frame: frameCount - 1,
-                snap: "frame",
-                ease: "none",
-                scrollTrigger: {
-                    scrub: 0.5,
-                    trigger: "body",
-                    start: "top top",
-                    end: "bottom bottom"
-                },
-                onUpdate: render
-            });
+            // No celular o fundo é uma única imagem estática, então não há necessidade do scrub por frame no scroll
+            if (!isMobile) {
+                gsap.to(sequence, {
+                    frame: frameCount - 1,
+                    snap: "frame",
+                    ease: "none",
+                    scrollTrigger: {
+                        scrub: 0.5,
+                        trigger: "body",
+                        start: "top top",
+                        end: "bottom bottom"
+                    },
+                    onUpdate: render
+                });
+            }
 
             ScrollTrigger.create({
                 start: 'top -40',
@@ -1439,10 +1475,6 @@
                     else if (self.scroll() < 40) nav.classList.remove('scrolled');
                 }
             });
-
-            if (images[0]) {
-                images[0].onload = render;
-            }
 
             // Inicializa a sessão de Depoimentos
             document.getElementById('test-col-0').innerHTML = buildTestimonial(testimonialsData[0]);
