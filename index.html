@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://i.imgur.com" crossorigin>
-    <link rel="preconnect" href="https://www.apple.com" crossorigin>
 
     <!-- Tailwind CSS para estilização moderna e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -87,16 +86,37 @@
         .loader-line { width: 0; height: 1px; background: rgba(255,255,255,0.3); margin-top: 20px; }
         .loader-logo { font-size: 1.5rem; letter-spacing: 1rem; opacity: 0; transform: translateY(10px); }
 
-        /* Background Animado Fixo */
+        /* Background de Luxo 100% CSS (sem imagens, carregamento instantâneo) */
         #video-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
             z-index: -1;
-            background: #000;
+            overflow: hidden;
+            background-color: #050505;
+            background-image:
+                radial-gradient(ellipse 70% 55% at 50% 38%, rgba(255, 230, 0, 0.05), transparent 62%),
+                radial-gradient(circle at 50% 55%, rgba(70, 70, 82, 0.22), transparent 70%),
+                linear-gradient(180deg, #0b0b0d 0%, #050505 55%, #000000 100%);
         }
-        canvas {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(1) brightness(0.4);
+        /* Camada de brilho metálico com leve movimento (GPU, sem custo de rede) */
+        #video-container::before {
+            content: '';
+            position: absolute;
+            top: -20%; left: -20%;
+            width: 140%; height: 140%;
+            background:
+                radial-gradient(circle at 32% 30%, rgba(255, 230, 0, 0.045), transparent 42%),
+                radial-gradient(circle at 68% 62%, rgba(130, 130, 150, 0.07), transparent 46%);
+            animation: bgDrift 22s ease-in-out infinite alternate;
+            will-change: transform;
+            pointer-events: none;
+        }
+        @keyframes bgDrift {
+            0%   { transform: translate3d(0, 0, 0) scale(1); }
+            100% { transform: translate3d(-3%, -2%, 0) scale(1.08); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #video-container::before { animation: none; }
         }
 
         /* Nav Minimalista */
@@ -345,9 +365,8 @@
         </div>
     </div>
 
-    <!-- Canvas Background -->
+    <!-- Fundo de Luxo (100% CSS, sem download de imagens) -->
     <div id="video-container">
-        <canvas id="hero-canvas"></canvas>
         <div class="vignette"></div>
     </div>
 
@@ -1387,61 +1406,11 @@
         }
 
         // --- Inicialização e GSAP Geral ---
-        const canvas = document.getElementById("hero-canvas");
-        const ctx = canvas.getContext("2d");
-        let images = [];
-        let sequence = { frame: 0 };
-
-        // No celular a animação de fundo (sequência de imagens) é a maior causa de lentidão:
-        // baixamos 1 única imagem estática em vez de dezenas delas, mantendo o mesmo visual de fundo.
-        const isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-        // No desktop, usamos 1 a cada N frames da sequência original (mesmo efeito de scroll, muito menos dados).
-        const FRAME_STEP = 4;
-        const frameIndices = [];
-        for (let i = 1; i <= 100; i += FRAME_STEP) frameIndices.push(i);
-        const frameCount = frameIndices.length;
-
-        function frameUrl(frameNum) {
-            return `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_bb8e_cc9a4214270b/anim/sequence/large/01-hero-lightpass/${frameNum.toString().padStart(4, '0')}.jpg`;
-        }
-
-        function preloadImages() {
-            if (isMobile) {
-                const posterFrame = frameIndices[Math.floor(frameCount / 2)];
-                const img = new Image();
-                img.decoding = 'async';
-                img.onload = render;
-                img.src = frameUrl(posterFrame);
-                images[0] = img;
-                return;
-            }
-
-            frameIndices.forEach((frameNum, idx) => {
-                const img = new Image();
-                img.decoding = 'async';
-                img.fetchPriority = 'low';
-                if (idx === 0) img.onload = render;
-                img.src = frameUrl(frameNum);
-                images[idx] = img;
-            });
-        }
-
-        function render() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const img = isMobile ? images[0] : images[sequence.frame];
-            if (!img || !img.complete || !img.naturalWidth) return;
-            const ratio = Math.max(canvas.width / img.width, canvas.height / img.height);
-            const x = (canvas.width - img.width * ratio) / 2;
-            const y = (canvas.height - img.height * ratio) / 2;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, img.width, img.height, x, y, img.width * ratio, img.height * ratio);
-        }
-
+        // O fundo do hero agora é 100% CSS (sem canvas nem download de imagens),
+        // então o site abre instantaneamente. O GSAP cuida apenas do loader, das
+        // animações de entrada e do comportamento da navbar ao rolar.
         window.addEventListener('load', () => {
             gsap.registerPlugin(ScrollTrigger);
-            preloadImages();
 
             const tl = gsap.timeline();
             tl.to("#loader-brand", { opacity: 1, y: 0, duration: 1, ease: "power2.out" })
@@ -1450,22 +1419,6 @@
               .to("#title", { opacity: 1, duration: 1.5, ease: "power2.out" }, "-=0.5")
               .to("#subtitle", { opacity: 1, duration: 1.2 }, "-=1.0")
               .to("#ctas", { opacity: 1, duration: 1.2 }, "-=0.8");
-
-            // No celular o fundo é uma única imagem estática, então não há necessidade do scrub por frame no scroll
-            if (!isMobile) {
-                gsap.to(sequence, {
-                    frame: frameCount - 1,
-                    snap: "frame",
-                    ease: "none",
-                    scrollTrigger: {
-                        scrub: 0.5,
-                        trigger: "body",
-                        start: "top top",
-                        end: "bottom bottom"
-                    },
-                    onUpdate: render
-                });
-            }
 
             ScrollTrigger.create({
                 start: 'top -40',
@@ -1482,8 +1435,6 @@
             document.getElementById('test-col-2').innerHTML = buildTestimonial(testimonialsData[2]);
             startTestimonials();
         });
-
-        window.addEventListener('resize', render);
 
         // Lógica dos menus
         const menuToggleBtn = document.getElementById('menu-toggle-btn');
