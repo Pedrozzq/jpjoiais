@@ -86,37 +86,13 @@
         .loader-line { width: 0; height: 1px; background: rgba(255,255,255,0.3); margin-top: 20px; }
         .loader-logo { font-size: 1.5rem; letter-spacing: 1rem; opacity: 0; transform: translateY(10px); }
 
-        /* Background de Luxo 100% CSS (sem imagens, carregamento instantâneo) */
+        /* Background totalmente preto (sem imagens, carregamento instantâneo) */
         #video-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background-color: #050505;
-            background-image:
-                radial-gradient(ellipse 70% 55% at 50% 38%, rgba(255, 230, 0, 0.05), transparent 62%),
-                radial-gradient(circle at 50% 55%, rgba(70, 70, 82, 0.22), transparent 70%),
-                linear-gradient(180deg, #0b0b0d 0%, #050505 55%, #000000 100%);
-        }
-        /* Camada de brilho metálico com leve movimento (GPU, sem custo de rede) */
-        #video-container::before {
-            content: '';
-            position: absolute;
-            top: -20%; left: -20%;
-            width: 140%; height: 140%;
-            background:
-                radial-gradient(circle at 32% 30%, rgba(255, 230, 0, 0.045), transparent 42%),
-                radial-gradient(circle at 68% 62%, rgba(130, 130, 150, 0.07), transparent 46%);
-            animation: bgDrift 22s ease-in-out infinite alternate;
-            will-change: transform;
-            pointer-events: none;
-        }
-        @keyframes bgDrift {
-            0%   { transform: translate3d(0, 0, 0) scale(1); }
-            100% { transform: translate3d(-3%, -2%, 0) scale(1.08); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            #video-container::before { animation: none; }
+            background-color: #000000;
         }
 
         /* Nav Minimalista */
